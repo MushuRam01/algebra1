@@ -1,0 +1,213 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{enumitem,microtype,xcolor,hyperref}
+\usepackage[most]{tcolorbox}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black}
+\setlist{itemsep=.3em,topsep=.35em}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\PP}{\mathcal P}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\angles}[1]{\langle #1\rangle}
+\newtcolorbox{examquestion}[1]{breakable,colback=blue!3,colframe=blue!50!black,title={#1}}
+\newtcolorbox{worked}[1]{breakable,colback=green!3,colframe=green!45!black,title={#1}}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries Algebra I: Midsemester Practice Paper}\\[.4em]
+{\large One-hour, Quiz-1-style mock}\quad\textbullet\quad 20 marks
+\end{center}
+
+\noindent\textbf{Instructions.} Allow exactly 60 minutes. Attempt \emph{one} option from each of Questions 1--4. Question 5 is compulsory. Write one reason or counterexample for every True/False answer. No notes during the attempt. The complete solutions begin after a page break; do not look at them until the hour is over.
+
+\noindent\textbf{Suggested timing.} Questions 1 and 2: 8 minutes each; Questions 3 and 4: 12 minutes each; Question 5: 15 minutes; checking: 5 minutes.
+
+\begin{examquestion}{Question 1 (3 marks): choose (a) or (b)}
+\textbf{(a)} Let $f:X\to Y$, $A\subseteq X$, and $B\subseteq Y$. Define
+\[
+f_*(A)=\{f(x):x\in A\},\qquad
+f^*(B)=\{x\in X:f(x)\in B\}.
+\]
+Prove that $f_*(A)\subseteq B$ if and only if $A\subseteq f^*(B)$. Deduce that $A\subseteq f^*f_*(A)$.
+
+\medskip\noindent\textbf{OR}
+
+\medskip\noindent\textbf{(b)} Let $X=\{1,2,3\}$, $Y=\{a,b,c\}$, and let $f:X\to Y$ satisfy $f(1)=f(2)=a$, $f(3)=b$. For $A=\{1,3\}$, calculate $f_*(A)$ and
+\[
+f_!(A)=\{y\in Y:f^{-1}(\{y\})\subseteq A\}.
+\]
+Explain why $c$ belongs to $f_!(A)$ even though $c\notin f(X)$.
+\end{examquestion}
+
+\begin{examquestion}{Question 2 (3 marks): choose (a) or (b)}
+\textbf{(a)} Let $G,H$ be groups and let $\phi:G\to H$ satisfy $\phi(xy)=\phi(x)\phi(y)$ for every $x,y\in G$. Prove that $\phi(e_G)=e_H$ and $\phi(x^{-1})=\phi(x)^{-1}$.
+
+\medskip\noindent\textbf{OR}
+
+\medskip\noindent\textbf{(b)} On $S=\R\setminus\{-1\}$ define $a*b=a+b+ab$. Prove that $(S,*)$ is a group. State its identity and the inverse of $a$.
+\end{examquestion}
+
+\begin{examquestion}{Question 3 (4 marks): choose (a) or (b)}
+\textbf{(a)} Consider
+\[
+\phi:\Z/12\Z\longrightarrow\Z/8\Z,
+\qquad \phi([k]_{12})=[2k]_8.
+\]
+Prove that $\phi$ is well-defined and is a group homomorphism. Find its kernel and image.
+
+\medskip\noindent\textbf{OR}
+
+\medskip\noindent\textbf{(b)} List every element of $\angles{[7]}$ in $\Z/18\Z$ and of $\angles{[5]}$ in $\Z/20\Z$. Give a short reason for the number of elements in each subgroup.
+\end{examquestion}
+
+\begin{examquestion}{Question 4 (4 marks): choose (a) or (b)}
+\textbf{(a)} Let
+\[
+P=\langle x,y,z\mid yxyz^{-2}=e\rangle.
+\]
+Show that $P$ is isomorphic to the free group on $y,z$. State how the generator $x$ is expressed using $y,z$.
+
+\medskip\noindent\textbf{OR}
+
+\medskip\noindent\textbf{(b)} Let $G$ be a group and $X$ a nonempty set. On the functions $G^X=\{f:X\to G\}$ define $(fg)(x)=f(x)g(x)$. Prove that $G^X$ is a group by giving its identity and the inverse of an arbitrary $f$, and checking associativity.
+\end{examquestion}
+
+\begin{examquestion}{Question 5 (compulsory; 6 marks)}
+Mark each statement \emph{True} or \emph{False}. Give one sentence of justification or one counterexample.
+\begin{enumerate}[label=(\alph*)]
+\item For every $f:X\to Y$ and $B,C\subseteq Y$, $f^*(B\cup C)=f^*(B)\cup f^*(C)$.
+\item For every $f:X\to Y$ and $A,D\subseteq X$, $f_*(A\cap D)=f_*(A)\cap f_*(D)$.
+\item If $y\notin f(X)$, then $y\in f_!(A)$ for every $A\subseteq X$.
+\item $\angles{[3]}=\Z/16\Z$ under addition modulo $16$.
+\item There is a nontrivial group homomorphism $\Z/7\Z\to\Z/15\Z$.
+\item If $g^2=e$ for every element $g$ of a group $G$, then $G$ is abelian.
+\end{enumerate}
+\end{examquestion}
+
+\clearpage
+\begin{center}
+{\Large\bfseries Worked solutions and marking guide}\\[.3em]
+\textit{Read this only after completing the timed attempt.}
+\end{center}
+
+\begin{worked}{Question 1(a)}
+Suppose $f_*(A)\subseteq B$. Take any $x\in A$. Then $f(x)\in f_*(A)\subseteq B$, so $x\in f^*(B)$. Hence $A\subseteq f^*(B)$.
+
+Conversely, suppose $A\subseteq f^*(B)$. Take any $y\in f_*(A)$. By definition $y=f(x)$ for some $x\in A$. Since $x\in f^*(B)$, we have $f(x)=y\in B$. Hence $f_*(A)\subseteq B$.
+
+Now take $B=f_*(A)$. The inclusion $f_*(A)\subseteq f_*(A)$ is automatic, so the equivalence just proved gives $A\subseteq f^*f_*(A)$.
+\end{worked}
+
+\begin{worked}{Question 1(b)}
+$A=\{1,3\}$, so $f_*(A)=\{f(1),f(3)\}=\{a,b\}$. The fibres are
+\[
+f^{-1}(\{a\})=\{1,2\},\quad f^{-1}(\{b\})=\{3\},\quad f^{-1}(\{c\})=\varnothing.
+\]
+The first fibre is not contained in $A$ because $2\notin A$. The second fibre is contained in $A$, and the empty fibre is contained in every set. Thus $f_!(A)=\{b,c\}$. In particular $c\in f_!(A)$ because its fibre is empty, so the condition ``every preimage of $c$ lies in $A$'' is true vacuously.
+\end{worked}
+
+\begin{worked}{Question 2(a)}
+Let $h=\phi(e_G)$. Since $e_Ge_G=e_G$ and $\phi$ preserves products,
+\[
+h=\phi(e_G)=\phi(e_Ge_G)=\phi(e_G)\phi(e_G)=h^2.
+\]
+Multiply by $h^{-1}$ in $H$ to obtain $e_H=h$, so $\phi(e_G)=e_H$.
+
+For any $x\in G$,
+\[
+\phi(x)\phi(x^{-1})=\phi(xx^{-1})=\phi(e_G)=e_H.
+\]
+Similarly $\phi(x^{-1})\phi(x)=e_H$. Thus $\phi(x^{-1})$ is the two-sided inverse of $\phi(x)$, and uniqueness of inverses gives $\phi(x^{-1})=\phi(x)^{-1}$.
+\end{worked}
+
+\begin{worked}{Question 2(b)}
+Observe the useful identity
+\[
+1+(a*b)=1+a+b+ab=(1+a)(1+b).
+\]
+Since $a,b\ne-1$, both factors on the right are nonzero; hence $1+(a*b)\ne0$ and $a*b\ne-1$. This proves closure in $S$.
+
+The map $T:S\to\R\setminus\{0\}$, $T(a)=1+a$, is bijective and satisfies $T(a*b)=T(a)T(b)$. Ordinary multiplication of nonzero reals is associative, so $*$ is associative. The identity is $0$ because $a*0=0*a=a$. To find an inverse $b$, solve
+\[
+0=a*b=a+b+ab
+\quad\Longleftrightarrow\quad
+b(1+a)=-a
+\quad\Longleftrightarrow\quad
+b=-\frac{a}{1+a}.
+\]
+This lies in $S$, since $1+b=1/(1+a)\ne0$. The operation is commutative, so the same $b$ is a two-sided inverse. Thus $(S,*)$ is a group.
+\end{worked}
+
+\begin{worked}{Question 3(a)}
+If $[k]_{12}=[\ell]_{12}$, then $12\mid(k-\ell)$. Therefore $8\mid2(k-\ell)$, because $2(k-\ell)$ is a multiple of $24$. Hence $[2k]_8=[2\ell]_8$, proving well-definedness.
+
+For any $[k]_{12},[\ell]_{12}$,
+\[
+\phi([k]_{12}+[\ell]_{12})=[2(k+\ell)]_8
+=[2k]_8+[2\ell]_8
+=\phi([k]_{12})+\phi([\ell]_{12}).
+\]
+Thus $\phi$ is a homomorphism. Its kernel consists of $[k]_{12}$ for which $[2k]_8=[0]_8$, meaning $8\mid2k$, or $4\mid k$. Hence
+\[
+\ker\phi=\{[0]_{12},[4]_{12},[8]_{12}\}.
+\]
+The outputs are exactly the even residue classes modulo $8$:
+\[
+\operatorname{im}\phi=\{[0]_8,[2]_8,[4]_8,[6]_8\}.
+\]
+\end{worked}
+
+\begin{worked}{Question 3(b)}
+In an additive group, $\angles{[d]}=\{[kd]:k\in\Z\}$. Since $\gcd(7,18)=1$, the least positive $k$ with $18\mid7k$ is $18$. Thus $[7]$ has order $18$ and generates all of $\Z/18\Z$:
+\[
+\angles{[7]}=\{[0],[1],\ldots,[17]\}.
+\]
+Since $\gcd(5,20)=5$, the least positive $k$ with $20\mid5k$ is $4$. The first four multiples are distinct, so
+\[
+\angles{[5]}=\{[0],[5],[10],[15]\}\subseteq\Z/20\Z.
+\]
+This uses the formula $\operatorname{ord}([d]_n)=n/\gcd(n,d)$.
+\end{worked}
+
+\begin{worked}{Question 4(a)}
+The relation $yxyz^{-2}=e$ is equivalent to $yxy=z^2$, hence
+\[
+x=y^{-1}z^2y^{-1}.
+\]
+Thus $y,z$ generate $P$. Let $F(y,z)$ be the free group on two symbols $y,z$. The assignment sending its generators to the corresponding elements of $P$ extends to a surjective homomorphism $\alpha:F(y,z)\to P$.
+
+In the other direction, assign the generators of $P$ the values
+\[
+y\mapsto y,\qquad z\mapsto z,\qquad x\mapsto y^{-1}z^2y^{-1}
+\quad\text{in }F(y,z).
+\]
+The relator maps to
+$y(y^{-1}z^2y^{-1})yz^{-2}=e$, so this assignment defines a homomorphism $\beta:P\to F(y,z)$. The composite $\beta\alpha$ fixes $y,z$, so it is the identity on $F(y,z)$. The composite $\alpha\beta$ fixes $y,z$ and also fixes $x$ by the displayed relation, so it is the identity on $P$. Therefore $P\cong F(y,z)$.
+\end{worked}
+
+\begin{worked}{Question 4(b)}
+For $f,g\in G^X$, $f(x)g(x)\in G$ for every $x$, so the pointwise product is again a function $X\to G$ (closure). For $f,g,h\in G^X$ and arbitrary $x\in X$,
+\[
+((fg)h)(x)=(f(x)g(x))h(x)=f(x)(g(x)h(x))=(f(gh))(x),
+\]
+using associativity in $G$. Equality at every $x$ gives associativity of functions.
+
+The identity is the constant function $E(x)=e_G$ because $(Ef)(x)=e_Gf(x)=f(x)=(fE)(x)$. For $f\in G^X$, define $f^{-1}(x)=f(x)^{-1}$. Then $(ff^{-1})(x)=e_G=(f^{-1}f)(x)$ for all $x$, so $f^{-1}$ is a two-sided inverse. Hence $G^X$ is a group.
+\end{worked}
+
+\begin{worked}{Question 5}
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{True.} $x\in f^*(B\cup C)$ exactly when $f(x)\in B$ or $f(x)\in C$.
+\item \textbf{False.} Let $X=\{1,2\}$, let $f$ be constant with value $a$, and take $A=\{1\}$, $D=\{2\}$. Then $f_*(A\cap D)=\varnothing$, while $f_*(A)\cap f_*(D)=\{a\}$.
+\item \textbf{True.} If $y\notin f(X)$, its fibre $f^{-1}(\{y\})$ is empty; $\varnothing\subseteq A$ for every $A$.
+\item \textbf{True.} $\gcd(3,16)=1$, so $[3]$ has order $16$ and generates all of $\Z/16\Z$.
+\item \textbf{False.} The image of $[1]_7$ must have order dividing $7$. Since $\Z/15\Z$ has no nonzero element of order $7$, it must map to $[0]$, making the homomorphism trivial.
+\item \textbf{True.} $g^2=e$ implies $g^{-1}=g$ for every $g$. Thus $ab=(ab)^{-1}=b^{-1}a^{-1}=ba$.
+\end{enumerate}
+\end{worked}
+
+\end{document}

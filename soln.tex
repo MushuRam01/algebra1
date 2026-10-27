@@ -1,0 +1,835 @@
+\documentclass[11pt,openany]{book}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem,microtype,xcolor,hyperref,booktabs,longtable}
+\usepackage[most]{tcolorbox}
+\hypersetup{colorlinks=true,linkcolor=blue!55!black}
+\setlist{itemsep=.3em,topsep=.4em}
+\newcommand{\N}{\mathbb N}\newcommand{\Z}{\mathbb Z}
+\newcommand{\Q}{\mathbb Q}\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}\newcommand{\PP}{\mathcal P}
+\newcommand{\id}{\operatorname{id}}\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\im}{\operatorname{im}}\newcommand{\angles}[1]{\left\langle#1\right\rangle}
+\newtcolorbox{questionbox}{breakable,colback=blue!3,colframe=blue!55!black,title=Question}
+\newtcolorbox{approachbox}{breakable,colback=yellow!6,colframe=yellow!45!black,title=Approach and theory}
+\newtcolorbox{solutionbox}{breakable,colback=green!3,colframe=green!45!black,title=Step-by-step solution}
+\newtcolorbox{answerbox}{breakable,colback=purple!3,colframe=purple!50!black,title=Conclusion}
+\title{Algebra I: Complete Solutions\\\large Assignments 1--3}
+\author{Self-contained solution manual}
+\date{Monsoon 2026}
+\begin{document}
+\maketitle\tableofcontents
+
+\chapter*{How these solutions are written}
+Every problem is restated.  The yellow box identifies the definitions and the proof plan.  The green box carries out every step.  A relation is never called an equivalence relation without checking reflexivity, symmetry, and transitivity; an operation on equivalence classes is never used before proving well-definedness; and a group is never asserted without checking closure, associativity, identity, and inverses.
+
+Throughout, $\N=\{1,2,3,\ldots\}$, $\R^*=\R\setminus\{0\}$, and $\Z^*=\Z\setminus\{0\}$.
+
+\part{Assignment 1: Mappings and Relations}
+\chapter{Assignment 1 solutions}
+
+\section{Question 1: counting injections}
+\begin{questionbox}
+Let $A$ be an $n$-element set and $B$ an $m$-element set. Find the number of injections $A\to B$ when (i) $n=m$, (ii) $n>m$, and (iii) $n<m$.
+\end{questionbox}
+\begin{approachbox}
+An injection sends distinct elements of $A$ to distinct elements of $B$. Choose an ordering $a_1,\ldots,a_n$ of $A$ and count the available choices successively. This is the multiplication principle.
+\end{approachbox}
+\begin{solutionbox}
+For $a_1$ there are $m$ choices. After its image is chosen, $a_2$ has $m-1$ choices, and so on. If $n\le m$, the number is
+\[
+m(m-1)\cdots(m-n+1)=\frac{m!}{(m-n)!}.
+\]
+Thus:
+\begin{enumerate}[label=(\roman*)]
+\item If $n=m$, the answer is $m!=n!$.
+\item If $n>m$, the answer is $0$: by the pigeonhole principle, two of the $n$ inputs would have to share one of only $m$ outputs.
+\item If $n<m$, the answer is $m!/(m-n)!$.
+\end{enumerate}
+\end{solutionbox}
+
+\section{Question 2: a bijection $\N^2\to\N$}
+\begin{questionbox}
+Define $f:\N\times\N\to\N$ by $f(a,b)=2^{a-1}(2b-1)$. Prove that $f$ is a bijection and find $f^{-1}$.
+\end{questionbox}
+\begin{approachbox}
+Every positive integer has a unique power of $2$ dividing it: it can be written uniquely as $2^kq$ where $k\ge0$ and $q$ is positive and odd. This is the existence and uniqueness of prime factorization, applied only to the prime $2$.
+\end{approachbox}
+\begin{solutionbox}
+\textbf{Injective.} Suppose
+\[
+2^{a-1}(2b-1)=2^{c-1}(2d-1).
+\]
+Both $2b-1$ and $2d-1$ are odd. The exponent of $2$ in the prime factorization of the left side is $a-1$, and on the right it is $c-1$. Uniqueness gives $a-1=c-1$, so $a=c$. Cancelling $2^{a-1}$ gives $2b-1=2d-1$, hence $b=d$.
+
+\textbf{Surjective.} Let $n\in\N$. Divide out factors of $2$ until an odd number remains. Then uniquely
+\[
+n=2^kq,\qquad k\ge0,\quad q\ge1\text{ odd}.
+\]
+Every positive odd $q$ has the unique form $q=2b-1$ with $b=(q+1)/2\in\N$. Put $a=k+1$. Then $f(a,b)=n$.
+
+Therefore $f$ is bijective. If $v_2(n)$ denotes the largest $k\ge0$ for which $2^k\mid n$, then
+\[
+f^{-1}(n)=\left(v_2(n)+1,\ \frac{n/2^{v_2(n)}+1}{2}\right).
+\]
+For example, $40=2^3\cdot5$, so $f^{-1}(40)=(4,3)$.
+\end{solutionbox}
+
+\section{Question 3: when all permutations commute}
+\begin{questionbox}
+Let $X$ be nonempty. Prove that $f\circ g=g\circ f$ for all bijections $f,g:X\to X$ if and only if $X$ has at most two elements.
+\end{questionbox}
+\begin{approachbox}
+Prove both directions. For $|X|\le2$, list all permutations. If $X$ has at least three elements, construct two transpositions that do not commute.
+\end{approachbox}
+\begin{solutionbox}
+Suppose first $|X|=1$. The identity is the only bijection, so all bijections commute. If $|X|=2$, say $X=\{a,b\}$, there are exactly two bijections: $\id_X$ and the transposition $\tau$ interchanging $a,b$. The identity commutes with every map and $\tau\tau=\tau\tau$, so all pairs commute.
+
+Conversely suppose $X$ contains distinct $a,b,c$. Define $f$ to interchange $a,b$ and fix every other point; define $g$ to interchange $b,c$ and fix every other point. Then
+\[
+(f\circ g)(a)=f(a)=b,
+\qquad
+(g\circ f)(a)=g(b)=c.
+\]
+Since $b\ne c$, $f\circ g\ne g\circ f$. Hence the stated commutativity for all bijections forces $|X|\le2$.
+\end{solutionbox}
+
+\section{Question 4: which relations are equivalence relations?}
+\begin{questionbox}
+Determine which of the following are equivalence relations.
+\begin{enumerate}[label=(\roman*)]
+\item On $\R$: $a\sim b$ iff $a-b\in\Q$.
+\item On $\Q$: $a\sim b$ iff $a-b\in\Z$.
+\item On $\Z^*$: $a\sim b$ iff $b=2^na$ for some $n\in\Z$.
+\item On $\R^2$: $(a,b)\sim(c,d)$ iff $a^2+b^2=c^2+d^2$.
+\item On $\N$: $a\sim b$ iff some $n\in\N$, $n>1$, divides both $a$ and $b$.
+\item On $\R$: $a\sim b$ iff $ab\in\Q$.
+\item On $\R^*$: $a\sim b$ iff $0<ab^{-1}\in\Q$.
+\end{enumerate}
+\end{questionbox}
+\begin{approachbox}
+An equivalence relation must be reflexive, symmetric, and transitive. For a failure, one failed axiom and one explicit counterexample suffice. Relations defined by equality of an invariant are automatically equivalence relations.
+\end{approachbox}
+\begin{solutionbox}
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Yes.} Reflexive: $a-a=0\in\Q$. Symmetric: if $a-b\in\Q$, then $b-a=-(a-b)\in\Q$. Transitive: if $a-b,b-c\in\Q$, then $a-c=(a-b)+(b-c)\in\Q$.
+
+\item \textbf{Yes.} The same proof works because $0\in\Z$ and $\Z$ is closed under negatives and addition.
+
+\item \textbf{Yes.} Reflexive: $a=2^0a$. Symmetric: $b=2^na$ implies $a=2^{-n}b$. Transitive: $b=2^na$ and $c=2^mb$ imply $c=2^{m+n}a$. The equations themselves ensure the displayed quantities are integers in $\Z^*$.
+
+\item \textbf{Yes.} Let $I(a,b)=a^2+b^2$. The relation says $I(a,b)=I(c,d)$. Equality of real numbers is reflexive, symmetric, and transitive. Explicitly, equality reverses and chains exactly as required.
+
+\item \textbf{No.} It is not reflexive at $1$. No integer $n>1$ divides $1$, so $1\not\sim1$. (It also fails transitivity: $2\sim6$ and $6\sim3$, but $2\not\sim3$.)
+
+\item \textbf{No.} It is not reflexive for every real number. Take $a=\sqrt{\pi}$. Then $a^2=\pi\notin\Q$, so $a\not\sim a$.
+
+\item \textbf{Yes.} Here $a\sim b$ means $a/b$ is a positive rational. Reflexive: $a/a=1$. Symmetric: if $a/b=q>0$ is rational, then $b/a=1/q>0$ is rational. Transitive: if $a/b=q>0$ and $b/c=r>0$ are rational, then $a/c=(a/b)(b/c)=qr>0$ is rational.
+\end{enumerate}
+Thus (i), (ii), (iii), (iv), and (vii) are equivalence relations; (v) and (vi) are not.
+\end{solutionbox}
+
+\section{Question 5: equality of fractions}
+\begin{questionbox}
+Let $X=\Z\times(\Z\setminus\{0\})$ and define $(a,b)\sim(c,d)$ iff $ad=bc$. Prove this is an equivalence relation on $X$.
+\end{questionbox}
+\begin{approachbox}
+The condition is equality of rational numbers $a/b=c/d$. We nevertheless verify all three axioms directly; in transitivity, nonzero denominators permit cancellation.
+\end{approachbox}
+\begin{solutionbox}
+Reflexive: $ab=ba$, so $(a,b)\sim(a,b)$.
+
+Symmetric: if $ad=bc$, then $cb=da$, so $(c,d)\sim(a,b)$.
+
+Transitive: suppose $(a,b)\sim(c,d)$ and $(c,d)\sim(e,f)$. Then
+\[
+ad=bc,\qquad cf=de.
+\]
+Multiply the first equation by $f$:
+$adf=bcf$. Substitute $cf=de$ to get $adf=bde$. Since $d\ne0$, cancel $d$ in the integers to obtain $af=be$. Hence $(a,b)\sim(e,f)$. All three axioms hold.
+\end{solutionbox}
+
+\section{Question 6: equality of differences}
+\begin{questionbox}
+Let $X=\N\times\N$ and define $(a,b)\sim(c,d)$ iff $a+d=b+c$. Prove this is an equivalence relation.
+\end{questionbox}
+\begin{approachbox}
+Rearrange $a+d=b+c$ as $a-b=c-d$. The relation is equality of the integer-valued invariant $I(a,b)=a-b$.
+\end{approachbox}
+\begin{solutionbox}
+Reflexive: $a+b=b+a$. Symmetric: $a+d=b+c$ implies $c+b=d+a$, so $(c,d)\sim(a,b)$. For transitivity, assume
+$a+d=b+c$ and $c+f=d+e$. These say $a-b=c-d$ and $c-d=e-f$. Thus $a-b=e-f$, so $a+f=b+e$, hence $(a,b)\sim(e,f)$.
+\end{solutionbox}
+
+\section{Question 7: classes in Questions 5 and 6}
+\begin{questionbox}
+Describe the equivalence classes for the relations in Questions 5 and 6.
+\end{questionbox}
+\begin{approachbox}
+The class of an element consists of all elements with the same invariant: rational value $a/b$ in Question 5 and integer difference $a-b$ in Question 6.
+\end{approachbox}
+\begin{solutionbox}
+For Question 5,
+\[
+[(a,b)]=\{(c,d)\in\Z\times\Z^*:ad=bc\}
+=\{(c,d):c/d=a/b\}.
+\]
+Thus classes are indexed by rational numbers. The class corresponding to $q\in\Q$ contains every numerator--denominator representation of $q$.
+
+For Question 6,
+\[
+[(a,b)]=\{(c,d)\in\N^2:c-d=a-b\}.
+\]
+Thus classes are indexed by $k\in\Z$:
+\[
+C_k=\{(c,d)\in\N^2:c-d=k\}.
+\]
+Every $k\in\Z$ occurs: for $k\ge0$ use $(k+1,1)$, and for $k<0$ use $(1,1-k)$.
+\end{solutionbox}
+
+\section{Question 8: all classes for two standard relations}
+\begin{questionbox}
+Find all equivalence classes of (i) $a\sim b$ on $\R$ iff $a-b\in\Q$; and (ii) $a\sim b$ on $\Z$ iff $a-b$ is a multiple of a fixed $n\in\N$.
+\end{questionbox}
+\begin{approachbox}
+Solve the defining condition for $b$. In (ii), use the division algorithm to choose one representative from each class.
+\end{approachbox}
+\begin{solutionbox}
+\begin{enumerate}[label=(\roman*)]
+\item For $a\in\R$,
+\[
+[a]=\{b\in\R:a-b\in\Q\}=a+\Q=\{a+q:q\in\Q\}.
+\]
+The collection of all classes is $\{a+\Q:a\in\R\}$. Distinct cosets are disjoint, although there is no simple finite list of representatives.
+
+\item For $a\in\Z$,
+\[
+[a]=a+n\Z=\{a+nk:k\in\Z\}.
+\]
+By the division algorithm, every $a$ has a unique remainder $r\in\{0,1,\ldots,n-1\}$. Hence the distinct classes are exactly
+\[
+[0],[1],\ldots,[n-1].
+\]
+\end{enumerate}
+\end{solutionbox}
+
+\section{Question 9: one injective and one surjective composite}
+\begin{questionbox}
+Let $f:X\to Y$ and $g:Y\to X$. Suppose $g\circ f$ is injective and $f\circ g$ is surjective. Prove that both $f\circ g$ and $g\circ f$ are bijections.
+\end{questionbox}
+\begin{approachbox}
+First extract properties of $f$: an injective composite $g f$ forces $f$ injective, while a surjective composite $f g$ forces $f$ surjective. Once $f$ is bijective, use its surjectivity/injectivity to prove $g$ injective/surjective.
+\end{approachbox}
+\begin{solutionbox}
+If $f(x_1)=f(x_2)$, applying $g$ gives $(gf)(x_1)=(gf)(x_2)$. Since $gf$ is injective, $x_1=x_2$. Thus $f$ is injective.
+
+Let $y\in Y$. Since $fg:Y\to Y$ is surjective, there is $y_0\in Y$ with $f(g(y_0))=y$. Hence $y$ is in the image of $f$, so $f$ is surjective. Therefore $f$ is bijective.
+
+To show $g$ injective, suppose $g(y_1)=g(y_2)$. Since $f$ is surjective, choose $x_1,x_2\in X$ with $f(x_i)=y_i$. Then
+$(gf)(x_1)=g(y_1)=g(y_2)=(gf)(x_2)$. Injectivity of $gf$ gives $x_1=x_2$, hence $y_1=f(x_1)=f(x_2)=y_2$.
+
+To show $g$ surjective, take $x\in X$. Surjectivity of $fg$ gives $y\in Y$ such that $f(g(y))=f(x)$. Since $f$ is injective, $g(y)=x$. Thus $g$ is bijective. A composition of bijections is bijective, so both $fg$ and $gf$ are bijections.
+\end{solutionbox}
+
+\section{Question 10: characteristic functions}
+\begin{questionbox}
+Let $X$ be any set and $2=\{0,1\}$. For $A\subseteq X$, define $\chi_A:X\to2$ by $\chi_A(x)=1$ if $x\in A$ and $0$ otherwise. Prove that $\chi:\PP(X)\to2^X$, $A\mapsto\chi_A$, is a bijection.
+\end{questionbox}
+\begin{approachbox}
+For injection, equal characteristic functions must have the same $1$-set. For surjection, recover a subset from any function $u:X\to\{0,1\}$ by taking $u^{-1}(\{1\})$.
+\end{approachbox}
+\begin{solutionbox}
+Suppose $\chi_A=\chi_B$. For any $x\in X$,
+\[
+x\in A\iff\chi_A(x)=1\iff\chi_B(x)=1\iff x\in B.
+\]
+Thus $A=B$, so $\chi$ is injective.
+
+Let $u\in2^X$ be arbitrary. Define $A=u^{-1}(\{1\})=\{x:u(x)=1\}$. If $x\in A$, then $u(x)=1=\chi_A(x)$. If $x\notin A$, then $u(x)\ne1$; since its only possible values are $0,1$, $u(x)=0=\chi_A(x)$. Hence $u=\chi_A$, proving surjectivity.
+
+The inverse is explicit:
+\[
+\chi^{-1}(u)=u^{-1}(\{1\}).
+\]
+\end{solutionbox}
+
+\part{Assignment 2: Magmas, Monoids, and Groups}
+\chapter{Assignment 2 solutions}
+
+\section{Question 1: associativity and commutativity}
+\begin{questionbox}
+Determine which operations are associative or commutative:
+\begin{enumerate}[label=(\alph*)]
+\item on $\Z$, $a*b=(a+3)(b+2)$;
+\item on $\R$, $a*b=a+ab$;
+\item on $\PP(X)$, $A*B=C_X(A)\cup C_X(B)$;
+\item on any set $X$, $a*b=a$.
+\end{enumerate}
+\end{questionbox}
+\begin{approachbox}
+Commutativity compares $a*b$ and $b*a$. Associativity compares $(a*b)*c$ and $a*(b*c)$. A single counterexample disproves a universal law.
+\end{approachbox}
+\begin{solutionbox}
+\begin{enumerate}[label=(\alph*)]
+\item Closure holds on $\Z$. Now
+\[
+a*b-b*a=(a+3)(b+2)-(b+3)(a+2)=b-a,
+\]
+so the operation is not commutative (for example $0*1=9$ but $1*0=8$). It is not associative: $0*0=6$, so
+\[
+(0*0)*0=6*0=18,
+\qquad
+0*(0*0)=0*6=24.
+\]
+
+\item It is not commutative because $a*b=a+ab$ and $b*a=b+ab$; for example $1*2=3$ while $2*1=4$. Also
+\[
+(a*b)*c=a+ab+ac+abc,qquad
+a*(b*c)=a+ab+abc.
+\]
+They are not always equal (take $a=b=c=1$), so it is not associative.
+
+\item Since union is commutative,
+$A*B=A^c\cup B^c=B^c\cup A^c=B*A$; hence it is commutative. If $X\ne\varnothing$, take $A=B=\varnothing$ and $C=X$. Then $A*B=X$,
+\[
+(A*B)*C=X*X=\varnothing,
+\qquad
+A*(B*C)=\varnothing*X=X.
+\]
+Thus it is not associative for nonempty $X$. If $X=\varnothing$, $\PP(X)$ has one element and the operation is automatically associative.
+
+\item For all $a,b,c$,
+$(a*b)*c=a*c=a$ and $a*(b*c)=a*b=a$, so it is associative. It is commutative exactly when $a=b$ for all $a,b\in X$, that is, when $X$ has at most one element. In general it is not commutative.
+\end{enumerate}
+\end{solutionbox}
+
+\section{Question 2: a commutative nonassociative law}
+\begin{questionbox}
+Prove or disprove: every commutative law of composition on a two-element set is associative.
+\end{questionbox}
+\begin{approachbox}
+The claim is universal, so one symmetric operation table that fails associativity disproves it.
+\end{approachbox}
+\begin{solutionbox}
+Let $S=\{0,1\}$ and define
+\[
+\begin{array}{c|cc}*&0&1\\\hline
+0&1&0\\1&0&0
+\end{array}
+\]
+The table is symmetric across the diagonal, so the operation is commutative. But
+\[
+(0*0)*1=1*1=0,
+\qquad
+0*(0*1)=0*0=1.
+\]
+Therefore it is not associative, and the statement is false.
+\end{solutionbox}
+
+\section{Question 3: counting laws of composition}
+\begin{questionbox}
+Determine the number of laws of composition and commutative laws of composition on an $n$-element set.
+\end{questionbox}
+\begin{approachbox}
+A law is a function $S\times S\to S$. For a commutative law, the table entry at $(b,a)$ is forced by the entry at $(a,b)$, so count only the diagonal and one triangular half.
+\end{approachbox}
+\begin{solutionbox}
+$S\times S$ has $n^2$ ordered pairs. For each pair, its output can be any of $n$ elements, independently. Thus there are
+\[
+n^{n^2}
+\]
+laws.
+
+For a commutative law, the $n$ diagonal cells are free. For every unordered pair of distinct elements there is one free value, and there are $\binom n2$ such pairs. Thus the number of free entries is
+\[
+n+\binom n2=\frac{n(n+1)}2.
+\]
+Each has $n$ choices, so there are
+\[
+n^{n(n+1)/2}
+\]
+commutative laws.
+\end{solutionbox}
+
+\section{Question 4: adjoining an identity}
+\begin{questionbox}
+Let $(S,*)$ be an associative magma, let $e\notin S$, and put $S'=S\cup\{e\}$. Define $a+b=a*b$ when $a,b\in S$, $a+e=a$, and $e+b=b$. Prove $(S',+)$ is a monoid with identity $e$.
+\end{questionbox}
+\begin{approachbox}
+Closure follows from the definition. The equations involving $e$ give the identity. For associativity, either all three elements lie in $S$, or at least one equals $e$ and can be deleted from either parenthesization.
+\end{approachbox}
+\begin{solutionbox}
+For $a,b\in S'$, the definition always produces an element of $S'$, so $+$ is a law of composition. It gives $e+a=a$ and $a+e=a$ for every $a\in S'$, including $a=e$; hence $e$ is a two-sided identity.
+
+Let $a,b,c\in S'$. If all lie in $S$, then
+\[
+(a+b)+c=(a*b)*c=a*(b*c)=a+(b+c)
+\]
+by associativity of $*$. If at least one is $e$, remove that $e$ using the identity rule. For example, if $b=e$, both sides are
+$(a+e)+c=a+c$ and $a+(e+c)=a+c$. The cases $a=e$ and $c=e$ are identical, and if several are $e$ the same deletion works. Thus $+$ is associative. Therefore $(S',+)$ is a monoid with neutral element $e$.
+\end{solutionbox}
+
+\section{Question 5: are these magmas groups?}
+\begin{questionbox}
+Decide whether (a) $(\Z,*)$ with $a*b=a+b+ab$, and (b) $(\R_{>0},*)$ with $a*b=a/b$, are groups.
+\end{questionbox}
+\begin{approachbox}
+A group needs associativity, a two-sided identity, and an inverse for every element. One missing property is enough to disqualify it.
+\end{approachbox}
+\begin{solutionbox}
+\begin{enumerate}[label=(\alph*)]
+\item Closure is clear. Direct expansion gives
+\[
+(a*b)*c=a+b+c+ab+ac+bc+abc=a*(b*c),
+\]
+so it is associative. Also $0*a=a=a*0$, so the identity is $0$. An inverse $x$ of $a$ would satisfy
+\[
+a*x=a+x+ax=0,
+\quad\text{so}\quad x=-\frac a{a+1}
+\]
+when $a\ne-1$. For $a=1$, this would be $-1/2\notin\Z$; for $a=-1$, the equation becomes $-1=0$ and has no solution. Hence not every integer has an inverse, so this is not a group.
+
+\item Closure holds, but associativity fails:
+\[
+(a*b)*c=\frac{a}{bc},
+\qquad
+a*(b*c)=\frac{ac}{b}.
+\]
+For example, with $a=b=1,c=2$, these are $1/2$ and $2$. Hence it is not a group. In fact $1$ is only a right identity ($a*1=a$); no fixed left identity can satisfy $e/a=a$ for every $a$.
+\end{enumerate}
+\end{solutionbox}
+
+\section{Question 6: roots of unity}
+\begin{questionbox}
+For a positive integer $n$, let $G=\{z\in\C:z^n=1\}$. Prove $G$ is a group under complex multiplication.
+\end{questionbox}
+\begin{approachbox}
+Check the four group requirements. Associativity is inherited from $\C$. For an inverse, use $z^n=1$ to obtain $z^{-1}=z^{n-1}$.
+\end{approachbox}
+\begin{solutionbox}
+If $z,w\in G$, then $(zw)^n=z^nw^n=1$, so $zw\in G$ (closure). Complex multiplication is associative. Since $1^n=1$, $1\in G$ and is the identity. If $z\in G$, then $z\ne0$, and
+\[
+z\,z^{n-1}=z^n=1=z^{n-1}z.
+\]
+Thus $z^{-1}=z^{n-1}$, and $(z^{n-1})^n=(z^n)^{n-1}=1$, so the inverse lies in $G$. Therefore $G$ is a group. It is abelian because complex multiplication is commutative.
+\end{solutionbox}
+
+\section{Question 7: the pointwise function group}
+\begin{questionbox}
+Let $(G,*)$ be a group and $X$ nonempty. For $G^X=\{f:X\to G\}$ define $(f*g)(x)=f(x)*g(x)$. Prove $(G^X,*)$ is a group.
+\end{questionbox}
+\begin{approachbox}
+Every group axiom is checked at an arbitrary input $x$. Equality of functions means equality of their values for every $x$.
+\end{approachbox}
+\begin{solutionbox}
+If $f,g:X\to G$, then $f(x)*g(x)\in G$ for every $x$, so $f*g$ is a function $X\to G$ (closure).
+
+For $f,g,h\in G^X$ and $x\in X$,
+\[
+((f*g)*h)(x)=(f(x)*g(x))*h(x)
+=f(x)*(g(x)*h(x))=(f*(g*h))(x).
+\]
+Thus the functions are equal and the operation is associative.
+
+Let $E:X\to G$ be the constant function $E(x)=e_G$. Then
+$(E*f)(x)=e_G*f(x)=f(x)$ and $(f*E)(x)=f(x)$, so $E$ is the identity.
+
+For $f\in G^X$, define $f^{-1}:X\to G$ by $f^{-1}(x)=f(x)^{-1}$. Then
+\[
+(f*f^{-1})(x)=e_G=(f^{-1}*f)(x)
+\]
+for every $x$. Hence every $f$ has an inverse and $G^X$ is a group.
+\end{solutionbox}
+
+
+\part{Assignment 3: Groups, Morphisms, Products, and Free Groups}
+\chapter{Assignment 3 solutions}
+
+\section{Question 1: the group $\Z/n\Z$}
+\begin{questionbox}
+For $n\ge1$, let $a\sim b$ on $\Z$ iff $n\mid(a-b)$, and let $\Z/n\Z$ be the set of classes. Show
+$\Z/n\Z=\{[0],\ldots,[n-1]\}$. Show there is a unique law $+_n$ for which $\pi:\Z\to\Z/n\Z$ is a morphism of additive magmas, and prove $(\Z/n\Z,+_n)$ is a group.
+\end{questionbox}
+\begin{approachbox}
+The division algorithm finds canonical representatives. The morphism condition forces $[a]+_n[b]=[a+b]$. We must prove this formula is independent of representatives, then check the group axioms.
+\end{approachbox}
+\begin{solutionbox}
+For any $a\in\Z$, the division algorithm gives unique integers $q,r$ with
+$a=qn+r$ and $0\le r<n$. Then $n\mid(a-r)$, so $[a]=[r]$. Thus every class is among $[0],\ldots,[n-1]$. If $0\le r,s<n$ and $[r]=[s]$, then $n\mid(r-s)$ while $|r-s|<n$; hence $r-s=0$. The listed classes are distinct.
+
+If $\pi$ is a morphism, then necessarily
+\[
+[a]+_n[b]=\pi(a)+_n\pi(b)=\pi(a+b)=[a+b].
+\]
+This proves uniqueness of a possible law. Define it by this formula. To prove well-definedness, suppose $[a]=[a']$ and $[b]=[b']$. Then $n\mid(a-a')$ and $n\mid(b-b')$, so
+\[
+n\mid (a-a')+(b-b')=(a+b)-(a'+b').
+\]
+Hence $[a+b]=[a'+b']$.
+
+Closure is built into the formula. Associativity follows from integer addition:
+\[
+([a]+_n[b])+_n[c]=[(a+b)+c]=[a+(b+c)]=[a]+_n([b]+_n[c]).
+\]
+$[0]$ is an identity because $[a]+_n[0]=[a]$. The inverse of $[a]$ is $[-a]$, since $[a]+_n[-a]=[0]$. Therefore it is a group. Finally,
+$\pi(a+b)=[a+b]=[a]+_n[b]$, so $\pi$ is indeed a morphism.
+\end{solutionbox}
+
+\section{Question 2: affine maps}
+\begin{questionbox}
+For $a\ne0$, $b\in\R$, let $f_{a,b}(x)=ax+b$, and let $G=\{f_{a,b}:a\ne0,b\in\R\}$. Prove $(G,\circ)$ is a group.
+\end{questionbox}
+\begin{approachbox}
+Compute a composition and an inverse explicitly. Associativity is inherited from composition of functions.
+\end{approachbox}
+\begin{solutionbox}
+For $a,c\ne0$,
+\[
+(f_{a,b}\circ f_{c,d})(x)=a(cx+d)+b=(ac)x+(ad+b),
+\]
+so $f_{a,b}\circ f_{c,d}=f_{ac,ad+b}\in G$ because $ac\ne0$. Thus $G$ is closed. Function composition is associative.
+
+The identity map is $f_{1,0}$. Solving $y=ax+b$ for $x$ gives $x=(y-b)/a$, so
+\[
+f_{a,b}^{-1}=f_{1/a,-b/a}\in G.
+\]
+Indeed both composites have parameters $(1,0)$. Therefore $(G,\circ)$ is a group.
+\end{solutionbox}
+
+\section{Question 3: the group $\Q/\Z$}
+\begin{questionbox}
+On $\Q$, define $r\sim s$ iff $r-s\in\Z$. Let $\Q/\Z$ be the quotient. Prove there is a unique law $+$ making $\pi:\Q\to\Q/\Z$ a morphism of additive magmas, and conclude that $(\Q/\Z,+)$ is a group.
+\end{questionbox}
+\begin{approachbox}
+This repeats the logic of Question 1 with equivalence modulo integers rather than modulo $n$. The forced formula is $[r]+[s]=[r+s]$.
+\end{approachbox}
+\begin{solutionbox}
+The morphism condition forces
+$[r]+[s]=\pi(r+s)=[r+s]$, proving uniqueness. Define the operation so. If $r-r'\in\Z$ and $s-s'\in\Z$, then
+\[
+(r+s)-(r'+s')=(r-r')+(s-s')\in\Z,
+\]
+so the formula is well-defined.
+
+Associativity follows from addition in $\Q$. The identity is $[0]=\Z$, and the inverse of $[r]$ is $[-r]$. Closure is automatic. Hence $\Q/\Z$ is a group, and the defining formula shows $\pi$ is a morphism.
+\end{solutionbox}
+
+\section{Question 4: subgroup decisions}
+\begin{questionbox}
+Determine whether: (i) $\R^+$ in $(\R,+)$; (ii) $\R^+$ in $(\R\setminus\{0\},\cdot)$; (iii) $\Q^+$ in $(\R^+,\cdot)$; (iv) $\pi\Q$ in $(\R,+)$, are subgroups.
+\end{questionbox}
+\begin{approachbox}
+Use the one-step subgroup test: a nonempty subset $H$ is a subgroup iff $ab^{-1}\in H$ for $a,b\in H$; additively, iff $a-b\in H$.
+\end{approachbox}
+\begin{solutionbox}
+\begin{enumerate}[label=(\roman*)]
+\item No. The additive identity $0$ is not positive; also the inverse $-a$ of a positive number is not positive.
+\item Yes. It is nonempty, and for $a,b>0$, $ab^{-1}=a/b>0$. The subgroup test applies.
+\item Yes. It is nonempty, and the quotient of two positive rationals is a positive rational.
+\item Yes. It contains $0=\pi\cdot0$. If $\pi q,\pi r\in\pi\Q$, then
+$\pi q-\pi r=\pi(q-r)\in\pi\Q$ because $q-r\in\Q$. Notice that the irrationality of $\pi$ is not required for closure, though it makes the description nontrivial.
+\end{enumerate}
+\end{solutionbox}
+
+\section{Question 5: generated cyclic subgroups}
+\begin{questionbox}
+List the elements of: (i) $\angles i$ in $(\C^*,\cdot)$; (ii) $\angles{\sqrt2}$ in $(\R^+,\cdot)$; (iii) $\angles{\sqrt2}$ in $(\R,+)$; (iv) $\angles{-\sqrt2}$ in $(\C^*,\cdot)$; (v) $\angles{12}$ in $(3\Z,+)$.
+\end{questionbox}
+\begin{approachbox}
+In a multiplicative group, $\angles g=\{g^k:k\in\Z\}$. In an additive group, $\angles g=\{kg:k\in\Z\}$.
+\end{approachbox}
+\begin{solutionbox}
+\begin{enumerate}[label=(\roman*)]
+\item Powers repeat every four: $\angles i=\{1,i,-1,-i\}$.
+\item $\angles{\sqrt2}=\{(\sqrt2)^k:k\in\Z\}=\{2^{k/2}:k\in\Z\}$.
+\item $\angles{\sqrt2}=\{k\sqrt2:k\in\Z\}$.
+\item $\angles{-\sqrt2}=\{(-\sqrt2)^k:k\in\Z\}$. More explicitly it contains $2^m$ for even exponents $2m$ and $-2^m\sqrt2$ for odd exponents $2m+1$, for every $m\in\Z$.
+\item $\angles{12}=\{12k:k\in\Z\}=12\Z$, which is contained in $3\Z$.
+\end{enumerate}
+\end{solutionbox}
+
+\section{Question 6: stabilizer and transporter}
+\begin{questionbox}
+Let $\Sym(X)$ be the group of bijections of nonempty $X$, and let $x\ne y$. Define
+$A_x=\{f:f(x)=x\}$ and $A_{x,y}=\{f:f(x)=y\}$. Prove $A_x$ is a subgroup and $A_{x,y}$ is not.
+\end{questionbox}
+\begin{approachbox}
+Use the subgroup test for $A_x$. For $A_{x,y}$, check the identity first.
+\end{approachbox}
+\begin{solutionbox}
+$A_x$ is nonempty because $\id_X(x)=x$. Let $f,g\in A_x$. Since $g(x)=x$, applying $g^{-1}$ gives $g^{-1}(x)=x$. Therefore
+\[
+(f\circ g^{-1})(x)=f(g^{-1}(x))=f(x)=x.
+\]
+Thus $f\circ g^{-1}\in A_x$, so the subgroup test proves $A_x\le\Sym(X)$.
+
+But $\id_X(x)=x\ne y$, so $\id_X\notin A_{x,y}$. Every subgroup must contain the ambient identity. Therefore $A_{x,y}$ is not a subgroup (whether or not it is empty).
+\end{solutionbox}
+
+\section{Question 7: which maps are group morphisms?}
+\begin{questionbox}
+Determine which are group morphisms:
+\begin{enumerate}[label=(\roman*)]
+\item $f:(\Z,+)\to(\Z,+)$, $f(a)=2a$;
+\item $f:(\R,+)\to(\R,+)$, $f(x)=\cos x$;
+\item $f:(\PP(X),\triangle)\to(\PP(Y),\triangle)$, $f(A)=A\cap Y$, where $Y\subseteq X$;
+\item $f(A)=C_Y(A)$ between the same groups (meaning $Y\setminus(A\cap Y)$);
+\item evaluation $f:(\R^X,+)\to(\R,+)$, $f(\alpha)=\alpha(x_0)$.
+\end{enumerate}
+\end{questionbox}
+\begin{approachbox}
+A homomorphism must preserve the operation and identity. For symmetric difference, membership is parity: an element lies in $A\triangle B$ iff it lies in exactly one of $A,B$.
+\end{approachbox}
+\begin{solutionbox}
+\begin{enumerate}[label=(\roman*)]
+\item Yes: $f(a+b)=2(a+b)=2a+2b=f(a)+f(b)$.
+\item No. The identity in $(\R,+)$ is $0$, but $f(0)=1\ne0$. Equivalently, $\cos(x+y)$ is not generally $\cos x+\cos y$.
+\item Yes. For any $t\in Y$,
+\[
+t\in(A\triangle B)\cap Y
+\iff t\text{ lies in exactly one of }A,B
+\iff t\in(A\cap Y)\triangle(B\cap Y).
+\]
+Thus $f(A\triangle B)=f(A)\triangle f(B)$.
+\item No (for nonempty $Y$). The identity is $\varnothing$, but
+$f(\varnothing)=Y\ne\varnothing$. If $Y=\varnothing$, both target and map are trivial and it is a homomorphism.
+\item Yes. Pointwise addition gives
+\[
+f(\alpha+\beta)=(\alpha+\beta)(x_0)=\alpha(x_0)+\beta(x_0)=f(\alpha)+f(\beta).
+\]
+\end{enumerate}
+\end{solutionbox}
+
+\section{Question 8: all homomorphisms $\Z\to\R$}
+\begin{questionbox}
+For $a\in\R$, define $f_a:\Z\to\R$ by $f_a(x)=ax$. Prove $f:(\Z,+)\to(\R,+)$ is a group morphism iff $f=f_a$ for some $a\in\R$.
+\end{questionbox}
+\begin{approachbox}
+$\Z$ is generated additively by $1$, so a homomorphism is determined by $f(1)$. Treat positive, zero, and negative integers.
+\end{approachbox}
+\begin{solutionbox}
+For every $a\in\R$,
+$f_a(m+n)=a(m+n)=am+an=f_a(m)+f_a(n)$, so $f_a$ is a homomorphism.
+
+Conversely, let $f$ be a homomorphism and put $a=f(1)$. First $f(0)=0$. For $n>0$,
+\[
+f(n)=f(\underbrace{1+\cdots+1}_{n\text{ times}})=nf(1)=na.
+\]
+Also $0=f(n+(-n))=f(n)+f(-n)$, so $f(-n)=-f(n)=-na$. Thus $f(k)=ak$ for every integer $k$, which says $f=f_a$.
+\end{solutionbox}
+\section{Question 9: an injective cube homomorphism}
+\begin{questionbox}
+Let $G$ be a group and $f:G\to G$ be $f(x)=x^3$. If $f$ is an injective group morphism, prove $G$ is commutative.
+\end{questionbox}
+\begin{approachbox}
+The homomorphism property says $(xy)^3=x^3y^3$. First derive that every square commutes with every cube. Injectivity then makes all squares commute; combining exponents $2$ and $3$ makes every square central. Return to the cube identity and cancel.
+\end{approachbox}
+\begin{solutionbox}
+Let $x,y\in G$. Since $yx=x^{-1}(xy)x$, conjugation gives
+\[
+(yx)^3=x^{-1}(xy)^3x.
+\]
+Use the homomorphism property on both $xy$ and $yx$:
+\[
+y^3x^3=(yx)^3=x^{-1}(x^3y^3)x=x^2y^3x.
+\]
+Cancel the rightmost $x$ to obtain
+\[
+y^3x^2=x^2y^3. \tag{1}
+\]
+Thus every square commutes with every cube.
+
+In particular, $x^6=(x^2)^3$ commutes with $y^6=(y^3)^2$. Since $f(x^2)=x^6$ and $f(y^2)=y^6$,
+\[
+f(x^2y^2)=x^6y^6=y^6x^6=f(y^2x^2).
+\]
+Injectivity of $f$ gives $x^2y^2=y^2x^2$. Hence $x^2$ commutes with $y^2$. By (1), it also commutes with $y^3$. Therefore it commutes with
+$y=y^3(y^2)^{-1}$. Since $x,y$ were arbitrary, every square is central.
+
+Now the homomorphism identity and centrality of $x^2,y^2$ give
+\[
+(xy)^2xy=(xy)^3=x^3y^3=x^2y^2xy.
+\]
+Cancel $xy$ on the right: $(xy)^2=x^2y^2$. Thus $xyxy=xxyy$. Cancel $x$ on the left to get $yxy=xyy$, then cancel $y$ on the right to obtain $yx=xy$. Hence $G$ is commutative.
+\end{solutionbox}
+
+\section{Question 10: quotient of a product}
+\begin{questionbox}
+Let $A,B$ carry equivalence relations $\sim_A,\sim_B$, and define
+$(a_1,b_1)\sim(a_2,b_2)$ iff $a_1\sim_Aa_2$ and $b_1\sim_Bb_2$.
+\begin{enumerate}[label=(\alph*)]
+\item Construct the unique maps $(A\times B)/\sim\to A/\sim_A$ and $(A\times B)/\sim\to B/\sim_B$ making the projection squares commute.
+\item Prove these maps make $(A\times B)/\sim$ a product of the two quotients.
+\item Conclude the resulting map to $(A/\sim_A)\times(B/\sim_B)$ is a bijection.
+\end{enumerate}
+\end{questionbox}
+\begin{approachbox}
+First factor each coordinate quotient map through the quotient of $A\times B$. For the universal property, a map into the quotient product must send $t$ to the class of a pair of representatives; prove this is independent of those representatives. Finally write the canonical map explicitly and prove injection and surjection.
+\end{approachbox}
+\begin{solutionbox}
+Let $q:A\times B\to(A\times B)/\sim$ and let $\pi_A,pi_B$ be the quotient maps.
+
+\textbf{(a)} Define
+\[
+r_A([(a,b)])=[a]_A,qquad r_B([(a,b)])=[b]_B.
+\]
+If $[(a,b)]=[(a',b')]$, then $(a,b)\sim(a',b')$, so $a\sim_Aa'$ and $b\sim_Bb'$. Hence $[a]_A=[a']_A$ and $[b]_B=[b']_B$; both formulas are well-defined. They satisfy
+$r_Aq=\pi_Ap_1$ and $r_Bq=\pi_Bp_2$. They are unique because $q$ is surjective: the commuting equation forces their value on every $[(a,b)]$.
+
+\textbf{(b)} Let $T$ be a set with maps $u:T\to A/\sim_A$ and $v:T\to B/\sim_B$. For each $t$, choose $a_t,b_t$ with $u(t)=[a_t]_A$ and $v(t)=[b_t]_B$; quotient maps are surjective, so choices exist. Define
+\[
+w(t)=[(a_t,b_t)].
+\]
+If $a'_t,b'_t$ are other choices, equality of classes gives $a_t\sim_Aa'_t$ and $b_t\sim_Bb'_t$, hence $(a_t,b_t)\sim(a'_t,b'_t)$. Thus $w$ is well-defined. It satisfies $r_Aw=u,r_Bw=v$. If $w'$ has the same coordinates, write $w'(t)=[(a',b')]$; equality of both coordinates implies $(a',b')\sim(a_t,b_t)$, so $w'(t)=w(t)$. Therefore $w$ is unique. This is exactly the product universal property.
+
+\textbf{(c)} The induced map is
+\[
+\Phi([(a,b)])=([a]_A,[b]_B).
+\]
+For any $([a]_A,[b]_B)$, $\Phi([(a,b)])$ equals it, so $\Phi$ is surjective. If
+$\Phi([(a,b)])=\Phi([(a',b')])$, then $a\sim_Aa'$ and $b\sim_Bb'$, so $(a,b)\sim(a',b')$ and the source classes are equal. Thus $\Phi$ is injective and hence bijective.
+\end{solutionbox}
+
+\section{Question 11: additive and multiplicative groups}
+\begin{questionbox}
+Prove $(\R,+)$ and $(\R^+,\cdot)$ are isomorphic. Are $(\Q,+)$ and $(\Q^+,\cdot)$ isomorphic?
+\end{questionbox}
+\begin{approachbox}
+Use the exponential map for real numbers. For rationals, use an isomorphism-invariant property: divisibility. In $(\Q,+)$ every element can be divided by every positive integer, but $2$ has no rational square root multiplicatively.
+\end{approachbox}
+\begin{solutionbox}
+Define $E:\R\to\R^+$ by $E(x)=e^x$. Then
+$E(x+y)=e^{x+y}=e^xe^y=E(x)E(y)$, so it is a homomorphism. It is injective because the exponential is strictly increasing, and surjective because every $t>0$ equals $e^{\log t}$. Hence it is an isomorphism, with inverse $\log$.
+
+Suppose, for contradiction, that $\phi:(\Q,+)\to(\Q^+,\cdot)$ were an isomorphism. Choose $q\in\Q$ with $\phi(q)=2$ (surjectivity). In $(\Q,+)$, $q=2(q/2)$. Therefore
+\[
+2=\phi(q)=\phi(q/2+q/2)=\phi(q/2)^2.
+\]
+This says $2$ is the square of a positive rational. If $r=a/b$ in lowest terms and $r^2=2$, then $a^2=2b^2$, so $a$ is even; writing $a=2c$ makes $b^2=2c^2$, so $b$ is even, contradicting lowest terms. Thus no such isomorphism exists.
+\end{solutionbox}
+
+\section{Question 12: rank of a finite free group}
+\begin{questionbox}
+Let $F(A),F(B)$ be free groups and suppose $F(A)\cong F(B)$. If $A$ is finite, prove $B$ is finite and $|A|=|B|$.
+\end{questionbox}
+\begin{approachbox}
+Abelianization turns a free group on a set $S$ into the free abelian group $\bigoplus_S\Z$. Isomorphisms preserve abelianization. Tensoring with $\Q$ turns free abelian groups into vector spaces whose dimension is the number of generators.
+\end{approachbox}
+\begin{solutionbox}
+For a group $G$, let $[G,G]$ be the subgroup generated by commutators $ghg^{-1}h^{-1}$. It is characteristic: any isomorphism $\phi:G\to H$ sends each commutator to a commutator and therefore induces
+\[
+G/[G,G]\cong H/[H,H]. \tag{1}
+\]
+
+We now identify the abelianization of $F(S)$. Send each free generator $s$ to the basis vector $e_s$ of $\bigoplus_{s\in S}\Z$. The universal property gives a surjective homomorphism. Its value on a word records the exponent sum of every generator. Its kernel consists precisely of words made trivial after imposing commutativity, which is $[F(S),F(S)]$. Hence
+\[
+F(S)_{\mathrm{ab}}\cong\bigoplus_{s\in S}\Z. \tag{2}
+\]
+
+Let $|A|=n$. From (1) and (2),
+\[
+\Z^n\cong\bigoplus_{b\in B}\Z.
+\]
+Tensor both sides over $\Z$ with $\Q$. An isomorphism remains an isomorphism, and we obtain
+\[
+\Q^n\cong\bigoplus_{b\in B}\Q.
+\]
+The vectors indexed by $B$ form a basis of the right side, while the left side has dimension $n$. Isomorphic vector spaces have equal dimension. Therefore $B$ has exactly $n$ elements. In particular it is finite and $|B|=|A|$.
+\end{solutionbox}
+
+\section{Question 13: a free rank-three subgroup}
+\begin{questionbox}
+Let $F=F(x,y)$. Prove that $u=x^2$, $v=y^2$, and $z=xy$ generate a subgroup isomorphic to the free group on $u,v,z$.
+\end{questionbox}
+\begin{approachbox}
+Place the subgroup inside the index-two kernel of the parity map $F(x,y)\to\Z/2\Z$. A self-contained Schreier rewriting calculation produces a free basis $x^2,yx^{-1},xy$. Replacing one basis element by its product with another is an invertible Nielsen move and changes $yx^{-1}$ into $y^2$.
+\end{approachbox}
+\begin{solutionbox}
+Define $\epsilon:F(x,y)\to\Z/2\Z$ by $\epsilon(x)=\epsilon(y)=1$; inverses also map to $1$ because $-1=1$ modulo $2$. Let $K=\ker\epsilon$. A word lies in $K$ exactly when its total exponent sum modulo $2$ is even. The two right cosets of $K$ have representatives $1,x$.
+
+We use the following rewriting fact, and prove the part needed here. If a free group $F(S)$ has a subgroup $H$ with a set $T$ of coset representatives containing every initial segment of each representative, define
+\[
+\gamma(t,s)=ts\,\overline{ts}^{-1},
+\]
+where $\overline{w}\in T$ represents the coset $Hw$. The nonidentity $\gamma(t,s)$ form a free basis for $H$. Indeed, insert
+$\overline{w_i}^{-1}\overline{w_i}$ between successive letters of a word $w=s_1\cdots s_m$, where $w_i=s_1\cdots s_i$. The factors telescope and rewrite every $h\in H$ as a product of the $\gamma$'s. Conversely, expanding such a reduced product causes only the cancellations already encoded between consecutive coset representatives; a nonempty reduced product cannot become the empty word in the free group. Thus there is no nontrivial relation among the nonidentity $\gamma$'s, proving both generation and freeness.
+
+Apply this with $S=\{x,y\}$ and $T=\{1,x\}$. Computing the nontrivial Schreier generators (inverse letters supply the inverses of these) gives
+\[
+\gamma(1,y)=yx^{-1},\qquad
+\gamma(x,x)=x^2,\qquad
+\gamma(x,y)=xy.
+\]
+Hence $K$ is free on $x^2,yx^{-1},xy$.
+
+Now perform the basis change
+\[
+yx^{-1}\longmapsto (yx^{-1})(xy)=y^2,
+\]
+while fixing $x^2$ and $xy$. This change is invertible because
+$yx^{-1}=y^2(xy)^{-1}$. More abstractly, on a free basis $(a,b,c)$ the assignment $(a,b,c)\mapsto(a,bc,c)$ has inverse $(a,b,c)\mapsto(a,bc^{-1},c)$, so it preserves freeness. Consequently
+\[
+x^2,\ y^2,\ xy
+\]
+is a free basis of $K$. Therefore the subgroup generated by $u,v,z$ is $K$ and is isomorphic to the free group $F(u,v,z)$.
+\end{solutionbox}
+
+\section{Question 14: eliminating a generator}
+\begin{questionbox}
+Prove that the group generated by $x,y,z$ with the single relation $yxyz^{-2}=e$ is a free group.
+\end{questionbox}
+\begin{approachbox}
+The relation contains $x$ exactly once, so solve for $x$ and eliminate it. To make this rigorous, construct inverse homomorphisms between the presented group and the free group on $y,z$.
+\end{approachbox}
+\begin{solutionbox}
+Let
+\[
+G=\angles{x,y,z\mid yxyz^{-2}=e}.
+\]
+The relation is equivalent to
+\[
+yxy=z^2,
+\qquad\text{hence}\qquad
+x=y^{-1}z^2y^{-1}. \tag{1}
+\]
+Thus $x$ is completely determined by $y,z$.
+
+Let $F(y,z)$ be the free group on $y,z$. Define
+\[
+\alpha:F(y,z)\to G,qquad \alpha(y)=y,\quad\alpha(z)=z.
+\]
+This is a homomorphism by the defining property of a free group. It is surjective because (1) expresses the remaining generator $x$ using $y,z$.
+
+Define a map on the generators of $G$ by
+\[
+\beta(y)=y,qquad \beta(z)=z,qquad
+\beta(x)=y^{-1}z^2y^{-1}quad\text{in }F(y,z).
+\]
+Check the relator:
+\[
+\beta(yxyz^{-2})
+=y(y^{-1}z^2y^{-1})yz^{-2}
+=z^2z^{-2}=e.
+\]
+Therefore the assignment respects the defining relation and gives a homomorphism $\beta:G\to F(y,z)$.
+
+$\beta\alpha$ fixes $y,z$, so it is the identity on $F(y,z)$. The composite $\alpha\beta$ fixes $y,z$, and on $x$ it gives $y^{-1}z^2y^{-1}=x$ by (1); hence it is the identity on $G$. Thus $\alpha,\beta$ are inverse isomorphisms and
+\[
+G\cong F(y,z),
+\]
+a free group of rank $2$.
+\end{solutionbox}
+
+\chapter*{Final proof checklist}
+Before considering a solution complete, verify the following.
+\begin{itemize}
+\item For injectivity, did you begin with equal outputs? For surjectivity, did you construct a preimage of an arbitrary target?
+\item For an equivalence relation, did you separately prove reflexive, symmetric, and transitive?
+\item For a formula on classes, did you replace every representative and prove the value unchanged?
+\item For a group, did you check closure, associativity, a two-sided identity, and a two-sided inverse for every element?
+\item For a subgroup, did you check nonemptiness and $ab^{-1}$ (or $a-b$)?
+\item For a homomorphism, did you use the correct operation in each group?
+\item For a free-group claim, did you prove there is no hidden relation, rather than merely failing to find one?
+\end{itemize}
+
+\end{document}
