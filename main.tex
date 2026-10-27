@@ -29,13 +29,30 @@
 \date{Monsoon 2026}
 \begin{document}
 \frontmatter\maketitle\tableofcontents
-\chapter*{How to use this book}
-This book assumes only ordinary mathematical maturity from calculus and real analysis. Parts I--IV preserve the original assignment-based guide and midsemester supplement. Part V completes the professor's lecture notes through Lecture 13, including topics absent from the assignments. Every new concept is introduced precisely, explained intuitively, and practised. Cover each green solution until you have attempted the problem. Lecture 14 and later are outside the present horizon.
 
-We use $\N=\{1,2,3,\ldots\}$. Composition is right-to-left: $(g\circ f)(x)=g(f(x))$. A proof must state what is assumed, what is required, and why every implication follows.
+\section*{Lecture roadmap}
+The chapters follow this sequence of topics through Lecture 13. Some foundational set theory comes first so that the later constructions are self-contained.
+\begin{center}\small
+\begin{tabular}{@{}p{.11\textwidth}p{.78\textwidth}@{}}\toprule
+Lecture&Topics covered in this book\\\midrule
+1&Magmas, semigroups, monoids, groups, identities, inverses, units, powers, order, morphisms.\\
+2&Submagmas, submonoids, subgroups, intersections, generated structures, image/preimage/kernel, products and their universal property.\\
+3&Congruences, quotient magmas/monoids/groups, projection and universal factorization.\\
+4&Free magmas as trees, unique decomposition, recursion and universal property.\\
+5&Free monoids and semigroups as words, free commutative monoids, quotient by commutativity.\\
+6&Free groups, free abelian groups/modules, presentations, group products and free-product coproducts.\\
+7&Quivers, categories, isomorphisms, mono/epi, opposite categories, functors, natural transformations, equivalences, Yoneda, initial/terminal objects, products/coproducts, pullbacks/pushouts.\\
+8&Adjunctions and natural Hom-set bijections.\\
+9&Monoid/group actions, equivariant maps, orbits and their partition.\\
+10&Cosets, index, stabilizers, conjugation, inner automorphisms and conjugacy classes.\\
+11&Orbit--stabilizer, class equation, $p$-groups and their nontrivial centres.\\
+12&Normal subgroups, quotient groups, kernel characterization, quotient universal property and first isomorphism theorem.\\
+13&Derived subgroup, abelianization, its universal property, functoriality and adjunction.\\\bottomrule
+\end{tabular}
+\end{center}
+
 \mainmatter
 
-\part{Assignment 1: sets, mappings, and relations}
 \chapter{Sets and proof language}
 \section{Sets, products, and power sets}
 \begin{definition}
@@ -59,6 +76,7 @@ Memorize
 \neg(\exists x\,P(x))\iff\forall x\,\neg P(x).
 \]
 A counterexample disproves a universal claim. A biconditional needs both directions. To prove $P\Rightarrow Q$, assume $P$ and derive $Q$; alternatively prove the contrapositive $\neg Q\Rightarrow\neg P$.
+
 
 \chapter{Mappings}
 \section{Functions, fibres, and bijections}
@@ -100,240 +118,8 @@ A bijection $X\to X$ is a permutation; all form $\Sym(X)$ under composition.
 \begin{proposition}For nonempty $X$, every pair of permutations commutes iff $|X|\le2$.\end{proposition}
 \begin{proof}For one point it is immediate. For two points there are only identity and the swap. If $a,b,c$ are distinct, the swaps $(ab)$ and $(bc)$ do not commute: their two composites send $a$ to different elements.\end{proof}
 
-\chapter{Relations and quotients}
-\section{Equivalence relations}
-A relation on $X$ is a subset of $X\times X$. It is an equivalence relation if it is reflexive ($x\sim x$), symmetric ($x\sim y\Rightarrow y\sim x$), and transitive ($x\sim y\sim z\Rightarrow x\sim z$). The class of $x$ is $[x]=\{y:y\sim x\}$ and $X/{\sim}=\{[x]:x\in X\}$.
-\begin{intuition}An equivalence relation consistently declares objects the same for the present purpose. Its classes are disjoint buckets partitioning $X$. Conversely, every partition defines an equivalence relation.\end{intuition}
-\begin{theorem}$[x]=[y]$ iff $x\sim y$. Hence two classes are equal or disjoint.\end{theorem}
-\begin{proof}If $x\sim y$ and $z\sim x$, transitivity gives $z\sim y$; symmetry gives the reverse inclusion. Conversely $x\in[x]=[y]$ gives $x\sim y$.\end{proof}
 
-\section{Classes as fibres of an invariant}
-If $I:X\to S$, then $x\sim y\iff I(x)=I(y)$ is automatically an equivalence relation, and its classes are fibres of $I$.
-\begin{exercise}On $\R$, let $x\sim y$ iff $x-y\in\Q$. Prove equivalence and describe $[x]$.\end{exercise}
-\begin{solution}Use closure of $\Q$ under $0$, negatives, and sums. The class is $[x]=x+\Q=\{x+q:q\in\Q\}$.\end{solution}
-\begin{exercise}On $X=\Z\times(\Z\setminus\{0\})$, let $(a,b)\sim(c,d)$ iff $ad=bc$. Prove equivalence.\end{exercise}
-\begin{solution}Use the invariant $I(a,b)=a/b\in\Q$. Cross multiplication says exactly $I(a,b)=I(c,d)$, so the relation is equivalence. Its classes are all fraction representations of one rational.\end{solution}
-\begin{exercise}On $\N^2$, let $(a,b)\sim(c,d)$ iff $a+d=b+c$. Describe the classes.\end{exercise}
-\begin{solution}Rearrange to $a-b=c-d$. The invariant is $a-b\in\Z$, and $C_k=\{(a,b):a-b=k\}$.\end{solution}
-Other Assignment 1 patterns include congruence $a\sim b\iff n\mid(a-b)$, with residue classes, and scaling by powers of $2$ on nonzero integers, with orbit $\{2^ka:k\in\Z\}$ restricted to integral values.
-
-\section{Quotient factorisation}
-The projection $\pi:X\to X/{\sim}$, $x\mapsto[x]$, is surjective.
-\begin{theorem}[universal property]If $f:X\to Y$ is constant on classes, there is a unique $\bar f:X/{\sim}\to Y$ with $f=\bar f\circ\pi$. It is $\bar f([x])=f(x)$.\end{theorem}
-\begin{proof}The hypothesis makes the formula independent of the representative. It gives the desired equality, and surjectivity of $\pi$ forces uniqueness.\end{proof}
-\begin{warningbox}Any definition using representatives must first be proved well-defined. Replace every representative by an equivalent one and verify the output is unchanged.\end{warningbox}
-
-\chapter{Checkpoint 1}
-\begin{checkpoint}{Assignment 1 readiness}
-Without notes, you should be able to count injections in every size case; prove the $2$-adic bijection; characterize when all permutations commute; check all three equivalence axioms; describe fraction, difference, rational-translation, and residue classes; prove the composite-map result; and recognize complement as an involution.
-\end{checkpoint}
-
-\part{Assignment 2: operations, monoids, and groups}
-\chapter{Binary operations}
-\begin{definition}A law of composition on $S$ is a map $*:S\times S\to S$. The pair $(S,*)$ is a magma. Closure is part of this definition. The operation is associative if $(a*b)*c=a*(b*c)$ and commutative if $a*b=b*a$. An associative magma is a semigroup.\end{definition}
-\begin{intuition}A binary operation is a multiplication table, possibly infinite. To test associativity, compute both parenthesizations with independent variables. To disprove it, one triple suffices.\end{intuition}
-\begin{exercise}On $\R$, let $a*b=a+ab$. Test associativity and commutativity.\end{exercise}
-\begin{solution}$a*b=a+ab$ while $b*a=b+ab$, so not commutative. Also $(a*b)*c=a+ab+ac+abc$ while $a*(b*c)=a+ab+abc$, so not associative.\end{solution}
-\begin{exercise}On $X$, let $a*b=a$. Test both properties.\end{exercise}
-\begin{solution}Both parenthesizations equal $a$, so associative. It is commutative exactly when $|X|\le1$.\end{solution}
-
-\section{Counting operations}
-If $|S|=n$, there are $n^{n^2}$ operations because an operation is a function $S^2\to S$. A commutative table is determined by its $n(n+1)/2$ diagonal-and-upper-triangle cells, giving $n^{n(n+1)/2}$ commutative operations.
-\begin{exercise}Disprove: every commutative operation on a two-element set is associative.\end{exercise}
-\begin{solution}On $\{0,1\}$ set $0*0=1$, $0*1=1*0=0$, $1*1=0$. It is commutative, but $(0*0)*1=0$ while $0*(0*1)=1$.\end{solution}
-
-\chapter{Monoids and groups}
-\begin{definition}An identity $e$ satisfies $e*a=a=a*e$. A monoid is an associative magma with identity. A group is a monoid in which each $a$ has an inverse $a^{-1}$ with $aa^{-1}=e=a^{-1}a$. It is abelian if commutative.\end{definition}
-Identity and inverses are unique. Cancellation holds. Also $(ab)^{-1}=b^{-1}a^{-1}$ and $ax=b$, $ya=b$ have unique solutions $a^{-1}b$, $ba^{-1}$.
-\begin{intuition}A group is a world of reversible actions: identity does nothing, inverses undo, and associativity lets a chain of actions be composed unambiguously.\end{intuition}
-\begin{warningbox}In nonabelian groups order matters: $(ab)^{-1}=b^{-1}a^{-1}$. Never commute factors without permission.\end{warningbox}
-
-Any semigroup $S$ can acquire a new formal identity $e\notin S$: retain the old product on $S$ and declare $e+a=a=a+e$. Associativity follows because if an entry is $e$ it may be deleted; if all entries lie in $S$, use old associativity. This is Assignment 2, Problem 4.
-
-\begin{exercise}Is $(\Z,*)$, $a*b=a+b+ab$, a group?\end{exercise}
-\begin{solution}It is associative because $1+(a*b)=(1+a)(1+b)$, and identity is $0$. But $1*x=0$ requires $x=-1/2\notin\Z$, so it is not a group.\end{solution}
-\begin{exercise}Is $a*b=a/b$ on $\R_{>0}$ a group?\end{exercise}
-\begin{solution}No: $(a*b)*c=a/(bc)$ but $a*(b*c)=ac/b$ generally.\end{solution}
-
-\section{Roots of unity and pointwise groups}
-For $\mu_n=\{z\in\C:z^n=1\}$, closure follows from $(zw)^n=z^nw^n=1$, identity is $1$, and $z^{-1}=z^{n-1}$. Associativity is inherited from $\C$, so $\mu_n$ is an abelian group.
-
-For a group $G$ and nonempty set $X$, the functions $G^X$ form a group pointwise:
-\[
-(fg)(x)=f(x)g(x),\quad \mathbf e(x)=e_G,\quad f^{-1}(x)=f(x)^{-1}.
-\]
-Check every axiom at an arbitrary $x$.
-\begin{exercise}Prove pointwise associativity.\end{exercise}
-\begin{solution}$((fg)h)(x)=(f(x)g(x))h(x)=f(x)(g(x)h(x))=(f(gh))(x)$ for every $x$.\end{solution}
-\begin{assignmentlink}This is Assignment 2, Problem 7. The sheet \emph{product\_magma} develops the same componentwise method.\end{assignmentlink}
-
-\chapter{Checkpoint 2}
-\begin{checkpoint}{Assignment 2 readiness}
-For every proposed structure: verify closure; expand both sides for associativity; swap variables for commutativity; solve for an identity; solve for inverses. For finite laws count free table cells. For function spaces check each identity pointwise.
-\end{checkpoint}
-\begin{center}\begin{tabular}{cl}\toprule Problem&Key answer\\\midrule
-1(a)&neither associative nor commutative\\1(b)&neither\\1(c)&commutative, generally not associative\\1(d)&associative, generally not commutative\\
-2&the displayed two-element table is a counterexample\\3&$n^{n^2}$ and $n^{n(n+1)/2}$\\4&adjoin a formal identity\\5&neither is a group\\6&use $z^{-1}=z^{n-1}$\\7&check pointwise\\\bottomrule\end{tabular}\end{center}
-
-\part{Assignment 3: quotients, subgroups, morphisms, and free groups}
-\chapter{Operations on quotients}
-To define $[a]\star[b]=[a*b]$, prove compatibility:
-\[
-a\sim a',\ b\sim b'\Longrightarrow a*b\sim a'*b'.
-\]
-\section{$\Z/n\Z$}
-The division algorithm gives
-$\Z/n\Z=\{[0],[1],\ldots,[n-1]\}$. Define $[a]+_n[b]=[a+b]$. If $a\equiv a'$ and $b\equiv b'$ modulo $n$, then $n$ divides $(a+b)-(a'+b')$, proving well-definedness. Identity is $[0]$, inverse is $[-a]$, and associativity descends from $\Z$.
-
-If $\pi:\Z\to\Z/n\Z$ must be a magma morphism, then necessarily
-$[a]+_n[b]=\pi(a+b)=[a+b]$; hence the law is unique.
-
-\section{$\Q/\Z$}
-For $r\sim s\iff r-s\in\Z$, define $[r]+[s]=[r+s]$. The same subtraction calculation proves well-definedness; identity is $[0]$ and inverse $[-r]$. Every class has a representative in $[0,1)$.
-\begin{exercise}Find the order of $[2/5]$ in $\Q/\Z$.\end{exercise}
-\begin{solution}$k[2/5]=[0]$ iff $2k/5\in\Z$; the least positive $k$ is $5$.\end{solution}
-
-\chapter{Concrete groups, subgroups, and cyclic groups}
-\section{Affine transformations}
-For $a\ne0$, set $f_{a,b}(x)=ax+b$. Then
-\[
-f_{a,b}\circ f_{c,d}=f_{ac,ad+b},\quad \id=f_{1,0},\quad f_{a,b}^{-1}=f_{1/a,-b/a}.
-\]
-Thus these maps form a group under composition. It is generally nonabelian.
-
-\section{The subgroup test}
-\begin{theorem}A nonempty $H\subseteq G$ is a subgroup iff $a,b\in H\Rightarrow ab^{-1}\in H$. Additively, require $a-b\in H$.\end{theorem}
-\begin{proof}Necessity is clear. Conversely choose $h\in H$: $e=hh^{-1}\in H$. Taking $a=e$ gives inverses, then $ab=a(b^{-1})^{-1}$ gives closure. Associativity is inherited.\end{proof}
-\begin{exercise}Classify Assignment 3, Problem 4.\end{exercise}
-\begin{solution}
-(i) $\R_{>0}\not\le(\R,+)$: no $0$ or negatives. (ii) $\R_{>0}\le(\R^\times,\cdot)$. (iii) $\Q_{>0}\le(\R_{>0},\cdot)$. (iv) $\pi\Q\le(\R,+)$ since $\pi q-\pi r=\pi(q-r)$.
-\end{solution}
-
-For $x\in X$, $A_x=\{f\in\Sym(X):f(x)=x\}$ is a subgroup: identity, composites, and inverses fix $x$. If $x\ne y$, $A_{x,y}=\{f:f(x)=y\}$ is not a subgroup because it misses the identity.
-
-\section{Generated cyclic subgroups}
-$\angles g=\{g^k:k\in\Z\}$; additively, $\angles a=\{ka:k\in\Z\}$. Thus
-\begin{align*}
-\angles i&=\{1,i,-1,-i\},\\
-\angles{\sqrt2}\text{ in }(\R_{>0},\cdot)&=\{2^{k/2}:k\in\Z\},\\
-\angles{\sqrt2}\text{ in }(\R,+)&=\{k\sqrt2:k\in\Z\},\\
-\angles{-\sqrt2}\text{ in }(\C^\times,\cdot)&=\{(-\sqrt2)^k:k\in\Z\},\\
-\angles{12}\text{ in }(3\Z,+)&=12\Z.
-\end{align*}
-The ambient operation decides between powers and multiples.
-
-\chapter{Homomorphisms and isomorphisms}
-\begin{definition}$\phi:G\to H$ is a homomorphism if $\phi(ab)=\phi(a)\phi(b)$. It is an isomorphism if also bijective. Define $\ker\phi=\{g:\phi(g)=e\}$ and $\operatorname{im}\phi=\{\phi(g):g\in G\}$.\end{definition}
-Every homomorphism preserves identity, inverses, and integer powers. Kernel and image are subgroups; $\phi$ is injective iff $\ker\phi=\{e\}$.
-
-\begin{exercise}Classify Assignment 3, Problem 7.\end{exercise}
-\begin{solution}
-(i) $a\mapsto2a$ on $\Z$ is a homomorphism. (ii) $\cos$ is not: it sends $0$ to $1$. (iii) $A\mapsto A\cap Y$ preserves symmetric difference (check membership). (iv) relative complement does not: it sends $\varnothing$ to $Y$. (v) evaluation $\alpha\mapsto\alpha(x_0)$ preserves pointwise addition.
-\end{solution}
-
-\section{Maps from $\Z$ and the cube map}
-If $f:(\Z,+)\to(\R,+)$ and $a=f(1)$, then $f(n)=na$ for positive, zero, and negative $n$. Conversely $f_a(n)=an$ is a homomorphism. This solves Problem 8.
-
-Suppose $f(x)=x^3$ is an injective homomorphism. First compare the two
-expressions for $(yx)^3$. Since $yx=x^{-1}(xy)x$,
-\[
-(yx)^3=x^{-1}(xy)^3x=x^2y^3x,
-\]
-while the homomorphism property gives $(yx)^3=y^3x^3$. Cancelling the
-rightmost $x$ shows $x^2y^3=y^3x^2$. Thus every square commutes with
-every cube.
-
-In particular $x^6$ commutes with $y^6$. But
-$x^6=f(x^2)$ and $y^6=f(y^2)$, so
-\[
-f(x^2y^2)=f(y^2x^2).
-\]
-Injectivity gives $x^2y^2=y^2x^2$. Hence $x^2$ commutes with both $y^2$
-and $y^3$, and therefore with $y=y^3(y^2)^{-1}$. Every square is central.
-Finally,
-\[
-(xy)^3=x^3y^3
-\quad\Longrightarrow\quad
-(xy)^2xy=x^2y^2xy,
-\]
-where centrality of squares was used on the right. Cancel $xy$ and then
-cancel the outer $x,y$ from $xyxy=xxyy$ to obtain $yx=xy$. Thus $G$ is
-abelian. This proof also shows exactly where injectivity is needed.
-
-\section{Exponential isomorphism}
-$\exp:(\R,+)\to(\R_{>0},\cdot)$ is a bijective homomorphism with inverse $\log$. But $(\Q,+)$ and $(\Q_{>0},\cdot)$ are not isomorphic: the first is divisible (every $q$ has an additive $n$th root $q/n$), while $2$ has no rational multiplicative square root in the second.
-
-\chapter{Products and universal properties}
-The product $A\times B$ has projections $p_1,p_2$. Given $f:T\to A$, $g:T\to B$, there is a unique
-$\langle f,g\rangle:T\to A\times B$, $t\mapsto(f(t),g(t))$, with the given coordinates.
-\begin{intuition}To give a map into a product is exactly to give its coordinate maps. A universal property describes an object by its uniquely determined interactions.\end{intuition}
-
-Suppose $(a_1,b_1)\sim(a_2,b_2)$ iff $a_1\sim_Aa_2$ and $b_1\sim_Bb_2$. The coordinate maps are constant on classes, so quotient factorisation gives maps to $A/{\sim_A}$ and $B/{\sim_B}$. Pairing them gives
-\[
-\Phi:(A\times B)/{\sim}\longrightarrow(A/{\sim_A})\times(B/{\sim_B}),
-\qquad [(a,b)]\mapsto([a],[b]).
-\]
-It is surjective since $([a],[b])=\Phi([(a,b)])$. If outputs agree, $a\sim_Aa'$ and $b\sim_Bb'$, so source classes agree; thus it is injective.
-\begin{assignmentlink}This is Assignment 3, Problem 10. The sheet \emph{products and co products} provides more examples; coproduct material beyond this horizon may be skipped.\end{assignmentlink}
-
-\chapter{Free groups and presentations}
-\section{Reduced words}
-For symbols $A$, add formal inverses. A word is reduced if no adjacent $aa^{-1}$ or $a^{-1}a$ occurs. Multiply by concatenating and cancelling inverse pairs. The empty word is identity. This is the free group $F(A)$.
-\begin{intuition}Free means no accidental equations: two reduced words represent the same element only when literally identical.\end{intuition}
-\begin{theorem}[free universal property]Every function $f:A\to G$ extends uniquely to a homomorphism $\widehat f:F(A)\to G$.\end{theorem}
-\begin{proof}Send $a_1^{\epsilon_1}\cdots a_k^{\epsilon_k}$ to $f(a_1)^{\epsilon_1}\cdots f(a_k)^{\epsilon_k}$. Cancellation does not change the value. Values on generators force every word, giving uniqueness.\end{proof}
-
-\section{Abelianization and rank}
-Let $[G,G]$ be generated by commutators $ghg^{-1}h^{-1}$. The abelianization $G_{\rm ab}=G/[G,G]$ is preserved by isomorphism, and
-\[
-F(A)_{\rm ab}\cong\bigoplus_{a\in A}\Z.
-\]
-If $F(A)\cong F(B)$ and $|A|=n<\infty$, abelianizing and tensoring with $\Q$ gives
-$\Q^n\cong\bigoplus_B\Q$. Vector-space dimension implies $B$ is finite and $|B|=n$. This solves Problem 12.
-
-\section{The rank-three subgroup}
-Define $\epsilon:F(x,y)\to\Z/2\Z$ by $\epsilon(x)=\epsilon(y)=1$. Its kernel $K$ has index two. Using coset representatives $\{1,x\}$, Reidemeister--Schreier gives the free basis
-\[
-x^2,\qquad yx^{-1},\qquad xy.
-\]
-A Nielsen move may replace a basis element by its product with another. Since $(yx^{-1})(xy)=y^2$, the triple
-$u=x^2,v=y^2,z=xy$ is also a free basis. Therefore $\angles{u,v,z}\cong F(u,v,z)$, solving Problem 13.
-
-In an exam, either derive the Schreier basis from the theorem proved in class or state the theorem and show the calculation. The absence of an obvious relation is not a proof.
-
-\section{Presentations and eliminating generators}
-$\angles{x_1,\ldots,x_n\mid r_1,\ldots,r_m}$ is the free group modulo the normal closure of the relators. A generator uniquely solved for by a relation can be eliminated (a Tietze transformation).
-
-For $G=\angles{x,y,z\mid yxyz^{-2}=e}$, the relation is $x=y^{-1}z^2y^{-1}$. Eliminate $x$ to obtain
-$G\cong\angles{y,z\mid\ }=F(y,z)$. Explicitly, the map back sends $x$ to $y^{-1}z^2y^{-1}$ and fixes $y,z$; the relator becomes identity, and the two maps are inverse. This solves Problem 14.
-
-\chapter{Checkpoint 3}
-\begin{checkpoint}{Assignment 3 readiness}
-Problems 1--3: prove well-definedness, then axioms, then uniqueness from the projection. Problems 4--6: use the one-step subgroup test and keep the ambient operation visible. Problems 7--11: test identity first, prove preservation, and use quotient/product universal properties. Problems 12--14: abelianization detects rank; Schreier plus Nielsen handles the rank-three subgroup; solve for and eliminate a generator in a presentation.
-\end{checkpoint}
-\begin{longtable}{@{}p{.08\textwidth}p{.84\textwidth}@{}}\toprule
-No.&Proof spine\\\midrule
-1&Division algorithm; $[a]+[b]=[a+b]$; identity and inverse; projection forces uniqueness.\\
-2&$f_{a,b}f_{c,d}=f_{ac,ad+b}$ and $f_{a,b}^{-1}=f_{1/a,-b/a}$.\\
-3&Repeat Problem 1 with differences in $\Z$.\\4&No, yes, yes, yes.\\5&Powers versus multiples.\\6&Stabilizer is a subgroup; the transporter misses identity.\\
-7&Yes, no, yes, no, yes.\\8&Put $a=f(1)$.\\9&Expand the cube identity and cancel.\\10&Factor coordinate projections, pair them, prove bijective.\\
-11&Exponential; divisibility obstruction for rationals.\\12&Abelianize and compare rational dimensions.\\13&Index-two kernel, Schreier basis, Nielsen move.\\14&Eliminate $x$.\\\bottomrule\end{longtable}
-
-\part{Midsemester preparation starts here}
-
-\chapter{Midsemester set-theory toolkit}
-
-\section{What the quoted syllabus means}
-The midsemester syllabus is: a small amount of set theory, especially the upper-star, lower-star, and lower-shriek constructions, followed by everything taught from magmas onward.  This part is therefore designed as a new starting point for midsemester revision. Read the three chapters in this part first, then return to the earlier chapters whenever a definition or proof needs reinforcement.
-
-The recommended order is:
-\begin{enumerate}
-\item images, inverse images, fibres, complements, and partitions;
-\item the three induced power-set maps $f_*,f^*,f_!$;
-\item magmas, semigroups, monoids, groups, subgroups, and cyclic groups;
-\item morphisms, isomorphisms, products, quotient groups, and short structural arguments;
-\item free groups and presentations already covered earlier, if time remains.
-\end{enumerate}
+\chapter{Further tools for sets and mappings}
 
 \section{Images, inverse images, and fibres}
 Let $f:X\to Y$. For $A\subseteq X$, the \emph{direct image} is
@@ -430,6 +216,7 @@ Hence the number of equivalence relations is
 \[
 1+15+25+10+1=52.
 \]
+
 
 \chapter{The power-set maps $f_*$, $f^*$, and $f_!$}
 
@@ -590,7 +377,196 @@ The fibre over $a$ is $\{1,2\}$, not contained in $A$; the fibre over $b$ is $\{
 Before moving on, be able to state all three definitions from memory, prove both adjunctions element-by-element, derive the complement formula for $f_!$, calculate all three maps in a finite example, and prove the injection/surjection theorem for $f^*$.
 \end{checkpoint}
 
-\chapter{Focused group theory for the midsemester}
+
+\chapter{Relations and quotients}
+\section{Equivalence relations}
+A relation on $X$ is a subset of $X\times X$. It is an equivalence relation if it is reflexive ($x\sim x$), symmetric ($x\sim y\Rightarrow y\sim x$), and transitive ($x\sim y\sim z\Rightarrow x\sim z$). The class of $x$ is $[x]=\{y:y\sim x\}$ and $X/{\sim}=\{[x]:x\in X\}$.
+\begin{intuition}An equivalence relation consistently declares objects the same for the present purpose. Its classes are disjoint buckets partitioning $X$. Conversely, every partition defines an equivalence relation.\end{intuition}
+\begin{theorem}$[x]=[y]$ iff $x\sim y$. Hence two classes are equal or disjoint.\end{theorem}
+\begin{proof}If $x\sim y$ and $z\sim x$, transitivity gives $z\sim y$; symmetry gives the reverse inclusion. Conversely $x\in[x]=[y]$ gives $x\sim y$.\end{proof}
+
+\section{Classes as fibres of an invariant}
+If $I:X\to S$, then $x\sim y\iff I(x)=I(y)$ is automatically an equivalence relation, and its classes are fibres of $I$.
+\begin{exercise}On $\R$, let $x\sim y$ iff $x-y\in\Q$. Prove equivalence and describe $[x]$.\end{exercise}
+\begin{solution}Use closure of $\Q$ under $0$, negatives, and sums. The class is $[x]=x+\Q=\{x+q:q\in\Q\}$.\end{solution}
+\begin{exercise}On $X=\Z\times(\Z\setminus\{0\})$, let $(a,b)\sim(c,d)$ iff $ad=bc$. Prove equivalence.\end{exercise}
+\begin{solution}Use the invariant $I(a,b)=a/b\in\Q$. Cross multiplication says exactly $I(a,b)=I(c,d)$, so the relation is equivalence. Its classes are all fraction representations of one rational.\end{solution}
+\begin{exercise}On $\N^2$, let $(a,b)\sim(c,d)$ iff $a+d=b+c$. Describe the classes.\end{exercise}
+\begin{solution}Rearrange to $a-b=c-d$. The invariant is $a-b\in\Z$, and $C_k=\{(a,b):a-b=k\}$.\end{solution}
+Other Assignment 1 patterns include congruence $a\sim b\iff n\mid(a-b)$, with residue classes, and scaling by powers of $2$ on nonzero integers, with orbit $\{2^ka:k\in\Z\}$ restricted to integral values.
+
+\section{Quotient factorisation}
+The projection $\pi:X\to X/{\sim}$, $x\mapsto[x]$, is surjective.
+\begin{theorem}[universal property]If $f:X\to Y$ is constant on classes, there is a unique $\bar f:X/{\sim}\to Y$ with $f=\bar f\circ\pi$. It is $\bar f([x])=f(x)$.\end{theorem}
+\begin{proof}The hypothesis makes the formula independent of the representative. It gives the desired equality, and surjectivity of $\pi$ forces uniqueness.\end{proof}
+\begin{warningbox}Any definition using representatives must first be proved well-defined. Replace every representative by an equivalent one and verify the output is unchanged.\end{warningbox}
+
+
+\chapter{Binary operations}
+\begin{definition}A law of composition on $S$ is a map $*:S\times S\to S$. The pair $(S,*)$ is a magma. Closure is part of this definition. The operation is associative if $(a*b)*c=a*(b*c)$ and commutative if $a*b=b*a$. An associative magma is a semigroup.\end{definition}
+\begin{intuition}A binary operation is a multiplication table, possibly infinite. To test associativity, compute both parenthesizations with independent variables. To disprove it, one triple suffices.\end{intuition}
+\begin{exercise}On $\R$, let $a*b=a+ab$. Test associativity and commutativity.\end{exercise}
+\begin{solution}$a*b=a+ab$ while $b*a=b+ab$, so not commutative. Also $(a*b)*c=a+ab+ac+abc$ while $a*(b*c)=a+ab+abc$, so not associative.\end{solution}
+\begin{exercise}On $X$, let $a*b=a$. Test both properties.\end{exercise}
+\begin{solution}Both parenthesizations equal $a$, so associative. It is commutative exactly when $|X|\le1$.\end{solution}
+
+\section{Counting operations}
+If $|S|=n$, there are $n^{n^2}$ operations because an operation is a function $S^2\to S$. A commutative table is determined by its $n(n+1)/2$ diagonal-and-upper-triangle cells, giving $n^{n(n+1)/2}$ commutative operations.
+\begin{exercise}Disprove: every commutative operation on a two-element set is associative.\end{exercise}
+\begin{solution}On $\{0,1\}$ set $0*0=1$, $0*1=1*0=0$, $1*1=0$. It is commutative, but $(0*0)*1=0$ while $0*(0*1)=1$.\end{solution}
+
+
+\chapter{Monoids and groups}
+\begin{definition}An identity $e$ satisfies $e*a=a=a*e$. A monoid is an associative magma with identity. A group is a monoid in which each $a$ has an inverse $a^{-1}$ with $aa^{-1}=e=a^{-1}a$. It is abelian if commutative.\end{definition}
+Identity and inverses are unique. Cancellation holds. Also $(ab)^{-1}=b^{-1}a^{-1}$ and $ax=b$, $ya=b$ have unique solutions $a^{-1}b$, $ba^{-1}$.
+\begin{intuition}A group is a world of reversible actions: identity does nothing, inverses undo, and associativity lets a chain of actions be composed unambiguously.\end{intuition}
+\begin{warningbox}In nonabelian groups order matters: $(ab)^{-1}=b^{-1}a^{-1}$. Never commute factors without permission.\end{warningbox}
+
+Any semigroup $S$ can acquire a new formal identity $e\notin S$: retain the old product on $S$ and declare $e+a=a=a+e$. Associativity follows because if an entry is $e$ it may be deleted; if all entries lie in $S$, use old associativity. This is Assignment 2, Problem 4.
+
+\begin{exercise}Is $(\Z,*)$, $a*b=a+b+ab$, a group?\end{exercise}
+\begin{solution}It is associative because $1+(a*b)=(1+a)(1+b)$, and identity is $0$. But $1*x=0$ requires $x=-1/2\notin\Z$, so it is not a group.\end{solution}
+\begin{exercise}Is $a*b=a/b$ on $\R_{>0}$ a group?\end{exercise}
+\begin{solution}No: $(a*b)*c=a/(bc)$ but $a*(b*c)=ac/b$ generally.\end{solution}
+
+\section{Roots of unity and pointwise groups}
+For $\mu_n=\{z\in\C:z^n=1\}$, closure follows from $(zw)^n=z^nw^n=1$, identity is $1$, and $z^{-1}=z^{n-1}$. Associativity is inherited from $\C$, so $\mu_n$ is an abelian group.
+
+For a group $G$ and nonempty set $X$, the functions $G^X$ form a group pointwise:
+\[
+(fg)(x)=f(x)g(x),\quad \mathbf e(x)=e_G,\quad f^{-1}(x)=f(x)^{-1}.
+\]
+Check every axiom at an arbitrary $x$.
+\begin{exercise}Prove pointwise associativity.\end{exercise}
+\begin{solution}$((fg)h)(x)=(f(x)g(x))h(x)=f(x)(g(x)h(x))=(f(gh))(x)$ for every $x$.\end{solution}
+\begin{assignmentlink}This is Assignment 2, Problem 7. The sheet \emph{product\_magma} develops the same componentwise method.\end{assignmentlink}
+
+
+\chapter{Substructures, morphisms, and congruences}
+We now collect the structural results developed in Lectures 1--3. The definitions and examples above give the concrete starting point for these general constructions.
+
+\section{The hierarchy and its maps}
+\begin{definition}
+A \emph{magma} is a set $M$ with a binary operation $M\times M\to M$. A \emph{semigroup} is an associative magma. A \emph{monoid} is a semigroup with an identity $e$. A \emph{group} is a monoid in which every element is invertible. A \emph{commutative monoid} is a monoid with $xy=yx$.
+For magmas $M,N$, a \emph{magma morphism} $f:M\to N$ satisfies $f(xy)=f(x)f(y)$. A \emph{monoid morphism} also satisfies $f(e_M)=e_N$. A group morphism is a magma morphism between groups; it automatically preserves identities and inverses. An \emph{isomorphism} is a morphism with a two-sided inverse morphism.
+\end{definition}
+\begin{intuition}A morphism preserves the structure we have named. A monoid has a distinguished identity, so its morphisms must preserve that point as well as multiplication. In a group the identity condition follows from inverses, but in a general monoid it does not.\end{intuition}
+\begin{exercise}Give a magma morphism between monoids that is not a monoid morphism. Prove that every group morphism preserves identity and inverses.\end{exercise}
+\begin{solution}The constant map $f:(\Z,+)\to(\Z,\cdot)$, $f(n)=0$, preserves the binary laws because $0=0\cdot0$, but sends the source identity $0$ to $0$, not the target identity $1$. For a group morphism $h$, $h(e)=h(e)^2$; multiplying by $h(e)^{-1}$ gives $h(e)=e$. Then $e=h(e)=h(xx^{-1})=h(x)h(x^{-1})$, so $h(x^{-1})=h(x)^{-1}$.\end{solution}
+Composition of morphisms is a morphism. The inverse of a bijective magma, monoid, or group morphism preserves the corresponding operation: if $u=f(x),v=f(y)$, then $f^{-1}(uv)=f^{-1}(f(xy))=xy$. Identities are also preserved where required. Thus ``bijective morphism'' and ``isomorphism'' agree here.
+
+\section{Identity, units, powers, and generated substructures}
+\begin{definition}An element $u$ of a monoid $M$ is a \emph{unit} if some $v\in M$ satisfies $uv=vu=e$. Its inverse $v$ is unique. The set $M^\times$ of units is a group. For $x\in M$, define $x^0=e$ and $x^{n+1}=x^nx$. If $x$ is a unit, put $x^{-n}=(x^{-1})^n$. The \emph{order} of $g$ in a group is the least positive $n$ with $g^n=e$, if such $n$ exists, and is infinite otherwise.\end{definition}
+Associativity gives $x^{m+n}=x^mx^n$ for nonnegative integers, and for all integers when $x$ is a unit. The map $\Z\to G$, $n\mapsto g^n$, is a group morphism; its image is the cyclic subgroup $\angles g$. The group $M^\times$ is closed since $(uv)^{-1}=v^{-1}u^{-1}$. For any monoid morphism $f$, $f(M^\times)\subseteq N^\times$.
+\begin{exercise}Find the units of $(\Z,\cdot)$ and the order of $[3]$ in $(\Z/12\Z,+)$.\end{exercise}
+\begin{solution}An integer $u$ has an integer multiplicative inverse only if $u=1$ or $u=-1$, so $\Z^\times=\{1,-1\}$. Additively, $n[3]=[0]$ iff $12\mid3n$, equivalently $4\mid n$, so the order is $4$.\end{solution}
+
+\section{Submagmas, submonoids, and subgroups}
+\begin{definition}For a magma $M$, a subset $S\subseteq M$ is a \emph{submagma} if $x,y\in S\Rightarrow xy\in S$; the empty subset is allowed if one permits empty magmas. For a monoid $M$, a \emph{submonoid} $S$ must be closed under multiplication \emph{and contain the ambient identity} $e_M$. For a group $G$, a \emph{subgroup} $H$ is a submonoid containing $h^{-1}$ whenever $h\in H$.\end{definition}
+\begin{intuition}Each test adds one demand: closure, then the inherited identity, then inherited inverses. The word ``inherited'' matters; a subset's internal identity need not be the identity of the ambient monoid.\end{intuition}
+\begin{exercise}Decide which of $2\Z\subseteq(\Z,+)$, $\N\subseteq(\Z,+)$, and $\{0,1\}\subseteq(\Z,\cdot)$ are submonoids and subgroups. Recall $\N=\{1,2,\dots\}$.\end{exercise}
+\begin{solution}$2\Z$ contains $0$, is closed under addition, and contains additive inverses, so is a subgroup. $\N$ is closed under addition but misses the ambient identity $0$, so is only a submagma/semigroup. $\{0,1\}$ contains multiplicative identity $1$ and is closed under multiplication, so is a submonoid; $0$ has no inverse, so it is not a subgroup.\end{solution}
+An arbitrary intersection of submagmas is a submagma; an arbitrary intersection of submonoids is a submonoid; and an arbitrary intersection of subgroups is a subgroup (including an empty family, whose intersection is the whole structure). This works because each defining closure condition survives intersection.
+\begin{definition}The substructure $\angles T$ \emph{generated} by $T\subseteq M$ is the intersection of all substructures containing $T$. It is the smallest such substructure. In a monoid it consists of all finite products of elements of $T$, including the empty product $e$. In a group it consists of finite products of elements of $T\cup T^{-1}$, including $e$.\end{definition}
+For a single element, a monoid gives $\angles{x}_{\rm mon}=\{e,x,x^2,\ldots\}$ while a group gives $\angles{x}_{\rm grp}=\{x^n:n\in\Z\}$. The former need not be a group. More generally a generated \emph{magma} consists of all parenthesized finite expressions in $T$; without associativity, parentheses cannot be discarded.
+\begin{exercise}Compute the submonoid generated by $2$ in $(\Z,+)$ and the subgroup generated by $2$ in the same ambient group.\end{exercise}
+\begin{solution}Finite sums of $2$, including the empty sum, give $\{0,2,4,6,\ldots\}$. Allowing inverses gives $\{2n:n\in\Z\}=2\Z$.\end{solution}
+
+\section{Images, inverse images, and kernels}
+If $f:M\to N$ is a morphism, the image of a submagma is a submagma; for monoid morphisms the image of a submonoid is a submonoid; for group morphisms the image of a subgroup is a subgroup. The inverse image of a substructure of $N$ is a corresponding substructure of $M$. For example, if $K\le N$ and $a,b\in f^{-1}(K)$, then $f(ab^{-1})=f(a)f(b)^{-1}\in K$, so $ab^{-1}\in f^{-1}(K)$. The image of a generated substructure satisfies $f(\angles T\rangle)=\angles f(T)\rangle$ with the relevant type of generation.
+\begin{definition}For a monoid morphism $f:M\to N$, $\ker f=f^{-1}(\{e_N\})$ is a submonoid. For a group morphism it is a subgroup. A magma alone has no distinguished identity, so a kernel in this sense is not defined.\end{definition}
+\begin{warningbox}For a general monoid morphism, a trivial kernel does \emph{not} imply injectivity. The group proof uses inverses, which monoids may lack.\end{warningbox}
+\begin{exercise}Show that $f:(\N_0,+)\to(\{0,1\},\max)$ defined by $f(0)=0$ and $f(n)=1$ for $n>0$ is a noninjective monoid morphism with trivial kernel.\end{exercise}
+\begin{solution}Here $\N_0=\{0,1,2,\dots\}$ and $0$ is the identity for both monoids. The sum $m+n$ is zero exactly when both summands are zero, so $f(m+n)=\max(f(m),f(n))$. Its kernel is $\{0\}$, but $f(1)=f(2)$.\end{solution}
+
+\section{Products, projections, and uniqueness}
+For magmas $M,N$, define $(m,n)(m',n')=(mm',nn')$. Associativity, identities, inverses, and commutativity hold componentwise when they hold in both factors. The projections $p_1:M\times N\to M$, $p_2:M\times N\to N$ are morphisms. For morphisms $f:P\to M$, $g:P\to N$, the unique morphism with $p_1h=f$ and $p_2h=g$ is $h(p)=(f(p),g(p))$. Uniqueness follows because a pair is fixed by its two coordinates. Any two objects satisfying this same product property are uniquely isomorphic by sending each through the other's universal arrows.
+\begin{exercise}Prove that the group inverse of $(g,h)\in G\times H$ is $(g^{-1},h^{-1})$.\end{exercise}
+\begin{solution}Componentwise multiplication gives $(g,h)(g^{-1},h^{-1})=(gg^{-1},hh^{-1})=(e_G,e_H)$ and the product in the opposite order is the same identity.\end{solution}
+
+\section{Congruences and quotient structures}
+\begin{definition}A \emph{congruence} on a magma $M$ is an equivalence relation $\sim$ compatible with multiplication: $x\sim x'$ and $y\sim y'$ imply $xy\sim x'y'$. Then $M/{\sim}$ has the well-defined operation $[x][y]=[xy]$.\end{definition}
+\begin{intuition}An equivalence relation only groups elements; a congruence also permits multiplication of groups of elements. This is exactly the representative-independence check.\end{intuition}
+The quotient projection $\pi:M\to M/{\sim}$ is a surjective magma morphism. Associativity and commutativity descend; if $M$ is a monoid, $[e]$ is the quotient identity; if $M$ is a group, $[x^{-1}]$ is the inverse of $[x]$. The quotient operation is the unique one making $\pi$ a morphism, since surjectivity forces $[x][y]=\pi(xy)$.
+For any morphism $f:M\to N$, the relation $x\sim_f y\iff f(x)=f(y)$ is a congruence. Conversely, a map $h:M\to P$ factors uniquely as $h=\bar h\pi$ through $M/{\sim}$ exactly when $x\sim y\Rightarrow h(x)=h(y)$; if $h$ is a morphism, so is $\bar h$.
+\begin{exercise}For $n\ge1$, show that congruence modulo $n$ is a congruence on $(\Z,+)$ and identify the quotient operation.\end{exercise}
+\begin{solution}If $a-a'=nr$ and $b-b'=ns$, then $(a+b)-(a'+b')=n(r+s)$, so $a+b\equiv a'+b'\pmod n$. Thus $[a]+[b]=[a+b]$ is well-defined. Identity is $[0]$ and inverse of $[a]$ is $[-a]$.\end{solution}
+\begin{checkpoint}{Lectures 1--3}Given a subset, distinguish submagma, submonoid, and subgroup; compute its generated structure. Given a map, check operation and identity separately. Given a quotient, prove congruence before defining the quotient law.\end{checkpoint}
+
+
+\chapter{Concrete groups, subgroups, and cyclic groups}
+\section{Affine transformations}
+For $a\ne0$, set $f_{a,b}(x)=ax+b$. Then
+\[
+f_{a,b}\circ f_{c,d}=f_{ac,ad+b},\quad \id=f_{1,0},\quad f_{a,b}^{-1}=f_{1/a,-b/a}.
+\]
+Thus these maps form a group under composition. It is generally nonabelian.
+
+\section{The subgroup test}
+\begin{theorem}A nonempty $H\subseteq G$ is a subgroup iff $a,b\in H\Rightarrow ab^{-1}\in H$. Additively, require $a-b\in H$.\end{theorem}
+\begin{proof}Necessity is clear. Conversely choose $h\in H$: $e=hh^{-1}\in H$. Taking $a=e$ gives inverses, then $ab=a(b^{-1})^{-1}$ gives closure. Associativity is inherited.\end{proof}
+\begin{exercise}Classify Assignment 3, Problem 4.\end{exercise}
+\begin{solution}
+(i) $\R_{>0}\not\le(\R,+)$: no $0$ or negatives. (ii) $\R_{>0}\le(\R^\times,\cdot)$. (iii) $\Q_{>0}\le(\R_{>0},\cdot)$. (iv) $\pi\Q\le(\R,+)$ since $\pi q-\pi r=\pi(q-r)$.
+\end{solution}
+
+For $x\in X$, $A_x=\{f\in\Sym(X):f(x)=x\}$ is a subgroup: identity, composites, and inverses fix $x$. If $x\ne y$, $A_{x,y}=\{f:f(x)=y\}$ is not a subgroup because it misses the identity.
+
+\section{Generated cyclic subgroups}
+$\angles g=\{g^k:k\in\Z\}$; additively, $\angles a=\{ka:k\in\Z\}$. Thus
+\begin{align*}
+\angles i&=\{1,i,-1,-i\},\\
+\angles{\sqrt2}\text{ in }(\R_{>0},\cdot)&=\{2^{k/2}:k\in\Z\},\\
+\angles{\sqrt2}\text{ in }(\R,+)&=\{k\sqrt2:k\in\Z\},\\
+\angles{-\sqrt2}\text{ in }(\C^\times,\cdot)&=\{(-\sqrt2)^k:k\in\Z\},\\
+\angles{12}\text{ in }(3\Z,+)&=12\Z.
+\end{align*}
+The ambient operation decides between powers and multiples.
+
+
+\chapter{Homomorphisms and isomorphisms}
+\begin{definition}$\phi:G\to H$ is a homomorphism if $\phi(ab)=\phi(a)\phi(b)$. It is an isomorphism if also bijective. Define $\ker\phi=\{g:\phi(g)=e\}$ and $\operatorname{im}\phi=\{\phi(g):g\in G\}$.\end{definition}
+Every homomorphism preserves identity, inverses, and integer powers. Kernel and image are subgroups; $\phi$ is injective iff $\ker\phi=\{e\}$.
+
+\begin{exercise}Classify Assignment 3, Problem 7.\end{exercise}
+\begin{solution}
+(i) $a\mapsto2a$ on $\Z$ is a homomorphism. (ii) $\cos$ is not: it sends $0$ to $1$. (iii) $A\mapsto A\cap Y$ preserves symmetric difference (check membership). (iv) relative complement does not: it sends $\varnothing$ to $Y$. (v) evaluation $\alpha\mapsto\alpha(x_0)$ preserves pointwise addition.
+\end{solution}
+
+\section{Maps from $\Z$ and the cube map}
+If $f:(\Z,+)\to(\R,+)$ and $a=f(1)$, then $f(n)=na$ for positive, zero, and negative $n$. Conversely $f_a(n)=an$ is a homomorphism. This solves Problem 8.
+
+Suppose $f(x)=x^3$ is an injective homomorphism. First compare the two
+expressions for $(yx)^3$. Since $yx=x^{-1}(xy)x$,
+\[
+(yx)^3=x^{-1}(xy)^3x=x^2y^3x,
+\]
+while the homomorphism property gives $(yx)^3=y^3x^3$. Cancelling the
+rightmost $x$ shows $x^2y^3=y^3x^2$. Thus every square commutes with
+every cube.
+
+In particular $x^6$ commutes with $y^6$. But
+$x^6=f(x^2)$ and $y^6=f(y^2)$, so
+\[
+f(x^2y^2)=f(y^2x^2).
+\]
+Injectivity gives $x^2y^2=y^2x^2$. Hence $x^2$ commutes with both $y^2$
+and $y^3$, and therefore with $y=y^3(y^2)^{-1}$. Every square is central.
+Finally,
+\[
+(xy)^3=x^3y^3
+\quad\Longrightarrow\quad
+(xy)^2xy=x^2y^2xy,
+\]
+where centrality of squares was used on the right. Cancel $xy$ and then
+cancel the outer $x,y$ from $xyxy=xxyy$ to obtain $yx=xy$. Thus $G$ is
+abelian. This proof also shows exactly where injectivity is needed.
+
+\section{Exponential isomorphism}
+$\exp:(\R,+)\to(\R_{>0},\cdot)$ is a bijective homomorphism with inverse $\log$. But $(\Q,+)$ and $(\Q_{>0},\cdot)$ are not isomorphic: the first is divisible (every $q$ has an additive $n$th root $q/n$), while $2$ has no rational multiplicative square root in the second.
+
+
+\chapter{Further group theory and practice}
 
 \section{Fast hierarchy and terminology}
 Keep the hierarchy visible:
@@ -829,30 +805,6 @@ Suppose a finite group $G$ has exactly one nonidentity element $t$ satisfying $t
 \]
 In a nonabelian group the notation $\prod_{g\in G}g$ requires an ordering; the displayed conclusion uses the permitted ordering in which inverse pairs are adjacent. The essential method is to pair every element with its inverse and observe that only the unique involution remains unpaired.
 
-\section{Why $\angles{x,y\mid xyx^{-1}y^{-1}}$ is $\Z\times\Z$}
-Let
-\[
-P=\angles{x,y\mid xyx^{-1}y^{-1}=e}.
-\]
-The relator says $xy=yx$, so every word may be rearranged and reduced to $x^my^n$ for integers $m,n$. Define
-\[
-\Phi:\Z\times\Z\to P,qquad \Phi(m,n)=x^my^n.
-\]
-Because $x,y$ commute,
-\[
-\Phi(m,n)\Phi(r,s)=x^{m+r}y^{n+s}=\Phi(m+r,n+s),
-\]
-so $\Phi$ is a surjective homomorphism.
-
-Conversely, send $x\mapsto(1,0)$ and $y\mapsto(0,1)$. The relator maps to $(0,0)$ because $\Z^2$ is abelian, so this defines a homomorphism
-\[
-\Psi:P\to\Z\times\Z.
-\]
-Now $\Psi\Phi(m,n)=(m,n)$, while $\Phi\Psi$ fixes both generators $x,y$ and hence every element of $P$. Thus the maps are inverse and
-\[
-P\cong\Z\times\Z.
-\]
-
 \section{A modified product on a monoid}
 Let $(M,\cdot,1)$ be a monoid and fix $m\in M$. Define
 \[
@@ -886,12 +838,7 @@ yzx=x^{-1}(xyz)x=e,
 \]
 so cyclically rotating the factors preserves the identity. But $yxz=e$ need not follow: since $z=y^{-1}x^{-1}$, the expression $yxz=yxy^{-1}x^{-1}$ is a commutator and can be nontrivial in a nonabelian group.
 
-\section{Pointed sets form a category}
-A pointed set is $(S,s_0)$. A morphism
-$(S,s_0)\to(T,t_0)$ is a function $f:S\to T$ with $f(s_0)=t_0$. The identity preserves the basepoint. If $f(s_0)=t_0$ and $g(t_0)=u_0$, then
-$(g\circ f)(s_0)=u_0$, so morphisms are closed under composition. Associativity and identity laws are inherited from ordinary functions. Hence pointed sets form a category.
-
-\begin{checkpoint}{Midsemester group theory}
+\begin{checkpoint}{Group theory}
 Be able to do the following without notes:
 \begin{enumerate}
 \item apply the subgroup test, including to conjugate subgroups;
@@ -922,79 +869,40 @@ Decide each statement before reading the answers.
 \paragraph{Answers.}
 1 false (associativity is separate); 2 false; 3 true; 4 true; 5 true; 6 false unless one subgroup contains the other; 7 true; 8 false without injectivity; 9 true; 10 true.
 
-\part{Lecture-note completion: Lectures 1--13}
-\chapter*{Lecture coverage map}
-The original chapters remain in place; this part fills their gaps. The map below identifies the central topics of each scanned lecture, including subjects that were not in Assignments 1--3.
-\begin{center}\small
-\begin{tabular}{@{}p{.11\textwidth}p{.78\textwidth}@{}}\toprule
-Lecture&Topics covered in this book\\\midrule
-1&Magmas, semigroups, monoids, groups, identities, inverses, units, powers, order, morphisms.\\
-2&Submagmas, submonoids, subgroups, intersections, generated structures, image/preimage/kernel, products and their universal property.\\
-3&Congruences, quotient magmas/monoids/groups, projection and universal factorization.\\
-4&Free magmas as trees, unique decomposition, recursion and universal property.\\
-5&Free monoids and semigroups as words, free commutative monoids, quotient by commutativity.\\
-6&Free groups, free abelian groups/modules, presentations, group products and free-product coproducts.\\
-7&Quivers, categories, isomorphisms, mono/epi, opposite categories, functors, natural transformations, equivalences, Yoneda, initial/terminal objects, products/coproducts, pullbacks/pushouts.\\
-8&Adjunctions and natural Hom-set bijections.\\
-9&Monoid/group actions, equivariant maps, orbits and their partition.\\
-10&Cosets, index, stabilizers, conjugation, inner automorphisms and conjugacy classes.\\
-11&Orbit--stabilizer, class equation, $p$-groups and their nontrivial centres.\\
-12&Normal subgroups, quotient groups, kernel characterization, quotient universal property and first isomorphism theorem.\\
-13&Derived subgroup, abelianization, its universal property, functoriality and adjunction.\\\bottomrule
-\end{tabular}
-\end{center}
-\chapter[Substructures and morphisms]{Algebraic structures, substructures, and morphisms (Lectures 1--3)}
-The earlier chapters introduce magmas, monoids, groups, subgroup tests, and quotient examples. Here are the additional definitions and results of the first three algebra lectures, in their logical order.
 
-\section{The hierarchy and its maps}
-\begin{definition}
-A \emph{magma} is a set $M$ with a binary operation $M\times M\to M$. A \emph{semigroup} is an associative magma. A \emph{monoid} is a semigroup with an identity $e$. A \emph{group} is a monoid in which every element is invertible. A \emph{commutative monoid} is a monoid with $xy=yx$.
-For magmas $M,N$, a \emph{magma morphism} $f:M\to N$ satisfies $f(xy)=f(x)f(y)$. A \emph{monoid morphism} also satisfies $f(e_M)=e_N$. A group morphism is a magma morphism between groups; it automatically preserves identities and inverses. An \emph{isomorphism} is a morphism with a two-sided inverse morphism.
-\end{definition}
-\begin{intuition}A morphism preserves the structure we have named. A monoid has a distinguished identity, so its morphisms must preserve that point as well as multiplication. In a group the identity condition follows from inverses, but in a general monoid it does not.\end{intuition}
-\begin{exercise}Give a magma morphism between monoids that is not a monoid morphism. Prove that every group morphism preserves identity and inverses.\end{exercise}
-\begin{solution}The constant map $f:(\Z,+)\to(\Z,\cdot)$, $f(n)=0$, preserves the binary laws because $0=0\cdot0$, but sends the source identity $0$ to $0$, not the target identity $1$. For a group morphism $h$, $h(e)=h(e)^2$; multiplying by $h(e)^{-1}$ gives $h(e)=e$. Then $e=h(e)=h(xx^{-1})=h(x)h(x^{-1})$, so $h(x^{-1})=h(x)^{-1}$.\end{solution}
-Composition of morphisms is a morphism. The inverse of a bijective magma, monoid, or group morphism preserves the corresponding operation: if $u=f(x),v=f(y)$, then $f^{-1}(uv)=f^{-1}(f(xy))=xy$. Identities are also preserved where required. Thus ``bijective morphism'' and ``isomorphism'' agree here.
+\chapter{Products and universal properties}
+The product $A\times B$ has projections $p_1,p_2$. Given $f:T\to A$, $g:T\to B$, there is a unique
+$\langle f,g\rangle:T\to A\times B$, $t\mapsto(f(t),g(t))$, with the given coordinates.
+\begin{intuition}To give a map into a product is exactly to give its coordinate maps. A universal property describes an object by its uniquely determined interactions.\end{intuition}
 
-\section{Identity, units, powers, and generated substructures}
-\begin{definition}An element $u$ of a monoid $M$ is a \emph{unit} if some $v\in M$ satisfies $uv=vu=e$. Its inverse $v$ is unique. The set $M^\times$ of units is a group. For $x\in M$, define $x^0=e$ and $x^{n+1}=x^nx$. If $x$ is a unit, put $x^{-n}=(x^{-1})^n$. The \emph{order} of $g$ in a group is the least positive $n$ with $g^n=e$, if such $n$ exists, and is infinite otherwise.\end{definition}
-Associativity gives $x^{m+n}=x^mx^n$ for nonnegative integers, and for all integers when $x$ is a unit. The map $\Z\to G$, $n\mapsto g^n$, is a group morphism; its image is the cyclic subgroup $\angles g$. The group $M^\times$ is closed since $(uv)^{-1}=v^{-1}u^{-1}$. For any monoid morphism $f$, $f(M^\times)\subseteq N^\times$.
-\begin{exercise}Find the units of $(\Z,\cdot)$ and the order of $[3]$ in $(\Z/12\Z,+)$.\end{exercise}
-\begin{solution}An integer $u$ has an integer multiplicative inverse only if $u=1$ or $u=-1$, so $\Z^\times=\{1,-1\}$. Additively, $n[3]=[0]$ iff $12\mid3n$, equivalently $4\mid n$, so the order is $4$.\end{solution}
+Suppose $(a_1,b_1)\sim(a_2,b_2)$ iff $a_1\sim_Aa_2$ and $b_1\sim_Bb_2$. The coordinate maps are constant on classes, so quotient factorisation gives maps to $A/{\sim_A}$ and $B/{\sim_B}$. Pairing them gives
+\[
+\Phi:(A\times B)/{\sim}\longrightarrow(A/{\sim_A})\times(B/{\sim_B}),
+\qquad [(a,b)]\mapsto([a],[b]).
+\]
+It is surjective since $([a],[b])=\Phi([(a,b)])$. If outputs agree, $a\sim_Aa'$ and $b\sim_Bb'$, so source classes agree; thus it is injective.
+\begin{assignmentlink}This is Assignment 3, Problem 10. The sheet \emph{products and co products} provides more examples; coproducts are developed in the free-constructions chapter.\end{assignmentlink}
 
-\section{Submagmas, submonoids, and subgroups}
-\begin{definition}For a magma $M$, a subset $S\subseteq M$ is a \emph{submagma} if $x,y\in S\Rightarrow xy\in S$; the empty subset is allowed if one permits empty magmas. For a monoid $M$, a \emph{submonoid} $S$ must be closed under multiplication \emph{and contain the ambient identity} $e_M$. For a group $G$, a \emph{subgroup} $H$ is a submonoid containing $h^{-1}$ whenever $h\in H$.\end{definition}
-\begin{intuition}Each test adds one demand: closure, then the inherited identity, then inherited inverses. The word ``inherited'' matters; a subset's internal identity need not be the identity of the ambient monoid.\end{intuition}
-\begin{exercise}Decide which of $2\Z\subseteq(\Z,+)$, $\N\subseteq(\Z,+)$, and $\{0,1\}\subseteq(\Z,\cdot)$ are submonoids and subgroups. Recall $\N=\{1,2,\dots\}$.\end{exercise}
-\begin{solution}$2\Z$ contains $0$, is closed under addition, and contains additive inverses, so is a subgroup. $\N$ is closed under addition but misses the ambient identity $0$, so is only a submagma/semigroup. $\{0,1\}$ contains multiplicative identity $1$ and is closed under multiplication, so is a submonoid; $0$ has no inverse, so it is not a subgroup.\end{solution}
-An arbitrary intersection of submagmas is a submagma; an arbitrary intersection of submonoids is a submonoid; and an arbitrary intersection of subgroups is a subgroup (including an empty family, whose intersection is the whole structure). This works because each defining closure condition survives intersection.
-\begin{definition}The substructure $\angles T$ \emph{generated} by $T\subseteq M$ is the intersection of all substructures containing $T$. It is the smallest such substructure. In a monoid it consists of all finite products of elements of $T$, including the empty product $e$. In a group it consists of finite products of elements of $T\cup T^{-1}$, including $e$.\end{definition}
-For a single element, a monoid gives $\angles{x}_{\rm mon}=\{e,x,x^2,\ldots\}$ while a group gives $\angles{x}_{\rm grp}=\{x^n:n\in\Z\}$. The former need not be a group. More generally a generated \emph{magma} consists of all parenthesized finite expressions in $T$; without associativity, parentheses cannot be discarded.
-\begin{exercise}Compute the submonoid generated by $2$ in $(\Z,+)$ and the subgroup generated by $2$ in the same ambient group.\end{exercise}
-\begin{solution}Finite sums of $2$, including the empty sum, give $\{0,2,4,6,\ldots\}$. Allowing inverses gives $\{2n:n\in\Z\}=2\Z$.\end{solution}
 
-\section{Images, inverse images, and kernels}
-If $f:M\to N$ is a morphism, the image of a submagma is a submagma; for monoid morphisms the image of a submonoid is a submonoid; for group morphisms the image of a subgroup is a subgroup. The inverse image of a substructure of $N$ is a corresponding substructure of $M$. For example, if $K\le N$ and $a,b\in f^{-1}(K)$, then $f(ab^{-1})=f(a)f(b)^{-1}\in K$, so $ab^{-1}\in f^{-1}(K)$. The image of a generated substructure satisfies $f(\angles T\rangle)=\angles f(T)\rangle$ with the relevant type of generation.
-\begin{definition}For a monoid morphism $f:M\to N$, $\ker f=f^{-1}(\{e_N\})$ is a submonoid. For a group morphism it is a subgroup. A magma alone has no distinguished identity, so a kernel in this sense is not defined.\end{definition}
-\begin{warningbox}For a general monoid morphism, a trivial kernel does \emph{not} imply injectivity. The group proof uses inverses, which monoids may lack.\end{warningbox}
-\begin{exercise}Show that $f:(\N_0,+)\to(\{0,1\},\max)$ defined by $f(0)=0$ and $f(n)=1$ for $n>0$ is a noninjective monoid morphism with trivial kernel.\end{exercise}
-\begin{solution}Here $\N_0=\{0,1,2,\dots\}$ and $0$ is the identity for both monoids. The sum $m+n$ is zero exactly when both summands are zero, so $f(m+n)=\max(f(m),f(n))$. Its kernel is $\{0\}$, but $f(1)=f(2)$.\end{solution}
+\chapter{Operations on quotients}
+To define $[a]\star[b]=[a*b]$, prove compatibility:
+\[
+a\sim a',\ b\sim b'\Longrightarrow a*b\sim a'*b'.
+\]
+\section{$\Z/n\Z$}
+The division algorithm gives
+$\Z/n\Z=\{[0],[1],\ldots,[n-1]\}$. Define $[a]+_n[b]=[a+b]$. If $a\equiv a'$ and $b\equiv b'$ modulo $n$, then $n$ divides $(a+b)-(a'+b')$, proving well-definedness. Identity is $[0]$, inverse is $[-a]$, and associativity descends from $\Z$.
 
-\section{Products, projections, and uniqueness}
-For magmas $M,N$, define $(m,n)(m',n')=(mm',nn')$. Associativity, identities, inverses, and commutativity hold componentwise when they hold in both factors. The projections $p_1:M\times N\to M$, $p_2:M\times N\to N$ are morphisms. For morphisms $f:P\to M$, $g:P\to N$, the unique morphism with $p_1h=f$ and $p_2h=g$ is $h(p)=(f(p),g(p))$. Uniqueness follows because a pair is fixed by its two coordinates. Any two objects satisfying this same product property are uniquely isomorphic by sending each through the other's universal arrows.
-\begin{exercise}Prove that the group inverse of $(g,h)\in G\times H$ is $(g^{-1},h^{-1})$.\end{exercise}
-\begin{solution}Componentwise multiplication gives $(g,h)(g^{-1},h^{-1})=(gg^{-1},hh^{-1})=(e_G,e_H)$ and the product in the opposite order is the same identity.\end{solution}
+If $\pi:\Z\to\Z/n\Z$ must be a magma morphism, then necessarily
+$[a]+_n[b]=\pi(a+b)=[a+b]$; hence the law is unique.
 
-\section{Congruences and quotient structures}
-\begin{definition}A \emph{congruence} on a magma $M$ is an equivalence relation $\sim$ compatible with multiplication: $x\sim x'$ and $y\sim y'$ imply $xy\sim x'y'$. Then $M/{\sim}$ has the well-defined operation $[x][y]=[xy]$.\end{definition}
-\begin{intuition}An equivalence relation only groups elements; a congruence also permits multiplication of groups of elements. This is exactly the representative-independence check.\end{intuition}
-The quotient projection $\pi:M\to M/{\sim}$ is a surjective magma morphism. Associativity and commutativity descend; if $M$ is a monoid, $[e]$ is the quotient identity; if $M$ is a group, $[x^{-1}]$ is the inverse of $[x]$. The quotient operation is the unique one making $\pi$ a morphism, since surjectivity forces $[x][y]=\pi(xy)$.
-For any morphism $f:M\to N$, the relation $x\sim_f y\iff f(x)=f(y)$ is a congruence. Conversely, a map $h:M\to P$ factors uniquely as $h=\bar h\pi$ through $M/{\sim}$ exactly when $x\sim y\Rightarrow h(x)=h(y)$; if $h$ is a morphism, so is $\bar h$.
-\begin{exercise}For $n\ge1$, show that congruence modulo $n$ is a congruence on $(\Z,+)$ and identify the quotient operation.\end{exercise}
-\begin{solution}If $a-a'=nr$ and $b-b'=ns$, then $(a+b)-(a'+b')=n(r+s)$, so $a+b\equiv a'+b'\pmod n$. Thus $[a]+[b]=[a+b]$ is well-defined. Identity is $[0]$ and inverse of $[a]$ is $[-a]$.\end{solution}
-\begin{checkpoint}{Lectures 1--3}Given a subset, distinguish submagma, submonoid, and subgroup; compute its generated structure. Given a map, check operation and identity separately. Given a quotient, prove congruence before defining the quotient law.\end{checkpoint}
+\section{$\Q/\Z$}
+For $r\sim s\iff r-s\in\Z$, define $[r]+[s]=[r+s]$. The same subtraction calculation proves well-definedness; identity is $[0]$ and inverse $[-r]$. Every class has a representative in $[0,1)$.
+\begin{exercise}Find the order of $[2/5]$ in $\Q/\Z$.\end{exercise}
+\begin{solution}$k[2/5]=[0]$ iff $2k/5\in\Z$; the least positive $k$ is $5$.\end{solution}
 
-\chapter{Free constructions and presentations (Lectures 4--6)}
+
+\chapter{Free constructions: trees, words, and groups}
 \begin{intuition}A free object is built from symbols with only the equations required by its type. Free magmas remember parentheses; free monoids forget parentheses but retain order; free commutative monoids also forget order; free groups additionally permit inverses. Each step is a quotient or enlargement with a precise universal property.\end{intuition}
 
 \section{Free magmas: parenthesized binary trees}
@@ -1024,7 +932,7 @@ Similarly, $\Z^{(S)}$ consists of finitely supported integer-valued functions. U
 If $C$ is the smallest group congruence on a free group $F(S)$ identifying $xy$ with $yx$ for every $x,y$, then $F(S)/C\cong\Z^{(S)}$. Explicitly, send each free generator to $e_s$; its kernel is the subgroup generated by commutators. This is the free-abelian reformulation of abelianization used later.
 
 \section{Free groups, reduced words, and presentations}
-The earlier chapter describes reduced words. Formally take letters $S\sqcup S^{-1}$, where each $s^{-1}$ is a new formal symbol. Delete adjacent $ss^{-1}$ or $s^{-1}s$ until reduced. The result is unique; concatenation followed by reduction defines the free group $F(S)$. The empty word is identity and reversing a word while inverting each letter gives its inverse. The free property says any map $S\to G$ extends uniquely to a group morphism $F(S)\to G$.
+The preceding chapter introduced reduced words; here is their formal construction. Formally take letters $S\sqcup S^{-1}$, where each $s^{-1}$ is a new formal symbol. Delete adjacent $ss^{-1}$ or $s^{-1}s$ until reduced. The result is unique; concatenation followed by reduction defines the free group $F(S)$. The empty word is identity and reversing a word while inverting each letter gives its inverse. The free property says any map $S\to G$ extends uniquely to a group morphism $F(S)\to G$.
 For a set $R$ of words, $\angles{S\mid R}$ is $F(S)$ modulo the smallest \emph{normal} subgroup containing $R$. Equivalently it is the group generated by $S$ subject to each $r\in R$ equalling $e$. A map $S\to H$ extends to $\angles{S\mid R}$ iff every relator evaluates to $e_H$; the extension is then unique. Relations must hold under conjugation too, which is why the normal closure rather than merely the subgroup generated by $R$ is used.
 \begin{exercise}Show $\angles{a,b\mid ab=e}\cong\Z$.\end{exercise}
 \begin{solution}The relation forces $b=a^{-1}$, so every word reduces to a power of $a$. Send $a\mapsto1$, $b\mapsto-1$ into $(\Z,+)$; the relator maps to $0$, so this defines a homomorphism. Conversely send $1\mapsto a$ from $\Z$ to the presented group. These maps fix the generators in both directions, hence are inverse.\end{solution}
@@ -1037,7 +945,57 @@ In the category of abelian groups, the coproduct is the \emph{direct sum} $\bigo
 \begin{solution}In the product, elements from the two factors commute: $(g,e)(e,h)=(e,h)(g,e)$. In the free product no such cross-factor relation is imposed; alternating words such as $ghgh$ remain distinct after reduction. Thus the free product is infinite and noncommutative, while $C_2\times C_3$ is finite and abelian.\end{solution}
 \begin{checkpoint}{Lectures 4--6}Know what each free construction remembers: tree shape, word order, letter counts, or signed letter counts. Prove a universal property by constructing the forced map and then uniqueness. Distinguish product from coproduct and direct product from direct sum.\end{checkpoint}
 
-\chapter[Categories and functors]{Categories, functors, and universal properties (Lectures 7--8)}
+
+\chapter{Free groups and presentations}
+\section{Reduced words}
+For symbols $A$, add formal inverses. A word is reduced if no adjacent $aa^{-1}$ or $a^{-1}a$ occurs. Multiply by concatenating and cancelling inverse pairs. The empty word is identity. This is the free group $F(A)$.
+\begin{intuition}Free means no accidental equations: two reduced words represent the same element only when literally identical.\end{intuition}
+\begin{theorem}[free universal property]Every function $f:A\to G$ extends uniquely to a homomorphism $\widehat f:F(A)\to G$.\end{theorem}
+\begin{proof}Send $a_1^{\epsilon_1}\cdots a_k^{\epsilon_k}$ to $f(a_1)^{\epsilon_1}\cdots f(a_k)^{\epsilon_k}$. Cancellation does not change the value. Values on generators force every word, giving uniqueness.\end{proof}
+
+\section{The rank-three subgroup}
+Define $\epsilon:F(x,y)\to\Z/2\Z$ by $\epsilon(x)=\epsilon(y)=1$. Its kernel $K$ has index two. Using coset representatives $\{1,x\}$, Reidemeister--Schreier gives the free basis
+\[
+x^2,\qquad yx^{-1},\qquad xy.
+\]
+A Nielsen move may replace a basis element by its product with another. Since $(yx^{-1})(xy)=y^2$, the triple
+$u=x^2,v=y^2,z=xy$ is also a free basis. Therefore $\angles{u,v,z}\cong F(u,v,z)$, solving Problem 13.
+
+To justify the basis, either derive it from the Reidemeister--Schreier theorem or state the theorem and show the calculation. The absence of an obvious relation is not a proof.
+
+\section{Presentations and eliminating generators}
+$\angles{x_1,\ldots,x_n\mid r_1,\ldots,r_m}$ is the free group modulo the normal closure of the relators. A generator uniquely solved for by a relation can be eliminated (a Tietze transformation).
+
+For $G=\angles{x,y,z\mid yxyz^{-2}=e}$, the relation is $x=y^{-1}z^2y^{-1}$. Eliminate $x$ to obtain
+$G\cong\angles{y,z\mid\ }=F(y,z)$. Explicitly, the map back sends $x$ to $y^{-1}z^2y^{-1}$ and fixes $y,z$; the relator becomes identity, and the two maps are inverse. This solves Problem 14.
+
+
+\section{Why $\angles{x,y\mid xyx^{-1}y^{-1}}$ is $\Z\times\Z$}
+Let
+\[
+P=\angles{x,y\mid xyx^{-1}y^{-1}=e}.
+\]
+The relator says $xy=yx$, so every word may be rearranged and reduced to $x^my^n$ for integers $m,n$. Define
+\[
+\Phi:\Z\times\Z\to P,qquad \Phi(m,n)=x^my^n.
+\]
+Because $x,y$ commute,
+\[
+\Phi(m,n)\Phi(r,s)=x^{m+r}y^{n+s}=\Phi(m+r,n+s),
+\]
+so $\Phi$ is a surjective homomorphism.
+
+Conversely, send $x\mapsto(1,0)$ and $y\mapsto(0,1)$. The relator maps to $(0,0)$ because $\Z^2$ is abelian, so this defines a homomorphism
+\[
+\Psi:P\to\Z\times\Z.
+\]
+Now $\Psi\Phi(m,n)=(m,n)$, while $\Phi\Psi$ fixes both generators $x,y$ and hence every element of $P$. Thus the maps are inverse and
+\[
+P\cong\Z\times\Z.
+\]
+
+
+\chapter{Categories, functors, and universal properties}
 \section{From quivers to categories}
 \begin{definition}A \emph{quiver} consists of a set $Q_0$ of vertices, a set $Q_1$ of arrows, and source and target maps $s,t:Q_1\to Q_0$. A quiver morphism is a pair of maps on vertices and arrows commuting with source and target.\end{definition}
 A directed graph may have parallel arrows, loops, or no arrows. The quiver with vertices $A,B$ and one arrow $A\to B$ is not yet a category: a category must also have identities and composites. Its \emph{free category} has vertices as objects and all finite directed paths as arrows, including length-zero paths $\id_A$. Composition is path concatenation. Associativity follows from associativity of concatenation.
@@ -1047,6 +1005,11 @@ Examples are $\mathbf{Set}$ (sets/functions), $\mathbf{Rel}$ (sets/relations), m
 \begin{exercise}In a poset-category, when are two objects isomorphic? In $\mathbf{Rel}$, check that the diagonal equality relation is an identity.\end{exercise}
 \begin{solution}An isomorphism $a\to b$ requires both $a\le b$ and $b\le a$; antisymmetry gives $a=b$. For $R\subseteq A\times B$, $(a,b)\in R\circ\Delta_A$ iff some $a'$ has $a=a'$ and $(a',b)\in R$, equivalent to $(a,b)\in R$. Similarly $\Delta_B\circ R=R$.\end{solution}
 Identities and inverses in any category are unique. If $g$ and $h$ are both inverses of $f$, then $g=g(fh)=(gf)h=h$. Every $\End_{\mathcal C}(A)=\Hom_{\mathcal C}(A,A)$ is a monoid under composition; its units form the automorphism group $\Aut_{\mathcal C}(A)$.
+
+\section{Pointed sets form a category}
+A pointed set is $(S,s_0)$. A morphism
+$(S,s_0)\to(T,t_0)$ is a function $f:S\to T$ with $f(s_0)=t_0$. The identity preserves the basepoint. If $f(s_0)=t_0$ and $g(t_0)=u_0$, then
+$(g\circ f)(s_0)=u_0$, so morphisms are closed under composition. Associativity and identity laws are inherited from ordinary functions. Hence pointed sets form a category.
 
 \section{Monomorphisms and epimorphisms}
 \begin{definition}An arrow $f:A\to B$ is a \emph{monomorphism} if $fg_1=fg_2$ implies $g_1=g_2$ for all parallel arrows $g_1,g_2:C\to A$. It is an \emph{epimorphism} if $h_1f=h_2f$ implies $h_1=h_2$ for all parallel arrows $h_1,h_2:B\to D$.\end{definition}
@@ -1110,7 +1073,8 @@ The free group functor is left adjoint to the forgetful functor $\mathbf{Grp}\to
 \begin{solution}An adjunction requires a bijection for \emph{every} $X,Y$, and these bijections must commute with precomposition in $X$ and postcomposition in $Y$. Otherwise unrelated, arbitrarily chosen bijections of equal-sized sets would falsely count as an adjunction.\end{solution}
 \begin{checkpoint}{Lectures 7--8}Define a category, functor, natural transformation, mono, and epi from their equations. Compute initial/terminal objects, products/coproducts, and a pullback in examples. For any proposed universal property, construct the forced arrow, prove it respects structure, then prove uniqueness.\end{checkpoint}
 
-\chapter{Actions, orbits, cosets, and conjugation (Lectures 9--11)}
+
+\chapter{Actions, orbits, cosets, and conjugation}
 \section{Monoid actions and equivariant maps}
 \begin{definition}A \emph{left action} of a monoid $M$ on a set $S$ is a map $M\times S\to S$, $(m,s)\mapsto m\cdot s$, such that $e\cdot s=s$ and $(mn)\cdot s=m\cdot(n\cdot s)$. The pair is an $M$-set. An \emph{equivariant map} $h:S\to T$ of $M$-sets satisfies $h(m\cdot s)=m\cdot h(s)$ for all $m,s$.\end{definition}
 \begin{intuition}An action gives a concrete transformation of $S$ for each abstract monoid element. The multiplication rule says the transformation for $mn$ is the composite transformation.\end{intuition}
@@ -1159,7 +1123,8 @@ If a $p$-group acts on a finite set $S$, every nontrivial orbit has size divisib
 \begin{solution}Its centre is nontrivial, so $|Z(G)|$ is $p$ or $p^2$. If it is $p^2$, then $Z(G)=G$. If it is $p$, then $G/Z(G)$ has order $p$ and is cyclic. But if $G/Z(G)=\angles{gZ(G)}$, any $x,y\in G$ are $g^az$ and $g^bw$ with $z,w$ central, so they commute. Then $G$ is abelian, forcing $Z(G)=G$, a contradiction. Hence only the first case occurs.\end{solution}
 \begin{checkpoint}{Lectures 9--11}Translate actions to homomorphisms into $\Sym(S)$; compute orbits and stabilizers; distinguish $gH$ from $Hg$; prove orbit--stabilizer; use conjugation to identify centralizers and the centre; apply the class equation to $p$-groups.\end{checkpoint}
 
-\chapter[Normal subgroups and abelianization]{Normal subgroups, quotients, and abelianization (Lectures 12--13)}
+
+\chapter{Normal subgroups, quotients, and abelianization}
 \section{Normality and the quotient group}
 \begin{definition}A subgroup $N\le G$ is \emph{normal}, written $N\trianglelefteq G$, if $gNg^{-1}=N$ for every $g\in G$. Equivalently $gN=Ng$ for every $g$, or the left and right coset partitions coincide.\end{definition}
 \begin{proof}If $gNg^{-1}=N$, multiply on the right by $g$ to get $gN=Ng$. Conversely multiply $gN=Ng$ on the right by $g^{-1}$. The equality of coset partitions is equivalent because the left coset $gN$ and right coset $Ng$ both contain $g$, so if the partitions coincide they must be the same block.\end{proof}
@@ -1193,13 +1158,49 @@ Let $I:\mathbf{Ab}\hookrightarrow\mathbf{Grp}$ be the inclusion. The universal p
 Thus abelianization is left adjoint to inclusion. Naturality in $G$ is precomposition with a group map; naturality in $A$ is postcomposition with an abelian-group map. Both commute with quotient factorization because induced maps are unique.
 \begin{exercise}Compute the abelianization of $F(x,y)$ and of an abelian group $A$.\end{exercise}
 \begin{solution}The free group $F(x,y)$ becomes free abelian on $x,y$ after killing commutators, so its abelianization is $\Z^2$, recording the two exponent sums. For abelian $A$, every commutator is $e$, so $D(A)=\{e\}$ and $A_{\rm ab}=A/\{e\}\cong A$.\end{solution}
+\section{Abelianization and rank}
+Let $[G,G]$ be generated by commutators $ghg^{-1}h^{-1}$. The abelianization $G_{\rm ab}=G/[G,G]$ is preserved by isomorphism, and
+\[
+F(A)_{\rm ab}\cong\bigoplus_{a\in A}\Z.
+\]
+If $F(A)\cong F(B)$ and $|A|=n<\infty$, abelianizing and tensoring with $\Q$ gives
+$\Q^n\cong\bigoplus_B\Q$. Vector-space dimension implies $B$ is finite and $|B|=n$. This solves Problem 12.
+
+
+
 \begin{checkpoint}{Lectures 12--13}Prove the equivalent normality conditions; check quotient multiplication using representatives; factor a map through a quotient and determine when the induced map is injective/surjective; use $G/\ker f\cong\im f$; prove commutators vanish in every abelian target; compute induced abelianization maps.\end{checkpoint}
 
-\part{Final review}
+
 \chapter{Proof checklist and mock exam}
 \begin{center}\begin{tabular}{@{}p{.25\textwidth}p{.65\textwidth}@{}}\toprule
 Claim&Obligation\\\midrule
 Injective&equal outputs imply equal inputs\\Surjective&construct a preimage for an arbitrary target\\Equivalence&reflexive, symmetric, transitive\\Representative formula&well-definedness first\\Group&closure, associativity, identity, every inverse\\Subgroup&nonempty and $ab^{-1}$ closed\\Homomorphism&compare $f(ab)$ with $f(a)f(b)$\\Isomorphism&homomorphism, injective, surjective\\Universal object&construct forced maps and prove uniqueness\\Presented group free&mutually inverse maps or valid Tietze moves\\\bottomrule\end{tabular}\end{center}
+
+\section{Skills checkpoints}
+\begin{checkpoint}{Sets and mappings}
+Without notes, you should be able to count injections in every size case; prove the $2$-adic bijection; characterize when all permutations commute; check all three equivalence axioms; describe fraction, difference, rational-translation, and residue classes; prove the composite-map result; and recognize complement as an involution.
+\end{checkpoint}
+
+
+\begin{checkpoint}{Operations and groups}
+For every proposed structure: verify closure; expand both sides for associativity; swap variables for commutativity; solve for an identity; solve for inverses. For finite laws count free table cells. For function spaces check each identity pointwise.
+\end{checkpoint}
+\begin{center}\begin{tabular}{cl}\toprule Problem&Key answer\\\midrule
+1(a)&neither associative nor commutative\\1(b)&neither\\1(c)&commutative, generally not associative\\1(d)&associative, generally not commutative\\
+2&the displayed two-element table is a counterexample\\3&$n^{n^2}$ and $n^{n(n+1)/2}$\\4&adjoin a formal identity\\5&neither is a group\\6&use $z^{-1}=z^{n-1}$\\7&check pointwise\\\bottomrule\end{tabular}\end{center}
+
+
+\begin{checkpoint}{Quotients and morphisms}
+Problems 1--3: prove well-definedness, then axioms, then uniqueness from the projection. Problems 4--6: use the one-step subgroup test and keep the ambient operation visible. Problems 7--11: test identity first, prove preservation, and use quotient/product universal properties. Problems 12--14: abelianization detects rank; Schreier plus Nielsen handles the rank-three subgroup; solve for and eliminate a generator in a presentation.
+\end{checkpoint}
+\begin{longtable}{@{}p{.08\textwidth}p{.84\textwidth}@{}}\toprule
+No.&Proof spine\\\midrule
+1&Division algorithm; $[a]+[b]=[a+b]$; identity and inverse; projection forces uniqueness.\\
+2&$f_{a,b}f_{c,d}=f_{ac,ad+b}$ and $f_{a,b}^{-1}=f_{1/a,-b/a}$.\\
+3&Repeat Problem 1 with differences in $\Z$.\\4&No, yes, yes, yes.\\5&Powers versus multiples.\\6&Stabilizer is a subgroup; the transporter misses identity.\\
+7&Yes, no, yes, no, yes.\\8&Put $a=f(1)$.\\9&Expand the cube identity and cancel.\\10&Factor coordinate projections, pair them, prove bijective.\\
+11&Exponential; divisibility obstruction for rationals.\\12&Abelianize and compare rational dimensions.\\13&Index-two kernel, Schreier basis, Nielsen move.\\14&Eliminate $x$.\\\bottomrule\end{longtable}
+
 
 \section{Cumulative mock exam}
 \begin{enumerate}
@@ -1224,6 +1225,7 @@ Injective&equal outputs imply equal inputs\\Surjective&construct a preimage for 
 \item $c=ab^2$, so eliminate $c$ and obtain $F(a,b)$.
 \end{enumerate}
 
-\chapter*{Last-day strategy}
+
+\chapter*{Review strategy}
 First reproduce every definition from memory. Redo Assignment 2's operation checks and Assignment 3 Problems 1, 7, and 10; they expose the common gaps of associativity, well-definedness, and universal properties. Finally rehearse abelianization for Problem 12, Schreier--Nielsen for 13, and generator elimination for 14.
 \end{document}
