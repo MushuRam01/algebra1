@@ -11,6 +11,8 @@
 \newcommand{\C}{\mathbb C}\newcommand{\PP}{\mathcal P}
 \newcommand{\id}{\operatorname{id}}\newcommand{\Sym}{\operatorname{Sym}}
 \newcommand{\angles}[1]{\left\langle#1\right\rangle}
+\newcommand{\Hom}{\operatorname{Hom}}\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\End}{\operatorname{End}}\newcommand{\im}{\operatorname{im}}
 \newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{proposition}[theorem]{Proposition}
 \theoremstyle{definition}
@@ -22,13 +24,13 @@
 \newtcolorbox{assignmentlink}{breakable,colback=yellow!7,colframe=yellow!45!black,title=Coursework links}
 \newtcolorbox{checkpoint}[1]{breakable,colback=purple!4,colframe=purple!55!black,title={Checkpoint: #1}}
 
-\title{Algebra I: A Self-Contained Exam Guide\\\large Through Assignments 1--3}
+\title{Algebra I: A Self-Contained Course Guide\\\large Through Lecture 13}
 \author{Built from the course assignments, examples, exercises, and lecture notes}
 \date{Monsoon 2026}
 \begin{document}
 \frontmatter\maketitle\tableofcontents
 \chapter*{How to use this book}
-This book assumes only ordinary mathematical maturity from calculus and real analysis. Its horizon is exactly the material required by Assignments 1--3; later lecture material is excluded. Every concept is introduced precisely, explained intuitively, practised, and connected to the course sheets. Cover each green solution until you have attempted the problem. At each checkpoint, solve the corresponding assignment without notes.
+This book assumes only ordinary mathematical maturity from calculus and real analysis. Parts I--IV preserve the original assignment-based guide and midsemester supplement. Part V completes the professor's lecture notes through Lecture 13, including topics absent from the assignments. Every new concept is introduced precisely, explained intuitively, and practised. Cover each green solution until you have attempted the problem. Lecture 14 and later are outside the present horizon.
 
 We use $\N=\{1,2,3,\ldots\}$. Composition is right-to-left: $(g\circ f)(x)=g(f(x))$. A proof must state what is assumed, what is required, and why every implication follows.
 \mainmatter
@@ -919,6 +921,279 @@ Decide each statement before reading the answers.
 \end{enumerate}
 \paragraph{Answers.}
 1 false (associativity is separate); 2 false; 3 true; 4 true; 5 true; 6 false unless one subgroup contains the other; 7 true; 8 false without injectivity; 9 true; 10 true.
+
+\part{Lecture-note completion: Lectures 1--13}
+\chapter*{Lecture coverage map}
+The original chapters remain in place; this part fills their gaps. The map below identifies the central topics of each scanned lecture, including subjects that were not in Assignments 1--3.
+\begin{center}\small
+\begin{tabular}{@{}p{.11\textwidth}p{.78\textwidth}@{}}\toprule
+Lecture&Topics covered in this book\\\midrule
+1&Magmas, semigroups, monoids, groups, identities, inverses, units, powers, order, morphisms.\\
+2&Submagmas, submonoids, subgroups, intersections, generated structures, image/preimage/kernel, products and their universal property.\\
+3&Congruences, quotient magmas/monoids/groups, projection and universal factorization.\\
+4&Free magmas as trees, unique decomposition, recursion and universal property.\\
+5&Free monoids and semigroups as words, free commutative monoids, quotient by commutativity.\\
+6&Free groups, free abelian groups/modules, presentations, group products and free-product coproducts.\\
+7&Quivers, categories, isomorphisms, mono/epi, opposite categories, functors, natural transformations, equivalences, Yoneda, initial/terminal objects, products/coproducts, pullbacks/pushouts.\\
+8&Adjunctions and natural Hom-set bijections.\\
+9&Monoid/group actions, equivariant maps, orbits and their partition.\\
+10&Cosets, index, stabilizers, conjugation, inner automorphisms and conjugacy classes.\\
+11&Orbit--stabilizer, class equation, $p$-groups and their nontrivial centres.\\
+12&Normal subgroups, quotient groups, kernel characterization, quotient universal property and first isomorphism theorem.\\
+13&Derived subgroup, abelianization, its universal property, functoriality and adjunction.\\\bottomrule
+\end{tabular}
+\end{center}
+\chapter[Substructures and morphisms]{Algebraic structures, substructures, and morphisms (Lectures 1--3)}
+The earlier chapters introduce magmas, monoids, groups, subgroup tests, and quotient examples. Here are the additional definitions and results of the first three algebra lectures, in their logical order.
+
+\section{The hierarchy and its maps}
+\begin{definition}
+A \emph{magma} is a set $M$ with a binary operation $M\times M\to M$. A \emph{semigroup} is an associative magma. A \emph{monoid} is a semigroup with an identity $e$. A \emph{group} is a monoid in which every element is invertible. A \emph{commutative monoid} is a monoid with $xy=yx$.
+For magmas $M,N$, a \emph{magma morphism} $f:M\to N$ satisfies $f(xy)=f(x)f(y)$. A \emph{monoid morphism} also satisfies $f(e_M)=e_N$. A group morphism is a magma morphism between groups; it automatically preserves identities and inverses. An \emph{isomorphism} is a morphism with a two-sided inverse morphism.
+\end{definition}
+\begin{intuition}A morphism preserves the structure we have named. A monoid has a distinguished identity, so its morphisms must preserve that point as well as multiplication. In a group the identity condition follows from inverses, but in a general monoid it does not.\end{intuition}
+\begin{exercise}Give a magma morphism between monoids that is not a monoid morphism. Prove that every group morphism preserves identity and inverses.\end{exercise}
+\begin{solution}The constant map $f:(\Z,+)\to(\Z,\cdot)$, $f(n)=0$, preserves the binary laws because $0=0\cdot0$, but sends the source identity $0$ to $0$, not the target identity $1$. For a group morphism $h$, $h(e)=h(e)^2$; multiplying by $h(e)^{-1}$ gives $h(e)=e$. Then $e=h(e)=h(xx^{-1})=h(x)h(x^{-1})$, so $h(x^{-1})=h(x)^{-1}$.\end{solution}
+Composition of morphisms is a morphism. The inverse of a bijective magma, monoid, or group morphism preserves the corresponding operation: if $u=f(x),v=f(y)$, then $f^{-1}(uv)=f^{-1}(f(xy))=xy$. Identities are also preserved where required. Thus ``bijective morphism'' and ``isomorphism'' agree here.
+
+\section{Identity, units, powers, and generated substructures}
+\begin{definition}An element $u$ of a monoid $M$ is a \emph{unit} if some $v\in M$ satisfies $uv=vu=e$. Its inverse $v$ is unique. The set $M^\times$ of units is a group. For $x\in M$, define $x^0=e$ and $x^{n+1}=x^nx$. If $x$ is a unit, put $x^{-n}=(x^{-1})^n$. The \emph{order} of $g$ in a group is the least positive $n$ with $g^n=e$, if such $n$ exists, and is infinite otherwise.\end{definition}
+Associativity gives $x^{m+n}=x^mx^n$ for nonnegative integers, and for all integers when $x$ is a unit. The map $\Z\to G$, $n\mapsto g^n$, is a group morphism; its image is the cyclic subgroup $\angles g$. The group $M^\times$ is closed since $(uv)^{-1}=v^{-1}u^{-1}$. For any monoid morphism $f$, $f(M^\times)\subseteq N^\times$.
+\begin{exercise}Find the units of $(\Z,\cdot)$ and the order of $[3]$ in $(\Z/12\Z,+)$.\end{exercise}
+\begin{solution}An integer $u$ has an integer multiplicative inverse only if $u=1$ or $u=-1$, so $\Z^\times=\{1,-1\}$. Additively, $n[3]=[0]$ iff $12\mid3n$, equivalently $4\mid n$, so the order is $4$.\end{solution}
+
+\section{Submagmas, submonoids, and subgroups}
+\begin{definition}For a magma $M$, a subset $S\subseteq M$ is a \emph{submagma} if $x,y\in S\Rightarrow xy\in S$; the empty subset is allowed if one permits empty magmas. For a monoid $M$, a \emph{submonoid} $S$ must be closed under multiplication \emph{and contain the ambient identity} $e_M$. For a group $G$, a \emph{subgroup} $H$ is a submonoid containing $h^{-1}$ whenever $h\in H$.\end{definition}
+\begin{intuition}Each test adds one demand: closure, then the inherited identity, then inherited inverses. The word ``inherited'' matters; a subset's internal identity need not be the identity of the ambient monoid.\end{intuition}
+\begin{exercise}Decide which of $2\Z\subseteq(\Z,+)$, $\N\subseteq(\Z,+)$, and $\{0,1\}\subseteq(\Z,\cdot)$ are submonoids and subgroups. Recall $\N=\{1,2,\dots\}$.\end{exercise}
+\begin{solution}$2\Z$ contains $0$, is closed under addition, and contains additive inverses, so is a subgroup. $\N$ is closed under addition but misses the ambient identity $0$, so is only a submagma/semigroup. $\{0,1\}$ contains multiplicative identity $1$ and is closed under multiplication, so is a submonoid; $0$ has no inverse, so it is not a subgroup.\end{solution}
+An arbitrary intersection of submagmas is a submagma; an arbitrary intersection of submonoids is a submonoid; and an arbitrary intersection of subgroups is a subgroup (including an empty family, whose intersection is the whole structure). This works because each defining closure condition survives intersection.
+\begin{definition}The substructure $\angles T$ \emph{generated} by $T\subseteq M$ is the intersection of all substructures containing $T$. It is the smallest such substructure. In a monoid it consists of all finite products of elements of $T$, including the empty product $e$. In a group it consists of finite products of elements of $T\cup T^{-1}$, including $e$.\end{definition}
+For a single element, a monoid gives $\angles{x}_{\rm mon}=\{e,x,x^2,\ldots\}$ while a group gives $\angles{x}_{\rm grp}=\{x^n:n\in\Z\}$. The former need not be a group. More generally a generated \emph{magma} consists of all parenthesized finite expressions in $T$; without associativity, parentheses cannot be discarded.
+\begin{exercise}Compute the submonoid generated by $2$ in $(\Z,+)$ and the subgroup generated by $2$ in the same ambient group.\end{exercise}
+\begin{solution}Finite sums of $2$, including the empty sum, give $\{0,2,4,6,\ldots\}$. Allowing inverses gives $\{2n:n\in\Z\}=2\Z$.\end{solution}
+
+\section{Images, inverse images, and kernels}
+If $f:M\to N$ is a morphism, the image of a submagma is a submagma; for monoid morphisms the image of a submonoid is a submonoid; for group morphisms the image of a subgroup is a subgroup. The inverse image of a substructure of $N$ is a corresponding substructure of $M$. For example, if $K\le N$ and $a,b\in f^{-1}(K)$, then $f(ab^{-1})=f(a)f(b)^{-1}\in K$, so $ab^{-1}\in f^{-1}(K)$. The image of a generated substructure satisfies $f(\angles T\rangle)=\angles f(T)\rangle$ with the relevant type of generation.
+\begin{definition}For a monoid morphism $f:M\to N$, $\ker f=f^{-1}(\{e_N\})$ is a submonoid. For a group morphism it is a subgroup. A magma alone has no distinguished identity, so a kernel in this sense is not defined.\end{definition}
+\begin{warningbox}For a general monoid morphism, a trivial kernel does \emph{not} imply injectivity. The group proof uses inverses, which monoids may lack.\end{warningbox}
+\begin{exercise}Show that $f:(\N_0,+)\to(\{0,1\},\max)$ defined by $f(0)=0$ and $f(n)=1$ for $n>0$ is a noninjective monoid morphism with trivial kernel.\end{exercise}
+\begin{solution}Here $\N_0=\{0,1,2,\dots\}$ and $0$ is the identity for both monoids. The sum $m+n$ is zero exactly when both summands are zero, so $f(m+n)=\max(f(m),f(n))$. Its kernel is $\{0\}$, but $f(1)=f(2)$.\end{solution}
+
+\section{Products, projections, and uniqueness}
+For magmas $M,N$, define $(m,n)(m',n')=(mm',nn')$. Associativity, identities, inverses, and commutativity hold componentwise when they hold in both factors. The projections $p_1:M\times N\to M$, $p_2:M\times N\to N$ are morphisms. For morphisms $f:P\to M$, $g:P\to N$, the unique morphism with $p_1h=f$ and $p_2h=g$ is $h(p)=(f(p),g(p))$. Uniqueness follows because a pair is fixed by its two coordinates. Any two objects satisfying this same product property are uniquely isomorphic by sending each through the other's universal arrows.
+\begin{exercise}Prove that the group inverse of $(g,h)\in G\times H$ is $(g^{-1},h^{-1})$.\end{exercise}
+\begin{solution}Componentwise multiplication gives $(g,h)(g^{-1},h^{-1})=(gg^{-1},hh^{-1})=(e_G,e_H)$ and the product in the opposite order is the same identity.\end{solution}
+
+\section{Congruences and quotient structures}
+\begin{definition}A \emph{congruence} on a magma $M$ is an equivalence relation $\sim$ compatible with multiplication: $x\sim x'$ and $y\sim y'$ imply $xy\sim x'y'$. Then $M/{\sim}$ has the well-defined operation $[x][y]=[xy]$.\end{definition}
+\begin{intuition}An equivalence relation only groups elements; a congruence also permits multiplication of groups of elements. This is exactly the representative-independence check.\end{intuition}
+The quotient projection $\pi:M\to M/{\sim}$ is a surjective magma morphism. Associativity and commutativity descend; if $M$ is a monoid, $[e]$ is the quotient identity; if $M$ is a group, $[x^{-1}]$ is the inverse of $[x]$. The quotient operation is the unique one making $\pi$ a morphism, since surjectivity forces $[x][y]=\pi(xy)$.
+For any morphism $f:M\to N$, the relation $x\sim_f y\iff f(x)=f(y)$ is a congruence. Conversely, a map $h:M\to P$ factors uniquely as $h=\bar h\pi$ through $M/{\sim}$ exactly when $x\sim y\Rightarrow h(x)=h(y)$; if $h$ is a morphism, so is $\bar h$.
+\begin{exercise}For $n\ge1$, show that congruence modulo $n$ is a congruence on $(\Z,+)$ and identify the quotient operation.\end{exercise}
+\begin{solution}If $a-a'=nr$ and $b-b'=ns$, then $(a+b)-(a'+b')=n(r+s)$, so $a+b\equiv a'+b'\pmod n$. Thus $[a]+[b]=[a+b]$ is well-defined. Identity is $[0]$ and inverse of $[a]$ is $[-a]$.\end{solution}
+\begin{checkpoint}{Lectures 1--3}Given a subset, distinguish submagma, submonoid, and subgroup; compute its generated structure. Given a map, check operation and identity separately. Given a quotient, prove congruence before defining the quotient law.\end{checkpoint}
+
+\chapter{Free constructions and presentations (Lectures 4--6)}
+\begin{intuition}A free object is built from symbols with only the equations required by its type. Free magmas remember parentheses; free monoids forget parentheses but retain order; free commutative monoids also forget order; free groups additionally permit inverses. Each step is a quotient or enlargement with a precise universal property.\end{intuition}
+
+\section{Free magmas: parenthesized binary trees}
+Let $S$ be a set. A \emph{formal binary tree with leaves in $S$} is either one leaf $s\in S$, or an ordered pair $(u,v)$ of two smaller such trees. Write $L(S)$ for all finite trees. Distinguish leaves from pairs formally, even if $S$ itself contains ordered pairs. Define $u\cdot v=(u,v)$. Then $L(S)$ is a magma, and the inclusion $i:S\to L(S)$ sends $s$ to its one-leaf tree.
+\begin{theorem}[free magma]For every magma $M$ and map $f:S\to M$, there is a unique magma morphism $\widehat f:L(S)\to M$ with $\widehat f(i(s))=f(s)$.\end{theorem}
+\begin{proof}Define recursively $\widehat f(s)=f(s)$ on leaves and $\widehat f((u,v))=\widehat f(u)\widehat f(v)$ on pairs. Every tree has a unique leaf-or-pair decomposition, so this defines exactly one value. The second rule is the morphism law. Any morphism agreeing with $f$ on leaves is forced by that rule at each pair, hence induction on the number of leaves proves uniqueness.\end{proof}
+\begin{exercise}Are $((a,b),c)$ and $(a,(b,c))$ equal in the free magma? What happens under a morphism into a semigroup?\end{exercise}
+\begin{solution}They are different trees: the left child of the first is a pair, while the left child of the second is the leaf $a$. Their images are $(f(a)f(b))f(c)$ and $f(a)(f(b)f(c))$, equal in a semigroup by associativity.\end{solution}
+The smallest submagma of $L(S)$ containing $i(S)$ is all of $L(S)$, proved recursively. Any pair $(P,p)$ with the same universal property is uniquely isomorphic to $(L(S),i)$: obtain maps in both directions by the property, then uniqueness forces their composites to be identities. In particular a magma morphism out of $L(S)$ is determined by its values on leaves.
+The free magma is generally neither associative nor commutative. If $S$ is empty, $L(S)$ is empty under the convention allowing empty magmas; if the category requires nonempty magmas, the free object on $\varnothing$ does not exist there.
+
+\section{Free semigroups and free monoids: strings}
+Let $S^+$ be all nonempty finite strings $(s_1,\ldots,s_n)$ of letters in $S$, and let $S^*=S^+\cup\{()\}$ include the empty string. Concatenation is associative, and $()$ is its identity. Thus $S^+$ is the free semigroup and $S^*$ the free monoid on $S$.
+\begin{theorem}[free monoid]For any monoid $M$ and map $f:S\to M$, exactly one monoid morphism $\widehat f:S^*\to M$ extends $f$, namely
+\[\widehat f(())=e_M,\qquad \widehat f(s_1,\ldots,s_n)=f(s_1)\cdots f(s_n).\]
+\end{theorem}
+\begin{proof}The empty string must map to $e_M$. Every nonempty string is a concatenation of its one-letter strings, so the displayed formula is forced. Associativity makes it unambiguous and shows concatenation maps to multiplication.\end{proof}
+\begin{exercise}Let $S=\{a,b\}$ and send $a\mapsto2$, $b\mapsto3$ into $(\N,\cdot)$. Compute the image of the word $abba$ and the empty word.\end{exercise}
+\begin{solution}$\widehat f(abba)=2\cdot3\cdot3\cdot2=36$, while the empty word maps to the multiplicative identity $1$.\end{solution}
+The free semigroup $S^+$ is the subsemigroup generated by the letters; $S^*$ is the submonoid generated by them. For a one-letter alphabet, $S^*\cong(\N_0,+)$ by word length. For a zero-letter alphabet it is the one-element monoid. A free monoid also arises by quotienting the free magma after imposing associativity and adjoining the empty word; the order of letters remains visible.
+
+\section{Free commutative monoids and free abelian groups}
+Let $\N_0^{(S)}$ be the set of finitely supported functions $m:S\to\N_0$, with pointwise addition. A word maps to its \emph{multiplicity function}: $m(s)$ counts occurrences of $s$. This is a surjective monoid morphism $S^*\to\N_0^{(S)}$ whose kernel congruence is generated by all swaps $st\sim ts$. Hence $\N_0^{(S)}$ is the free commutative monoid on $S$.
+Similarly, $\Z^{(S)}$ consists of finitely supported integer-valued functions. Under addition it is the free abelian group (or free $\Z$-module) on $S$. Write $e_s$ for the function that is $1$ at $s$ and $0$ elsewhere. Every element is uniquely a finite sum $\sum_s n_se_s$. For any abelian group $A$ and map $f:S\to A$, the unique homomorphism extending $f$ is $\sum_s n_se_s\mapsto\sum_s n_sf(s)$.
+\begin{exercise}Identify $\N_0^{(\{a,b\})}$ and $\Z^{(\{a,b\})}$ with familiar structures. Where does $abba$ go?\end{exercise}
+\begin{solution}They are respectively $\N_0^2$ as a commutative monoid and $\Z^2$ as an abelian group, using coordinates $(m(a),m(b))$. The word $abba$ maps to $(2,2)$.\end{solution}
+If $C$ is the smallest group congruence on a free group $F(S)$ identifying $xy$ with $yx$ for every $x,y$, then $F(S)/C\cong\Z^{(S)}$. Explicitly, send each free generator to $e_s$; its kernel is the subgroup generated by commutators. This is the free-abelian reformulation of abelianization used later.
+
+\section{Free groups, reduced words, and presentations}
+The earlier chapter describes reduced words. Formally take letters $S\sqcup S^{-1}$, where each $s^{-1}$ is a new formal symbol. Delete adjacent $ss^{-1}$ or $s^{-1}s$ until reduced. The result is unique; concatenation followed by reduction defines the free group $F(S)$. The empty word is identity and reversing a word while inverting each letter gives its inverse. The free property says any map $S\to G$ extends uniquely to a group morphism $F(S)\to G$.
+For a set $R$ of words, $\angles{S\mid R}$ is $F(S)$ modulo the smallest \emph{normal} subgroup containing $R$. Equivalently it is the group generated by $S$ subject to each $r\in R$ equalling $e$. A map $S\to H$ extends to $\angles{S\mid R}$ iff every relator evaluates to $e_H$; the extension is then unique. Relations must hold under conjugation too, which is why the normal closure rather than merely the subgroup generated by $R$ is used.
+\begin{exercise}Show $\angles{a,b\mid ab=e}\cong\Z$.\end{exercise}
+\begin{solution}The relation forces $b=a^{-1}$, so every word reduces to a power of $a$. Send $a\mapsto1$, $b\mapsto-1$ into $(\Z,+)$; the relator maps to $0$, so this defines a homomorphism. Conversely send $1\mapsto a$ from $\Z$ to the presented group. These maps fix the generators in both directions, hence are inverse.\end{solution}
+
+\section{Products, coproducts, and their different underlying sets}
+For groups $(G_i)_{i\in I}$, the Cartesian product $\prod_iG_i$ is a group under coordinatewise multiplication. A map $H\to\prod_iG_i$ is a homomorphism exactly when each coordinate map is one. This is the product universal property. The \emph{coproduct} $*_{i\in I}G_i$, called the free product, has homomorphisms $\iota_i:G_i\to *_{i\in I}G_i$ such that any family $f_i:G_i\to H$ extends uniquely to $f:*_{i\in I}G_i\to H$.
+One construction starts with $F(\bigsqcup_iG_i)$ and imposes relations $[g][h]=[gh]$ for $g,h$ from the same factor and $[e_i]=e$. It leaves words alternating between distinct factors unreduced. For example $C_2*C_3$ is infinite, whereas $C_2\times C_3$ has six elements. The forgetful functor to sets does not turn a group coproduct into a disjoint union of underlying sets.
+In the category of abelian groups, the coproduct is the \emph{direct sum} $\bigoplus_i A_i$: the subgroup of $\prod_iA_i$ consisting of tuples with finite support. For finitely many factors, direct sum and direct product coincide as groups; for infinitely many, they differ in general. Since $\Z$ is the free abelian group on one generator, $\bigoplus_{s\in S}\Z\cong\Z^{(S)}$ is the free abelian group on $S$.
+\begin{exercise}Why is $C_2*C_3$ not the same as $C_2\times C_3$?\end{exercise}
+\begin{solution}In the product, elements from the two factors commute: $(g,e)(e,h)=(e,h)(g,e)$. In the free product no such cross-factor relation is imposed; alternating words such as $ghgh$ remain distinct after reduction. Thus the free product is infinite and noncommutative, while $C_2\times C_3$ is finite and abelian.\end{solution}
+\begin{checkpoint}{Lectures 4--6}Know what each free construction remembers: tree shape, word order, letter counts, or signed letter counts. Prove a universal property by constructing the forced map and then uniqueness. Distinguish product from coproduct and direct product from direct sum.\end{checkpoint}
+
+\chapter[Categories and functors]{Categories, functors, and universal properties (Lectures 7--8)}
+\section{From quivers to categories}
+\begin{definition}A \emph{quiver} consists of a set $Q_0$ of vertices, a set $Q_1$ of arrows, and source and target maps $s,t:Q_1\to Q_0$. A quiver morphism is a pair of maps on vertices and arrows commuting with source and target.\end{definition}
+A directed graph may have parallel arrows, loops, or no arrows. The quiver with vertices $A,B$ and one arrow $A\to B$ is not yet a category: a category must also have identities and composites. Its \emph{free category} has vertices as objects and all finite directed paths as arrows, including length-zero paths $\id_A$. Composition is path concatenation. Associativity follows from associativity of concatenation.
+\begin{definition}A \emph{category} $\mathcal C$ has objects, sets $\Hom_{\mathcal C}(A,B)$ of arrows, associative composition $\Hom(B,C)\times\Hom(A,B)\to\Hom(A,C)$, and an identity $\id_A$ for each $A$ with $f\id_A=f=\id_Bf$. An arrow $A\to B$ is an \emph{isomorphism} if it has a two-sided inverse $B\to A$.\end{definition}
+\begin{intuition}A category records objects and legal structure-preserving maps. The identity and composition axioms let us reason about maps without looking inside the objects.\end{intuition}
+Examples are $\mathbf{Set}$ (sets/functions), $\mathbf{Rel}$ (sets/relations), magmas/magma morphisms, semigroups, unital magmas, monoids, commutative monoids, groups, and abelian groups (also called $\Z$-modules). In $\mathbf{Rel}$ a relation $R:A\to B$ is a subset of $A\times B$; composition is $a(S\circ R)c$ iff some $b$ satisfies $aRb$ and $bSc$, and identity is equality. Every monoid $M$ can be regarded as a one-object category with arrows $M$ and composition its multiplication. A group is a one-object category in which every arrow is invertible. A partially ordered set is a category with one arrow $a\to b$ exactly when $a\le b$; a preorder also works.
+\begin{exercise}In a poset-category, when are two objects isomorphic? In $\mathbf{Rel}$, check that the diagonal equality relation is an identity.\end{exercise}
+\begin{solution}An isomorphism $a\to b$ requires both $a\le b$ and $b\le a$; antisymmetry gives $a=b$. For $R\subseteq A\times B$, $(a,b)\in R\circ\Delta_A$ iff some $a'$ has $a=a'$ and $(a',b)\in R$, equivalent to $(a,b)\in R$. Similarly $\Delta_B\circ R=R$.\end{solution}
+Identities and inverses in any category are unique. If $g$ and $h$ are both inverses of $f$, then $g=g(fh)=(gf)h=h$. Every $\End_{\mathcal C}(A)=\Hom_{\mathcal C}(A,A)$ is a monoid under composition; its units form the automorphism group $\Aut_{\mathcal C}(A)$.
+
+\section{Monomorphisms and epimorphisms}
+\begin{definition}An arrow $f:A\to B$ is a \emph{monomorphism} if $fg_1=fg_2$ implies $g_1=g_2$ for all parallel arrows $g_1,g_2:C\to A$. It is an \emph{epimorphism} if $h_1f=h_2f$ implies $h_1=h_2$ for all parallel arrows $h_1,h_2:B\to D$.\end{definition}
+These are categorical left and right cancellation. In $\mathbf{Set}$, monomorphisms are exactly injections and epimorphisms exactly surjections. For the converse mono test, if $f(a)=f(a')$, use two maps from a singleton selecting $a,a'$. For the converse epi test, if $b\notin f(A)$, choose two maps $B\to\{0,1\}$ that differ only at $b$. In other categories, underlying-set injection/surjection need not characterize mono/epi. Every isomorphism is both, but the converse can fail (for instance $\Z\hookrightarrow\Q$ is both mono and epi in the category of rings with identity, but not an isomorphism).
+\begin{exercise}Show directly that a surjective group morphism is an epimorphism in $\mathbf{Grp}$.\end{exercise}
+\begin{solution}If $h_1f=h_2f$ and $b\in B$, choose $a$ with $f(a)=b$. Then $h_1(b)=h_1f(a)=h_2f(a)=h_2(b)$. Thus $h_1=h_2$.\end{solution}
+\begin{warningbox}A handwritten example in Lecture 7 labels the inclusion $(\Z,+)\hookrightarrow(\Q,+)$ an epimorphism in commutative monoids. As stated this is false: the quotient map $q:\Q\to\Q/\Z$ and the zero map are distinct monoid morphisms but agree on every integer. Do not use this example as a proof. In the category of \emph{unital rings}, the same underlying inclusion is an epimorphism: two ring maps out of $\Q$ agreeing on $\Z$ agree on every fraction because they preserve inverses.\end{warningbox}
+
+\section{Opposite categories and equivalences}
+For any category $\mathcal C$, the \emph{opposite category} $\mathcal C^{\rm op}$ has the same objects, with $\Hom_{\mathcal C^{\rm op}}(A,B)=\Hom_{\mathcal C}(B,A)$; composition is reversed. A contravariant functor $\mathcal C\to\mathcal D$ is equivalently a covariant functor $\mathcal C^{\rm op}\to\mathcal D$. Products in $\mathcal C$ become coproducts in $\mathcal C^{\rm op}$, and initial objects become terminal objects.
+An \emph{equivalence of categories} consists of functors $F:\mathcal C\to\mathcal D$, $G:\mathcal D\to\mathcal C$ with natural isomorphisms $GF\cong\id_{\mathcal C}$ and $FG\cong\id_{\mathcal D}$. This is weaker than an isomorphism of categories, which requires literal equality of the composites. For example, finite-dimensional vector spaces over a fixed field form a category equivalent to the category whose objects are natural numbers $n$ and whose arrows $m\to n$ are $n\times m$ matrices: choosing a basis supplies the comparison, but the choices are not canonical equalities of objects.
+\begin{exercise}What does the opposite category of a poset $P$ represent?\end{exercise}
+\begin{solution}It represents the reversed order: there is an arrow $a\to b$ in $P^{\rm op}$ exactly when $b\le a$ in $P$.\end{solution}
+
+\section{Functors and the forgetful/free constructions}
+\begin{definition}A \emph{covariant functor} $F:\mathcal C\to\mathcal D$ assigns an object $F(A)$ to every $A$ and an arrow $F(f):F(A)\to F(B)$ to every $f:A\to B$, preserving $F(\id_A)=\id_{F(A)}$ and $F(gf)=F(g)F(f)$. A \emph{contravariant functor} reverses arrow directions and satisfies $F(gf)=F(f)F(g)$.\end{definition}
+\begin{intuition}A functor is a structure-preserving map between entire categories. A homomorphism preserves multiplication; a functor preserves composition.\end{intuition}
+The identity functor does nothing. Functors compose. Every functor sends isomorphisms to isomorphisms because $F(f)F(f^{-1})=F(\id)=\id$. The forgetful functor $U:\mathbf{Grp}\to\mathbf{Set}$ sends a group to its underlying set and a homomorphism to its underlying function. Free magma, free monoid, free group, and free abelian group constructions are functors from $\mathbf{Set}$ to their categories: a map $u:S\to T$ acts by replacing each generator $s$ with $u(s)$, and the free universal property gives the unique induced morphism. The constant functor sends all objects to one fixed object and all arrows to its identity.
+\begin{exercise}Why is $F(u\circ v)=F(u)\circ F(v)$ for a free-group functor?\end{exercise}
+\begin{solution}Both sides are homomorphisms from $F(R)$ to $F(T)$ and agree on each free generator $r$, sending it to the generator $(u\circ v)(r)$. Uniqueness in the free universal property makes them equal.\end{solution}
+
+\section{Natural transformations and functor categories}
+\begin{definition}For functors $F,G:\mathcal C\to\mathcal D$, a \emph{natural transformation} $\eta:F\Rightarrow G$ gives an arrow $\eta_A:F(A)\to G(A)$ for every object $A$, such that for every $f:A\to B$,
+\[G(f)\eta_A=\eta_BF(f).\]
+It is a \emph{natural isomorphism} if every $\eta_A$ is an isomorphism.\end{definition}
+\begin{intuition}The square says it does not matter whether we first change the object using $f$ and then apply $\eta$, or apply $\eta$ first. ``Natural'' means no arbitrary choice of coordinates is hidden.\end{intuition}
+For group $G$, the map $\eta_G:G\to G_{\rm ab}=G/[G,G]$ is natural in $G$: a homomorphism $f:G\to H$ induces $f_{\rm ab}$ and $f_{\rm ab}\eta_G=\eta_Hf$. Natural transformations compose componentwise: $(\theta\eta)_A=\theta_A\eta_A$; their identity has components $\id_{F(A)}$. Thus functors $\mathcal C\to\mathcal D$ and natural transformations form a \emph{functor category} $[\mathcal C,\mathcal D]$ (with the usual size qualification).
+There is also a category $\mathbf{Cat}$ whose objects are (small) categories and arrows are functors; composition of functors and identity functors satisfy the category axioms. The objects of $[\mathcal C,\mathcal D]$ are functors, whereas its arrows are natural transformations. These are two different levels of structure.
+\begin{exercise}For a fixed set $K$, let $F(S)=S\times K$ and $G(S)=S$. Show the first-coordinate projections $\eta_S:S\times K\to S$ are natural.\end{exercise}
+\begin{solution}For $u:S\to T$, $F(u)(s,k)=(u(s),k)$. Then $u\eta_S(s,k)=u(s)=\eta_TF(u)(s,k)$, so the naturality square commutes.\end{solution}
+
+\section{Representable functors and the Yoneda idea}
+Fix an object $X$ of $\mathcal C$. The covariant functor $h_X=\Hom_{\mathcal C}(X,-)$ sends $f:A\to B$ to postcomposition $u\mapsto fu$. The contravariant functor $h^X=\Hom_{\mathcal C}(-,X)$ sends $f:A\to B$ to precomposition $v\mapsto vf$. A functor naturally isomorphic to one of these is called \emph{representable} (with variance specified).
+\begin{theorem}[Yoneda, covariant form]For $T:\mathcal C\to\mathbf{Set}$, natural transformations $h_X\Rightarrow T$ correspond bijectively to elements of $T(X)$ by $\eta\mapsto\eta_X(\id_X)$. Given $a\in T(X)$, the inverse sends $u:X\to A$ to $T(u)(a)$.\end{theorem}
+\begin{proof}For natural $\eta$ and $u:X\to A$, naturality for $u$ gives $\eta_A(u)=T(u)(\eta_X(\id_X))$. This proves uniqueness. Conversely the displayed formula is natural since for $v:A\to B$, $T(v)T(u)(a)=T(vu)(a)$.\end{proof}
+\begin{exercise}What is a natural transformation $\Hom(X,-)\Rightarrow\Hom(Y,-)$ determined by?\end{exercise}
+\begin{solution}Yoneda identifies it with an element of $\Hom(Y,X)$. Such an arrow $a:Y\to X$ gives the component $u:X\to A\mapsto u\circ a:Y\to A$. Note the reversed direction $Y\to X$.\end{solution}
+The dual Yoneda statement applies to contravariant representables. Representable functors preserve limits: for example $\Hom(X,A\times B)\cong\Hom(X,A)\times\Hom(X,B)$ naturally, and $\Hom(X,1)$ has exactly one element when $1$ is terminal.
+The word ``naturally'' in Yoneda matters. The map $\eta\mapsto\eta_X(\id_X)$ commutes with changing either the representing object $X$ or the target functor $T$. Thus Yoneda identifies an object by all of its interactions with other objects, not merely by a count of elements.
+
+\section{Initial, terminal, products, and coproducts}
+An object $0$ is \emph{initial} if each $\Hom(0,A)$ has exactly one element. An object $1$ is \emph{terminal} if each $\Hom(A,1)$ has exactly one element. Either is unique up to unique isomorphism. In $\mathbf{Set}$, $\varnothing$ is initial and a singleton terminal; in $\mathbf{Grp}$, the trivial group is both. In $\mathbf{Mon}$ the one-element monoid is both. In the category of pointed sets, the one-pointed set is both. In a poset-category, initial and terminal objects are least and greatest elements.
+A \emph{product} $P=\prod_i A_i$ has projections $p_i:P\to A_i$ such that every family $f_i:T\to A_i$ has exactly one pairing $\langle f_i\rangle:T\to P$ with $p_i\langle f_i\rangle=f_i$. A \emph{coproduct} reverses the arrows: inclusions $j_i:A_i\to C$ and one unique map $C\to T$ for every family $A_i\to T$. In $\mathbf{Set}$ these are Cartesian product and disjoint union. In $\mathbf{Grp}$ the product is componentwise Cartesian product, while the coproduct is free product. In $\mathbf{Ab}$ the coproduct is direct sum. Every product or coproduct is unique up to unique isomorphism compatible with its structure maps.
+\begin{exercise}Find the coproduct of pointed sets $(A,a_0)$ and $(B,b_0)$.\end{exercise}
+\begin{solution}Take the disjoint union $A\sqcup B$ and identify the two basepoints. Denote the common point by $*$. Any two basepoint-preserving maps $A\to T$, $B\to T$ agree at the identified basepoints (both send them to $t_0$), so they define exactly one basepoint-preserving map from this quotient to $T$.\end{solution}
+
+\section{Cartesian and cocartesian squares}
+Given arrows $A\xrightarrow{f}C\xleftarrow{g}B$, their \emph{pullback} or Cartesian square is a universal object with maps to $A,B$ whose composites into $C$ agree. In $\mathbf{Set}$ it is
+\[A\times_C B=\{(a,b)\in A\times B:f(a)=g(b)\}.\]
+Given $C\xrightarrow{f}A$ and $C\xrightarrow{g}B$, the \emph{pushout} or cocartesian square is the dual universal object. In $\mathbf{Set}$ it is $(A\sqcup B)/\sim$, where $f(c)\sim g(c)$ for every $c\in C$, with the smallest equivalence relation containing these pairs.
+In a poset regarded as a category, a pullback of $a\le c$, $b\le c$ is their greatest lower bound $a\wedge b$; a pushout of $c\le a$, $c\le b$ is their least upper bound $a\vee b$, when these exist. In $\PP(S)$ they are intersection and union.
+\begin{exercise}Let $f:\{1,2\}\to\{a,b\}$ send both inputs to $a$, and $g:\{u,v\}\to\{a,b\}$ send $u\mapsto a$, $v\mapsto b$. Find the pullback.\end{exercise}
+\begin{solution}The pairs satisfying $f(x)=g(y)$ are exactly $(1,u)$ and $(2,u)$. The pair with $v$ is excluded because $g(v)=b$.\end{solution}
+
+\section{Adjunctions and the naturality requirement}
+\begin{definition}Functors $F:\mathcal C\to\mathcal D$ and $U:\mathcal D\to\mathcal C$ form an \emph{adjunction}, written $F\dashv U$, when there are bijections
+\[\Hom_{\mathcal D}(F(X),Y)\ \cong\ \Hom_{\mathcal C}(X,U(Y))\]
+natural in both $X$ and $Y$. Thus an arrow out of $F(X)$ is the same data as an arrow out of $X$ into $U(Y)$, compatibly with maps in both variables.\end{definition}
+The free group functor is left adjoint to the forgetful functor $\mathbf{Grp}\to\mathbf{Set}$; the bijection is restriction of a homomorphism $F(S)\to G$ to the generators $S$. Free monoid, free magma, and free abelian group functors give analogous adjunctions. The abelianization adjunction appears in Lecture 13 below. For a set map $f:X\to Y$, the power-set adjunctions $f_*\dashv f^*\dashv f_!$ from the earlier chapter are order-theoretic examples: $f_*(A)\subseteq B\iff A\subseteq f^*(B)$ and $f^*(B)\subseteq A\iff B\subseteq f_!(A)$.
+\begin{exercise}Explain why a mere bijection of two Hom-sets for one choice of $X,Y$ is not enough to call functors adjoint.\end{exercise}
+\begin{solution}An adjunction requires a bijection for \emph{every} $X,Y$, and these bijections must commute with precomposition in $X$ and postcomposition in $Y$. Otherwise unrelated, arbitrarily chosen bijections of equal-sized sets would falsely count as an adjunction.\end{solution}
+\begin{checkpoint}{Lectures 7--8}Define a category, functor, natural transformation, mono, and epi from their equations. Compute initial/terminal objects, products/coproducts, and a pullback in examples. For any proposed universal property, construct the forced arrow, prove it respects structure, then prove uniqueness.\end{checkpoint}
+
+\chapter{Actions, orbits, cosets, and conjugation (Lectures 9--11)}
+\section{Monoid actions and equivariant maps}
+\begin{definition}A \emph{left action} of a monoid $M$ on a set $S$ is a map $M\times S\to S$, $(m,s)\mapsto m\cdot s$, such that $e\cdot s=s$ and $(mn)\cdot s=m\cdot(n\cdot s)$. The pair is an $M$-set. An \emph{equivariant map} $h:S\to T$ of $M$-sets satisfies $h(m\cdot s)=m\cdot h(s)$ for all $m,s$.\end{definition}
+\begin{intuition}An action gives a concrete transformation of $S$ for each abstract monoid element. The multiplication rule says the transformation for $mn$ is the composite transformation.\end{intuition}
+Writing $\rho(m)(s)=m\cdot s$, the action laws say precisely that $\rho:M\to\End_{\mathbf{Set}}(S)$ is a monoid morphism, where $\End(S)$ is all self-maps under composition. Conversely every such morphism defines an action. If $M=G$ is a group, each $\rho(g)$ is invertible, with inverse $\rho(g^{-1})$, so $\rho$ lands in $\Sym(S)$. An equivariant map is exactly an arrow between actions; actions and equivariant maps form a category $M\text{-}\mathbf{Set}$. The regular left action of $G$ on itself is $g\cdot x=gx$. If $\phi:H\to G$ is a group morphism and $S$ a $G$-set, then $h\cdot s=\phi(h)\cdot s$ defines the \emph{restricted} $H$-action.
+\begin{exercise}Let $G$ act on itself by left multiplication. Show that $h_a(g)=ga$ is equivariant for every fixed $a\in G$.\end{exercise}
+\begin{solution}$h_a(xg)=(xg)a=x(ga)=x\cdot h_a(g)$ by associativity. Left multiplication $g\mapsto ag$ would not generally be equivariant unless $a$ were central.\end{solution}
+
+\section{Orbits and invariant subsets}
+For a group action, define the orbit of $s$ by $G\cdot s=\{g\cdot s:g\in G\}$. The relation $s\sim t\iff t=g\cdot s$ for some $g$ is an equivalence relation: use $e$, $g^{-1}$, and multiplication for reflexivity, symmetry, transitivity. Thus the orbits partition $S$, and the set of orbits is denoted $G\backslash S$ (for a left action). Two orbits that meet are equal. A subset $T\subseteq S$ is $G$-invariant if $gT\subseteq T$ for all $g$; for groups this implies $gT=T$ and means $T$ is a union of whole orbits. The orbit $G\cdot s$ is the smallest invariant subset containing $s$.
+\begin{exercise}Let $\Z$ act on $\Z$ by $n\cdot x=x+2n$. Describe the orbits.\end{exercise}
+\begin{solution}The orbit of $x$ is $x+2\Z$. There are two orbits: even and odd integers.\end{solution}
+For a general monoid action, the reachability relation $t=m\cdot s$ need not be symmetric, so one should not claim it is an equivalence relation without group inverses.
+
+\section{Cosets, index, and the regular action}
+Let $H\le G$. Left multiplication of $H$ on $G$ gives orbits $Hg=\{hg:h\in H\}$, the \emph{right cosets} in the convention where the subgroup symbol is on the left; right multiplication gives $gH$, the \emph{left cosets}. The set $G/H=\{gH:g\in G\}$ is the set of left cosets; $H\backslash G=\{Hg:g\in G\}$ is the set of right cosets. Each is a partition of $G$. For example
+\[g_1H=g_2H\iff g_2^{-1}g_1\in H,\qquad Hg_1=Hg_2\iff g_1g_2^{-1}\in H.\]
+The \emph{index} $[G:H]$ is the number of left cosets, finite or infinite. Inversion $gH\mapsto Hg^{-1}$ is a bijection between left and right coset sets, so they have the same number. If $G$ is finite, each coset has $|H|$ elements via $h\mapsto gh$, whence $|G|=[G:H]|H|$ (Lagrange's theorem).
+\begin{exercise}List the cosets of $3\Z$ in $(\Z,+)$ and compute the index.\end{exercise}
+\begin{solution}The cosets are $3\Z$, $1+3\Z$, and $2+3\Z$, partitioning $\Z$ by residue modulo $3$. Thus $[\Z:3\Z]=3$.\end{solution}
+\begin{warningbox}$G/H$ is always a \emph{set} of cosets. It is a group under $gH\cdot kH=gkH$ only when $H$ is normal; do not assume quotient multiplication for arbitrary $H$.\end{warningbox}
+
+\section{Stabilizers and orbit--stabilizer}
+\begin{definition}For $s$ in a $G$-set, its \emph{stabilizer} is $G_s=\{g\in G:g\cdot s=s\}$.\end{definition}
+It is a subgroup: $e$ fixes $s$; if $g,h$ fix $s$, then $gh^{-1}\cdot s=g\cdot(h^{-1}\cdot s)=s$ since $h^{-1}$ also fixes $s$. If $t=g\cdot s$, then $G_t=gG_sg^{-1}$, so stabilizers along one orbit are conjugate.
+\begin{theorem}[orbit--stabilizer]The map $G/G_s\to G\cdot s$, $gG_s\mapsto g\cdot s$, is a well-defined bijection. Consequently, for finite $G$, $|G\cdot s|=[G:G_s]=|G|/|G_s|$.\end{theorem}
+\begin{proof}We have $gG_s=hG_s$ iff $h^{-1}g\in G_s$, iff $(h^{-1}g)\cdot s=s$, iff $g\cdot s=h\cdot s$. This proves both well-definedness and injectivity; surjectivity is the definition of the orbit. The count follows from Lagrange's theorem.\end{proof}
+\begin{exercise}Let $S_3$ act on $\{1,2,3\}$ by permutations. Find $|G_1|$ and $|G\cdot1|$.\end{exercise}
+\begin{solution}The stabilizer of $1$ consists of the identity and the transposition $(23)$, so $|G_1|=2$. The orbit is all three points, and $6/2=3$ confirms orbit--stabilizer.\end{solution}
+More generally the size of an orbit divides $|G|$ when $G$ is finite. Counting all disjoint orbits yields $|S|=\sum_{[s]\in G\backslash S}|G\cdot s|$ for finite $S$.
+
+\section{Conjugation, centralizers, and the centre}
+The \emph{conjugation action} of $G$ on itself is $g\cdot x=gxg^{-1}$. Its orbit is the conjugacy class of $x$ and its stabilizer is the \emph{centralizer} $C_G(x)=\{g:gx=xg\}$. Thus $|\text{class}(x)|=[G:C_G(x)]$ in a finite group. Conjugacy is an equivalence relation. A conjugate subgroup is $gHg^{-1}=\{ghg^{-1}:h\in H\}$, again a subgroup; conjugation by $g$ is an isomorphism $H\to gHg^{-1}$.
+The map $\operatorname{Int}:G\to\Aut(G)$, $g\mapsto(x\mapsto gxg^{-1})$, is a homomorphism since $\operatorname{Int}(gh)=\operatorname{Int}(g)\operatorname{Int}(h)$. Its kernel is the \emph{centre}
+\[Z(G)=\{g\in G:gx=xg\text{ for every }x\in G\}.\]
+Equivalently $Z(G)=\bigcap_{x\in G}C_G(x)$. It is a normal subgroup: conjugation by any group element sends a central element to itself. The conjugacy classes of size one are exactly the elements of $Z(G)$.
+\begin{exercise}Find $Z(S_3)$.\end{exercise}
+\begin{solution}A central permutation must commute with both $(12)$ and $(23)$. Direct checking of the six permutations shows only the identity does. Equivalently, conjugating a transposition by a suitable permutation produces a different transposition, and the nonidentity $3$-cycles also fail to commute with a transposition. Hence $Z(S_3)=\{e\}$.\end{solution}
+
+\section{The class equation and $p$-groups}
+For a finite group, split $G$ into its conjugacy classes. The singleton classes are $Z(G)$; choose one representative $x_i$ from each remaining class. Then
+\[|G|=|Z(G)|+\sum_i[G:C_G(x_i)].\]
+This is the \emph{class equation}. More generally any finite $G$-set has $|S|=|S^G|+\sum_i[G:G_{s_i}]$, where $S^G$ is the set of points fixed by all of $G$ and the sum runs over nontrivial orbits.
+\begin{definition}A finite group of order $p^n$ for some prime $p$ and $n\ge1$ is a $p$-group.\end{definition}
+If a $p$-group acts on a finite set $S$, every nontrivial orbit has size divisible by $p$, because its size is a nontrivial divisor of $p^n$. Hence $|S|\equiv |S^G|\pmod p$. Apply this to conjugation on $S=G$: $|G|\equiv|Z(G)|\pmod p$. Since $e\in Z(G)$, the centre is nonempty; since $p\mid |G|$, we obtain $p\mid |Z(G)|$ and thus $|Z(G)|>1$.
+\begin{exercise}Why does every group of order $p^2$ have to be abelian?\end{exercise}
+\begin{solution}Its centre is nontrivial, so $|Z(G)|$ is $p$ or $p^2$. If it is $p^2$, then $Z(G)=G$. If it is $p$, then $G/Z(G)$ has order $p$ and is cyclic. But if $G/Z(G)=\angles{gZ(G)}$, any $x,y\in G$ are $g^az$ and $g^bw$ with $z,w$ central, so they commute. Then $G$ is abelian, forcing $Z(G)=G$, a contradiction. Hence only the first case occurs.\end{solution}
+\begin{checkpoint}{Lectures 9--11}Translate actions to homomorphisms into $\Sym(S)$; compute orbits and stabilizers; distinguish $gH$ from $Hg$; prove orbit--stabilizer; use conjugation to identify centralizers and the centre; apply the class equation to $p$-groups.\end{checkpoint}
+
+\chapter[Normal subgroups and abelianization]{Normal subgroups, quotients, and abelianization (Lectures 12--13)}
+\section{Normality and the quotient group}
+\begin{definition}A subgroup $N\le G$ is \emph{normal}, written $N\trianglelefteq G$, if $gNg^{-1}=N$ for every $g\in G$. Equivalently $gN=Ng$ for every $g$, or the left and right coset partitions coincide.\end{definition}
+\begin{proof}If $gNg^{-1}=N$, multiply on the right by $g$ to get $gN=Ng$. Conversely multiply $gN=Ng$ on the right by $g^{-1}$. The equality of coset partitions is equivalent because the left coset $gN$ and right coset $Ng$ both contain $g$, so if the partitions coincide they must be the same block.\end{proof}
+\begin{intuition}Normality is precisely the condition that multiplication of cosets does not depend on which representatives are chosen.\end{intuition}
+If $N\trianglelefteq G$, define $(gN)(hN)=ghN$. To prove well-definedness, write $g'=gn$ and $h'=hm$ with $n,m\in N$. Then $g'h'=gnhm=gh(h^{-1}nh)m$, and the parenthesized factors lie in $N$ by normality; thus $g'h'N=ghN$. Identity is $N$, inverse of $gN$ is $g^{-1}N$, and associativity descends from $G$. The projection $\pi:G\to G/N$ is a surjective group morphism with kernel $N$.
+\begin{exercise}Show that the subgroup $\angles{(12)}$ is not normal in $S_3$, while $A_3=\{e,(123),(132)\}$ is normal.\end{exercise}
+\begin{solution}Conjugating $(12)$ by $(123)$ gives a different transposition, so its two-element subgroup is not preserved. $A_3$ has index two in $S_3$; there are only two left cosets and two right cosets, each partition with one block $A_3$ and one complementary block, so the cosets coincide. Thus $A_3\trianglelefteq S_3$.\end{solution}
+Arbitrary intersections of normal subgroups are normal. Every kernel of a group homomorphism is normal: for $n\in\ker f$, $f(gng^{-1})=f(g)ef(g)^{-1}=e$. Conversely every normal subgroup is the kernel of its quotient projection. The centre $Z(G)$ and derived subgroup below are normal. A group is \emph{simple} if it is nontrivial and its only normal subgroups are $\{e\}$ and $G$; the word \emph{normal} cannot be omitted.
+
+\section{Universal property and the first isomorphism theorem}
+Let $N\trianglelefteq G$ and $f:G\to H$ be a group morphism. There is a unique group morphism $\bar f:G/N\to H$ with $f=\bar f\pi$ exactly when $N\subseteq\ker f$. Necessity follows because $\pi(n)=N$ for $n\in N$. For sufficiency define $\bar f(gN)=f(g)$; if $gN=hN$, then $h^{-1}g\in N\subseteq\ker f$, so $f(g)=f(h)$. The formula preserves multiplication, and surjectivity of $\pi$ forces uniqueness.
+The induced map is injective iff $N=\ker f$ and is surjective iff $f$ is surjective. In particular, when $N=\ker f$, it gives the \emph{first isomorphism theorem}
+\[G/\ker f\ \cong\ \im f,\qquad g\ker f\longmapsto f(g).\]
+\begin{exercise}Use the theorem to show $\Z/3\Z\cong\{1,\omega,\omega^2\}$ under multiplication, where $\omega=e^{2\pi i/3}$.\end{exercise}
+\begin{solution}The homomorphism $f:\Z\to\C^\times$, $n\mapsto\omega^n$, has image $\{1,\omega,\omega^2\}$ and kernel $3\Z$, because $\omega^n=1$ exactly when $3\mid n$. Therefore $\Z/3\Z\cong\im f$.\end{solution}
+
+\section{Commutators and the derived subgroup}
+\begin{definition}The \emph{commutator} of $x,y\in G$ is $[x,y]=xyx^{-1}y^{-1}$. The \emph{derived subgroup} $D(G)=[G,G]$ is the subgroup generated by all commutators.\end{definition}
+The equality $[x,y]=e$ is equivalent to $xy=yx$. Thus $G$ is abelian iff $D(G)=\{e\}$. Every group homomorphism $f:G\to H$ sends $[x,y]$ to $[f(x),f(y)]$, so $f(D(G))\subseteq D(H)$. In particular every automorphism preserves $D(G)$, making it \emph{characteristic}; characteristic subgroups are normal because inner conjugations are automorphisms. Directly, $g[x,y]g^{-1}=[gxg^{-1},gyg^{-1}]$ also proves normality.
+\begin{exercise}Prove that $G/D(G)$ is abelian.\end{exercise}
+\begin{solution}For $x,y\in G$, the commutator of their cosets is $[xD(G),yD(G)]=[x,y]D(G)=D(G)$, the identity. Hence all cosets commute.\end{solution}
+
+\section{Abelianization: universal property, functor, adjunction}
+\begin{definition}The \emph{abelianization} of $G$ is $G_{\rm ab}=G/D(G)$, with quotient map $\eta_G:G\to G_{\rm ab}$.\end{definition}
+If $A$ is abelian and $f:G\to A$ a group morphism, then $f([x,y])=e$ for every $x,y$, so $D(G)\subseteq\ker f$. Quotient factorization therefore gives a unique morphism $\bar f:G_{\rm ab}\to A$ with $f=\bar f\eta_G$. This is the universal property: abelianization is the most general abelian quotient of $G$.
+For a homomorphism $f:G\to H$, the inclusion $f(D(G))\subseteq D(H)$ gives a well-defined induced map
+\[f_{\rm ab}:G_{\rm ab}\to H_{\rm ab},\qquad gD(G)\mapsto f(g)D(H).\]
+Identity and composition are preserved because their induced maps agree on every coset: $(\id_G)_{\rm ab}=\id_{G_{\rm ab}}$ and $(hf)_{\rm ab}=h_{\rm ab}f_{\rm ab}$. Hence abelianization is a functor $\mathbf{Grp}\to\mathbf{Ab}$. The quotient maps are natural: $f_{\rm ab}\eta_G=\eta_Hf$.
+Let $I:\mathbf{Ab}\hookrightarrow\mathbf{Grp}$ be the inclusion. The universal property is a natural bijection
+\[\Hom_{\mathbf{Ab}}(G_{\rm ab},A)\ \cong\ \Hom_{\mathbf{Grp}}(G,I(A)),\qquad \bar f\longmapsto\bar f\eta_G.\]
+Thus abelianization is left adjoint to inclusion. Naturality in $G$ is precomposition with a group map; naturality in $A$ is postcomposition with an abelian-group map. Both commute with quotient factorization because induced maps are unique.
+\begin{exercise}Compute the abelianization of $F(x,y)$ and of an abelian group $A$.\end{exercise}
+\begin{solution}The free group $F(x,y)$ becomes free abelian on $x,y$ after killing commutators, so its abelianization is $\Z^2$, recording the two exponent sums. For abelian $A$, every commutator is $e$, so $D(A)=\{e\}$ and $A_{\rm ab}=A/\{e\}\cong A$.\end{solution}
+\begin{checkpoint}{Lectures 12--13}Prove the equivalent normality conditions; check quotient multiplication using representatives; factor a map through a quotient and determine when the induced map is injective/surjective; use $G/\ker f\cong\im f$; prove commutators vanish in every abelian target; compute induced abelianization maps.\end{checkpoint}
 
 \part{Final review}
 \chapter{Proof checklist and mock exam}
